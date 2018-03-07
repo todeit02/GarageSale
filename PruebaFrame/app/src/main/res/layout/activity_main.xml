@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mariaventura.pruebaframe.MainActivity">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="514dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="-3dp">
+
+        <EditText
+            android:id="@+id/TxtNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/BtnAceptar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow>
+
+                <TextView android:text="Celda 1.1" />
+
+                <TextView android:text="Celda 1.2" />
+
+                <TextView android:text="Celda 1.3" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView android:text="Celda 2.1" />
+
+                <TextView android:text="Celda 2.2" />
+
+                <TextView android:text="Celda 2.3" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_span="2"
+                    android:text="Celda 3.1" />
+
+                <TextView android:text="Celda 3.2" />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
