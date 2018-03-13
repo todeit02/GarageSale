@@ -1,4 +1,4 @@
-package com.example.mariaventura.pruebaframe;
+package com.example.mariaventura.pruebaframe.Activity;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.*;
 import android.view.*;
+
+import com.example.mariaventura.pruebaframe.R;
 
 public class MainActivity extends Activity {
 
@@ -15,6 +17,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         Log.d("","In the oncreate ");
     }
+
+
 
     public void onStart()
     {

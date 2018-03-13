@@ -1,4 +1,9 @@
-package com.example.mariaventura.pruebaframe;
+package com.example.mariaventura.pruebaframe.Src;
+
+import com.example.mariaventura.pruebaframe.Src.Person;
+import com.example.mariaventura.pruebaframe.Src.Post;
+import com.example.mariaventura.pruebaframe.Src.Purchase;
+import com.orm.SugarRecord;
 
 import java.util.ArrayList;
 
@@ -6,7 +11,8 @@ import java.util.ArrayList;
  * Created by mariaventura on 7/3/18.
  */
 /*los sellers pueden ser buyers tambien*/
-public class Seller extends Person {
+public class Seller extends Person{
+
     private  String adress;
     private int reputation; //cuando un buyer compra algo de un seller, se le habilita la opcion de valorar la reputacion de ESTE seller
     private ArrayList<Post> posts;

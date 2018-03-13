@@ -1,11 +1,13 @@
-package com.example.mariaventura.pruebaframe;
+package com.example.mariaventura.pruebaframe.Src;
+
+import com.orm.SugarRecord;
 
 /**
  * Created by mariaventura on 7/3/18.
  */
 
 /*cambiar String a date*/
-public class Card {
+public class Card extends SugarRecord<Card> {
     private int cardNum;
     private String expDate;
     private int ccv;

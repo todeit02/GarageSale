@@ -1,4 +1,6 @@
-package com.example.mariaventura.pruebaframe;
+package com.example.mariaventura.pruebaframe.Src;
+
+import com.orm.SugarRecord;
 
 /**
  * Created by mariaventura on 7/3/18.
@@ -7,7 +9,8 @@ package com.example.mariaventura.pruebaframe;
 
 /*cambiar String a date*/
 
-public abstract class Person {
+public class Person extends SugarRecord<Person> {
+
     private String user;
     private String password;
     private String name;

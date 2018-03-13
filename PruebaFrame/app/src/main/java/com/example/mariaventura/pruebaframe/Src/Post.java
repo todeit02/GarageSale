@@ -1,14 +1,15 @@
-package com.example.mariaventura.pruebaframe;
+package com.example.mariaventura.pruebaframe.Src;
+
+import com.orm.SugarRecord;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mariaventura on 7/3/18.
  */
 
 /*cambiar String a date*/
-public class Post {
+public class Post extends SugarRecord<Post> {
 
     private String name;
     private String description;

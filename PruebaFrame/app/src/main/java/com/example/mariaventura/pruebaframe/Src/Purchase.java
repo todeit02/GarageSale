@@ -1,4 +1,8 @@
-package com.example.mariaventura.pruebaframe;
+package com.example.mariaventura.pruebaframe.Src;
+
+import com.example.mariaventura.pruebaframe.Src.Person;
+import com.example.mariaventura.pruebaframe.Src.Post;
+import com.orm.SugarRecord;
 
 /**
  * Created by mariaventura on 7/3/18.
@@ -6,7 +10,7 @@ package com.example.mariaventura.pruebaframe;
 
 /*cambiar String a date*/
 
-public class Purchase {
+public class Purchase extends SugarRecord<Purchase>{
     private Post post;
     private String date;
     private Person buyer;
