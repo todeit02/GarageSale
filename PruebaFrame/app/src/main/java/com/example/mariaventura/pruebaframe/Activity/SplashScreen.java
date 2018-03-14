@@ -42,7 +42,7 @@ public class SplashScreen extends Activity {
                         i++;
                     }else{
                         timer.cancel();
-                        Intent intent = new Intent(SplashScreen.this,MainActivity.class);
+                        Intent intent = new Intent(SplashScreen.this,LoginActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -50,6 +50,7 @@ public class SplashScreen extends Activity {
             },0,intervalo);
 
         }
+
 }
 
 
