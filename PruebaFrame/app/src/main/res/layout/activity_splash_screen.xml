@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@color/red">
+        android:background="@color/myAqua">
 
         <ImageView
             android:layout_width="wrap_content"
