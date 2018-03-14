@@ -14,8 +14,8 @@ public class PersonHandler {
         newPerson.save();
     }
 
-    //public boolean PersonAlreadyExists(Person toSearch){
-        //Person toLook = Person.findById(Person.class, toSearch.getUser());
+   // public boolean PersonAlreadyExists(Person toSearch){
+     //   Person toLook = Person.findById(Person.class, toSearch.getUser());
        // if(
     //}
 }
