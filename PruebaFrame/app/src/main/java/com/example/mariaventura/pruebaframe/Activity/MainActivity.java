@@ -1,6 +1,7 @@
 package com.example.mariaventura.pruebaframe.Activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,10 @@ import android.view.*;
 
 import com.example.mariaventura.pruebaframe.R;
 
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
+
 public class MainActivity extends Activity {
 
     @Override
@@ -17,28 +22,26 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    }
+        LinearLayout linearlayout = (LinearLayout)findViewById(R.id.postContent);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        LayoutInflater inflater = LayoutInflater.from(this);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        LayoutInflater inflater2 = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        for(int i =0; i<4; i++) {
+
+
+            View a = inflater.inflate(R.layout.post_item, null, true);
+
+           // TextView postUsername = (TextView)findViewById(R.id.userNamePost);
+            //postUsername.setText("Este es el post"+ i);
+
+            linearlayout.addView(a);
         }
 
-        return super.onOptionsItemSelected(item);
     }
+
+
 
 }
