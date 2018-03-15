@@ -7,11 +7,15 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:id="@+id/postContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:gravity="center"
+        android:paddingRight="24dp"
+        android:showDividers="middle"
+        android:divider="@drawable/post_divider">
 
     </LinearLayout>>
 </ScrollView>
