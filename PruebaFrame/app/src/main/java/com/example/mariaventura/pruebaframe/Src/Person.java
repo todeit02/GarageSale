@@ -2,6 +2,9 @@ package com.example.mariaventura.pruebaframe.Src;
 
 import com.orm.SugarRecord;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by mariaventura on 7/3/18.
  */
@@ -18,6 +21,7 @@ public class Person extends SugarRecord<Person> {
     private String birthDate;
     private String nationality;
     private Card personalCard;
+    private ArrayList<Purchase> purchases;
 
 
     public Card getPersonalCard(){
@@ -81,6 +85,14 @@ public class Person extends SugarRecord<Person> {
         this.nationality = nationality;
     }
 
+    public ArrayList<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(ArrayList<Purchase> purchases) {
+        this.purchases = purchases;
+    }
+
     public Person(){
         this.name = "";
         this.birthDate = "";
@@ -89,9 +101,10 @@ public class Person extends SugarRecord<Person> {
         this.password ="";
         this.email = "";
         this.personalCard = null;
+        this.purchases = null;
     }
 
-    public Person(String user, String password, String name, String email, String birthDate, String nationality, Card personalCard) {
+    public Person(String user, String password, String name, String email, String birthDate, String nationality, Card personalCard, ArrayList<Purchase> purchases) {
         this.user = user;
         this.password = password;
         this.name = name;
@@ -99,6 +112,7 @@ public class Person extends SugarRecord<Person> {
         this.birthDate = birthDate;
         this.nationality = nationality;
         this.personalCard = personalCard;
+        this.purchases = purchases;
     }
 
     @Override
