@@ -27,8 +27,6 @@ public class MainActivity extends Activity {
         LayoutInflater inflater = LayoutInflater.from(this);
 
 
-        LayoutInflater inflater2 = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         for(int i =0; i<4; i++) {
 
 
