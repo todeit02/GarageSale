@@ -8,12 +8,12 @@ android:paddingTop="@dimen/activity_vertical_margin"
 android:paddingBottom="@dimen/activity_vertical_margin"
 android:background="@color/myAqua">
 
-<!-- Titulo -->
+<!-- Nombre -->
 <TextView
-    android:id="@+id/titulo"
+    android:id="@+id/name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Titulo"
+    android:text="Nombre"
     android:fontFamily="sans-serif-smallcaps"
     android:textAllCaps="false"
     android:textColor="@android:color/background_light"
@@ -22,15 +22,15 @@ android:background="@color/myAqua">
     android:layout_alignParentStart="true"
     android:layout_marginTop="16dp" />
 
-<!-- Categoría -->
+<!-- Filtro -->
 <TextView
-    android:id="@+id/categoria"
+    android:id="@+id/filtro"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_alignParentTop="true"
-    android:text="Categoría"
+    android:text="Filtro"
     android:textAppearance="?android:attr/textAppearanceMedium"
     android:textColor="@color/accent" />
 
@@ -47,15 +47,15 @@ android:background="@color/myAqua">
     android:textColor="@android:color/black"
     android:layout_toRightOf="@+id/imageView" />
 
-<!-- Prioridad -->
+<!-- Precio -->
 <TextView
-    android:id="@+id/prioridad"
+    android:id="@+id/precio"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Prioridad"
+    android:text="Precio"
     android:textAppearance="?android:attr/textAppearanceSmall"
     android:layout_marginTop="8dp"
-    android:layout_below="@+id/titulo"
+    android:layout_below="@+id/name"
     android:textStyle="italic" />
 
 <!-- Icono para la fecha -->

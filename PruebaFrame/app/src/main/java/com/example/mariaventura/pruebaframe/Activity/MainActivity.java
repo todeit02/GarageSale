@@ -10,7 +10,7 @@ import android.widget.*;
 import android.view.*;
 
 
-
+import com.example.mariaventura.pruebaframe.Fragment.MainFragment;
 import com.example.mariaventura.pruebaframe.R;
 
 import android.widget.LinearLayout;
@@ -54,4 +54,4 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-}
+

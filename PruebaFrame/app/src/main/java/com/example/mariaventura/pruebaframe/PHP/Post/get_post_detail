@@ -1,29 +1,28 @@
-
 <?php
 /**
- * Obtiene el detalle de una meta especificada por
- * su identificador "idMeta"
+ * Obtiene el detalle de un post especificado por
+ * su identificador "idCode"
  */
 
-require 'PersonCrud.php';
+require 'post_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if (isset($_GET['user'])) {
+    if (isset($_GET['idCode'])) {
 
         // Obtener parámetro idMeta
-        $parametro = $_GET['user'];
+        $parametro = $_GET['idCode'];
 
         // Tratar retorno
-        $retorno = PersonCrud::getById($parametro);
+        $retorno = Meta::getById($parametro);
 
 
         if ($retorno) {
 
-            $person["estado"] = "1";
-            $person["person"] = $retorno;
+            $post["estado"] = "1";
+            $post["post"] = $retorno;
             // Enviar objeto json de la meta
-            print json_encode($person);
+            print json_encode($meta);
         } else {
             // Enviar respuesta de error general
             print json_encode(

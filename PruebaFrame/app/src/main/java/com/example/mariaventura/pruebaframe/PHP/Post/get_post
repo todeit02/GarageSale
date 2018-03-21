@@ -3,7 +3,7 @@
  * Obtiene todas las metas de la base de datos
  */
 
-require 'PersonCrud.php';
+require 'person_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 

@@ -34,10 +34,10 @@
             android:layout_marginBottom="8dp"/>
 
         <TextView
-            android:id="@+id/titulo"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Titulo"
+            android:text="Nombre del post"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginBottom="48dp"
             android:layout_toRightOf="@+id/fab"
@@ -59,39 +59,50 @@
 
 
         <TextView
-            android:id="@+id/categoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/categoria_label"
-            android:text="Categoría"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:id="@+id/fecha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/fecha_label"
-            android:text="Fecha"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:id="@+id/prioridad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/prioridad_label"
-            android:text="Prioridad"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
             android:id="@+id/descripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/descripcion_label"
-            android:text="Descripción"
+            android:text="Descripcion"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/precio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/precio_label"
+            android:text="Precio"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/filtro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/filtro_label"
+            android:text="Filtro"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/fechaDePublicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fechaDePublicacion_label"
+            android:text="Fecha de publicacion"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/vendedor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vendedor_label"
+            android:text="Vendedor"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_marginBottom="16dp" />
 
@@ -105,29 +116,38 @@
             android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/fecha_label"
+            android:id="@+id/precio_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/descripcion"
-            android:text="Fecha Límite"
+            android:text="Precio"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/categoria_label"
+            android:id="@+id/filtro_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/fecha"
-            android:text="Categoría"
+            android:layout_below="@+id/precio"
+            android:text="Filtro"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/prioridad_label"
+            android:id="@+id/fechaDePublicacion_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/categoria"
-            android:text="Prioridad"
+            android:layout_below="@+id/filtro"
+            android:text="Fecha de publicacion"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/vendedor_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fechaDePublicacion"
+            android:text="Vendedor"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black" />
     </RelativeLayout>

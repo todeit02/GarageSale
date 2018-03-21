@@ -20,7 +20,7 @@ public class Constantes {
      * Puerto que utilizas para la conexión.
      * Dejalo en blanco si no has configurado esta carácteristica.
      */
-    private static final String PUERTO_HOST = "63343";
+    private static final String PUERTO_HOST = "3306";
 
     /**
      * Dirección IP de genymotion o AVD
@@ -29,14 +29,14 @@ public class Constantes {
     /**
      * URLs del Web Service
      */
-    public static final String GET = IP + PUERTO_HOST + "/I%20Wish/obtener_metas.php";
-    public static final String GET_BY_ID = IP + PUERTO_HOST + "/I%20Wish/obtener_meta_por_id.php";
-    public static final String UPDATE = IP + PUERTO_HOST + "/I%20Wish/actualizar_meta.php";
-    public static final String DELETE = IP + PUERTO_HOST + "/I%20Wish/borrar_meta.php";
-    public static final String INSERT = IP + PUERTO_HOST + "/I%20Wish/insertar_meta.php";
+    public static final String GET = IP + PUERTO_HOST + "/GarageSale/get_post.php";
+    public static final String GET_BY_ID = IP + PUERTO_HOST + "/GarageSale/get_post_detail.php";
+    public static final String UPDATE = IP + PUERTO_HOST + "/GarageSale/update_post.php";
+    public static final String DELETE = IP + PUERTO_HOST + "/GarageSale/delete_post.php";
+    public static final String INSERT = IP + PUERTO_HOST + "/GarageSale/insert_post.php";
 
     /**
-     * Clave para el valor extra que representa al identificador de una meta
+     * Clave para el valor extra que representa al identificador de un post
      */
     public static final String EXTRA_ID = "IDEXTRA";
 

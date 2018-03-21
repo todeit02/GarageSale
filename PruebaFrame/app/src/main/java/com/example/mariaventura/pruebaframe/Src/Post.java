@@ -141,4 +141,5 @@ public class Post extends SugarRecord<Post> {
         return code == post.code;
     }
 
+
 }

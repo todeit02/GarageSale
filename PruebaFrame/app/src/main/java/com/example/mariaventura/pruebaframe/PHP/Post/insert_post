@@ -1,24 +1,24 @@
 <?php
 /**
- * Insertar una nueva meta en la base de datos
+ * Insertar un nuevo post en la base de datos
  */
 
-require 'PersonCrud.php';
+require 'post_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Decodificando formato Json
     $body = json_decode(file_get_contents("php://input"), true);
 
-    // Insertar meta
-    $retorno = Person::insert(
-        $body['user'],
-        $body['password'],
+    // Insertar post
+    $retorno = post_crud::insert(
         $body['name'],
-        $body['email'],
-         $body['birthDate'],
-          $body['nationality'],
-        $body['personalCard']);
+        $body['desription'],
+        $body['price'],
+        $body['publishDate'],
+        $body['sold']),
+         $body['seller']),
+          $body['code']);
 
     if ($retorno) {
         // Código de éxito
