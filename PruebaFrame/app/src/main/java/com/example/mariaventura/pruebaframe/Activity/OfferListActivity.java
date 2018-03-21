@@ -32,12 +32,6 @@ public class OfferListActivity extends Activity {
             View inflatedPost = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
             inflatedPost.setId(R.layout.offer_list_item + i + 1);
 
-            LinearLayout.LayoutParams layoutParams;
-            layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            inflatedPost.setLayoutParams(layoutParams);
-
-            inflatedPost.setBackgroundColor(Color.RED);
-
             TextView inflatedPostOfferItemTitle = inflatedPost.findViewById(R.id.tv_offer_item_title);
             inflatedPostOfferItemTitle.setId(R.id.tv_offer_item_title + i + 1);
 
@@ -48,8 +42,7 @@ public class OfferListActivity extends Activity {
             inflatedPostOfferItemPrice.setId(R.id.tv_offer_item_price + i + 10001);
 
             inflatedPostOfferItemTitle.setText("Título de la oferta " + (i + 1));
-            inflatedPostOfferItemTexts.setBackgroundColor(Color.YELLOW);
-            inflatedPostOfferItemPrice.setText("" + (13.07 * (i + 1)) + "@string/currency");
+            inflatedPostOfferItemPrice.setText("" + (13.07 * (i + 1)) + getString(R.string.currency));
 
             linearLayout.addView(inflatedPost);
         }
