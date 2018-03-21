@@ -9,20 +9,23 @@ import android.util.Log;
 import android.widget.*;
 import android.view.*;
 
+
+
 import com.example.mariaventura.pruebaframe.R;
 
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LinearLayout linearlayout = (LinearLayout)findViewById(R.id.postContent);
+        /*LinearLayout linearlayout = (LinearLayout)findViewById(R.id.postContent);
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
@@ -35,8 +38,17 @@ public class MainActivity extends Activity {
            // TextView postUsername = (TextView)findViewById(R.id.userNamePost);
             //postUsername.setText("Este es el post"+ i);
 
-            linearlayout.addView(a);
+            linearlayout.addView(a);*/
+
+
+        // Creación del fragmento principal
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new MainFragment(),"MainFragment")
+                    .commit();
         }
+
+    }
 
     }
 

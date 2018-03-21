@@ -6,7 +6,7 @@ import com.orm.SugarRecord;
 
 /**
  * Created by mariaventura on 13/3/18.
- */
+
 
 public class PersonHandler {
     public void AddPerson(Person toAdd){
@@ -18,4 +18,4 @@ public class PersonHandler {
      //   Person toLook = Person.findById(Person.class, toSearch.getUser());
        // if(
     //}
-}
+}*/
