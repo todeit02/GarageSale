@@ -1,16 +1,18 @@
-﻿package com.example.mariaventura.pruebaframe.Activity;
+package com.example.mariaventura.pruebaframe.Activity;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.*;
 
+import com.example.mariaventura.pruebaframe.Fragment.MainFragment;
 import com.example.mariaventura.pruebaframe.R;
 
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class OfferListActivity extends Activity {
+public class OfferListActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;
