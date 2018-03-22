@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 
 /*cambiar String a date*/
-public class Post extends SugarRecord<Post> {
+public class Offer extends SugarRecord<Offer> {
 
     private String name;
     private String description;
@@ -94,7 +94,7 @@ public class Post extends SugarRecord<Post> {
         this.code = code;
     }
 
-    public Post(String name, String description, int price, ArrayList<String> filters, String date, boolean sold, Seller seller, ArrayList<Person> interested, int code) {
+    public Offer(String name, String description, int price, ArrayList<String> filters, String date, boolean sold, Seller seller, ArrayList<Person> interested, int code) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -106,7 +106,7 @@ public class Post extends SugarRecord<Post> {
         this.code= code;
     }
 
-    public Post() {
+    public Offer() {
         this.name = "";
         this.description = "";
         this.price = 0;
@@ -120,7 +120,7 @@ public class Post extends SugarRecord<Post> {
 
     @Override
     public String toString() {
-        return "Post: " +
+        return "Offer: " +
                 "name=" + name + '\'' +
                 ", description=" + description + '\'' +
                 ", price=" + price +
@@ -136,9 +136,9 @@ public class Post extends SugarRecord<Post> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Post post = (Post) o;
+        Offer offer = (Offer) o;
 
-        return code == post.code;
+        return code == offer.code;
     }
 
 

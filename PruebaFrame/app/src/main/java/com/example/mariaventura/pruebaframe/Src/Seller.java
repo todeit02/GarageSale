@@ -1,10 +1,5 @@
 package com.example.mariaventura.pruebaframe.Src;
 
-import com.example.mariaventura.pruebaframe.Src.Person;
-import com.example.mariaventura.pruebaframe.Src.Post;
-import com.example.mariaventura.pruebaframe.Src.Purchase;
-import com.orm.SugarRecord;
-
 import java.util.ArrayList;
 
 /**
@@ -15,7 +10,7 @@ public class Seller extends Person{
 
     private  String adress;
     private int reputation; //cuando un buyer compra algo de un seller, se le habilita la opcion de valorar la reputacion de ESTE seller
-    private ArrayList<Post> posts;
+    private ArrayList<Offer> offers;
     private int earnedMoney;
     private ArrayList<Purchase> sales;
     private int cellphone;
@@ -36,12 +31,12 @@ public class Seller extends Person{
         this.reputation = reputation;
     }
 
-    public ArrayList<Post> getPosts() {
-        return posts;
+    public ArrayList<Offer> getOffers() {
+        return offers;
     }
 
-    public void setPosts(ArrayList<Post> posts) {
-        this.posts = posts;
+    public void setOffers(ArrayList<Offer> offers) {
+        this.offers = offers;
     }
 
     public int getEarnedMoney() {
@@ -68,10 +63,10 @@ public class Seller extends Person{
         this.cellphone = cellphone;
     }
 
-    public Seller(String adress, int reputation, ArrayList<Post> posts, int earnedMoney, ArrayList<Purchase> sales, int cellphone) {
+    public Seller(String adress, int reputation, ArrayList<Offer> offers, int earnedMoney, ArrayList<Purchase> sales, int cellphone) {
         this.adress = adress;
         this.reputation = reputation;
-        this.posts = posts;
+        this.offers = offers;
         this.earnedMoney = earnedMoney;
         this.sales = sales;
         this.cellphone = cellphone;
