@@ -62,12 +62,12 @@ public class InsertFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflando layout del fragmento
-        View v = inflater.inflate(R.layout.fragment_form, container, false);
+        View v = inflater.inflate(R.layout.fragment_update, container, false);
 
         // Obtención de instancias controles
         name_input = (EditText) v.findViewById(R.id.name_input);
         descripcion_input = (EditText) v.findViewById(R.id.descripcion_input);
-        fechaEjemplo_text_text = (TextView) v.findViewById(R.id.fechaEjemplo_text);
+        fechaEjemplo_text = (TextView) v.findViewById(R.id.fechaEjemplo_text);
         filtro_spinner = (Spinner) v.findViewById(R.id.filtro_spinner);
         precio_input = (EditText) v.findViewById(R.id.precio_input);
 

@@ -65,7 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onItemClick(View view, int position) {
         DetailActivity.launch(
-                (Activity) context, items.get(position).getCode());
+                (Activity) context, String.valueOf(items.get(position).getCode()));
     }
 
 

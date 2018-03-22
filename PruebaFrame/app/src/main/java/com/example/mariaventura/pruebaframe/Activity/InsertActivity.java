@@ -4,11 +4,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
+import com.example.mariaventura.pruebaframe.Fragment.ConfirmDialogFragment;
+import com.example.mariaventura.pruebaframe.Fragment.InsertFragment;
 import com.example.mariaventura.pruebaframe.R;
 
 
 public class InsertActivity extends AppCompatActivity
-        implements DatePickerFragment.OnDateSelectedListener,
+        implements com.example.mariaventura.pruebaframe.Fragment.DatePickerFragment.OnDateSelectedListener,
         ConfirmDialogFragment.ConfirmDialogListener {
 
 

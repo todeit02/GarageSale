@@ -10,6 +10,7 @@ import android.widget.*;
 import android.view.*;
 
 
+import com.example.mariaventura.pruebaframe.DataAccess.Constantes;
 import com.example.mariaventura.pruebaframe.Fragment.MainFragment;
 import com.example.mariaventura.pruebaframe.R;
 
@@ -48,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constantes.CODIGO_DETALLE || requestCode == 3) {
+            if (resultCode == RESULT_OK || resultCode == 203) {
+                MainFragment fragment = (MainFragment) getSupportFragmentManager().
+                        findFragmentByTag("MainFragment");
+                fragment.cargarAdaptador();
+            }
+        }
     }
 
     }

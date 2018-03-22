@@ -19,7 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.mariaventura.pruebaframe.DataAccess.Constantes;
 import com.example.mariaventura.pruebaframe.DataAccess.VolleySingleton;
 import com.example.mariaventura.pruebaframe.R;
-import com.example.mariaventura.pruebaframe.Src.Person;
+import com.example.mariaventura.pruebaframe.Activity.*;
 import com.example.mariaventura.pruebaframe.Src.Post;
 import com.google.gson.Gson;
 
