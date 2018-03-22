@@ -27,8 +27,18 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.link_signup) TextView _signupLink;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
+        // REMOVE in production.
+        boolean debug_loginIsJumped = true;
+        if(debug_loginIsJumped)
+        {
+            continueToMainActivity();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -100,15 +110,13 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // Disable going back to the MainActivity
+        // Disable going back to the OfferListActivity
         moveTaskToBack(true);
     }
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-        startActivity(intent);
-        finish();
+        continueToMainActivity();
     }
 
     public void onLoginFailed() {
@@ -138,5 +146,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    private void continueToMainActivity()
+    {
+        Intent intent = new Intent(LoginActivity.this, OfferListActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
