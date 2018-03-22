@@ -1,4 +1,4 @@
-package com.example.mariaventura.pruebaframe.Activity;
+﻿package com.example.mariaventura.pruebaframe.Activity;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -24,6 +24,13 @@ public class OfferListActivity extends Activity {
         linearLayoutInflater = LayoutInflater.from(this);
 
         createDummyItems();
+
+	// Creación del fragmento principal
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new MainFragment(),"MainFragment")
+                    .commit();
+        }
     }
 
     private void createDummyItems()
