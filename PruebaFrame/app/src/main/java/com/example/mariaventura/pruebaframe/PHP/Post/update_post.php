@@ -1,6 +1,6 @@
 <?php
 /**
- * Actualiza un post especificado por su identificador
+ * Actualiza un offer especificado por su identificador
  */
 
 require 'post_crud.php';
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $body['publishDate'],
         $body['sold'],
         $body['seller'],
-        $body['code']);
+        $body['id']);
 
     if ($retorno) {
         // Código de éxito

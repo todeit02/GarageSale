@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mariaventura.pruebaframe.R;
-import com.example.mariaventura.pruebaframe.Src.Post;
+import com.example.mariaventura.pruebaframe.Src.Offer;
 
 import java.util.List;
 
@@ -20,10 +20,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         implements ItemClickListener {
 
     /**
-     * Lista de objetos {@link Post} que representan la fuente de datos
+     * Lista de objetos {@link Offer} que representan la fuente de datos
      * de inflado
      */
-    private List<Post> items;
+    private List<Offer> items;
 
     /*
     Contexto donde actua el recycler view
@@ -31,7 +31,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     private Context context;
 
 
-    public PostAdapter(List<Post> items, Context context) {
+    public PostAdapter(List<Offer> items, Context context) {
         this.context = context;
         this.items = items;
     }
@@ -51,9 +51,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onBindViewHolder(PostViewHolder viewHolder, int i) {
         viewHolder.name.setText(items.get(i).getName());
-        viewHolder.filtro.setText(items.get(i).getFilters().get(0));
-        viewHolder.fecha.setText(items.get(i).getDate());
-        viewHolder.precio.setText(items.get(i).getPrice());
+        viewHolder.filtro.setText(items.get(i).getTags().get(0));
+        viewHolder.fecha.setText(items.get(i).getTimestamp().toString());
+        viewHolder.precio.setText(Float.toString( items.get(i).getPrice() ));
     }
 
     /**
@@ -65,7 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onItemClick(View view, int position) {
         DetailActivity.launch(
-                (Activity) context, String.valueOf(items.get(position).getCode()));
+                (Activity) context, String.valueOf(items.get(position).getId()));
     }
 
 

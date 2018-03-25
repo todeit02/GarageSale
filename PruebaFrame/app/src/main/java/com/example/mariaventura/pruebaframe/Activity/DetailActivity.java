@@ -50,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_offer_list);
 
         if (getSupportActionBar() != null) {
             // Dehabilitar titulo de la actividad

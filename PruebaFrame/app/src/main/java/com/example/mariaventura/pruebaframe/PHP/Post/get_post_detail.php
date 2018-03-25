@@ -1,6 +1,6 @@
 <?php
 /**
- * Obtiene el detalle de un post especificado por
+ * Obtiene el detalle de un offer especificado por
  * su identificador "idCode"
  */
 
@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         if ($retorno) {
 
-            $post["estado"] = "1";
-            $post["post"] = $retorno;
+            $offer["estado"] = "1";
+            $offer["offer"] = $retorno;
             // Enviar objeto json de la meta
             print json_encode($meta);
         } else {

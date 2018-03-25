@@ -22,15 +22,17 @@ import com.example.mariaventura.pruebaframe.DataAccess.Constantes;
 import com.example.mariaventura.pruebaframe.DataAccess.VolleySingleton;
 import com.example.mariaventura.pruebaframe.R;
 import com.google.gson.Gson;
-import com.example.mariaventura.pruebaframe.Src.Post;
-import com.example.mariaventura.pruebaframe.DataAccess.Constantes;
-import com.example.mariaventura.pruebaframe.DataAccess.VolleySingleton;
+import com.example.mariaventura.pruebaframe.Src.Offer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 /**
@@ -64,7 +66,7 @@ public class UpdateFragment extends Fragment {
     /**
      * Es el post obtenido como respuesta de la petición HTTP
      */
-    private Post originalPost;
+    private Offer originalOffer;
 
     /**
      * Instancia Gson para el parsing Json
@@ -168,9 +170,9 @@ public class UpdateFragment extends Fragment {
                 case "1":
                     JSONObject meta = response.getJSONObject("meta");
                     // Guardar instancia
-                    originalPost = gson.fromJson(meta.toString(), Post.class);
+                    originalOffer = gson.fromJson(meta.toString(), Offer.class);
                     // Setear valores de la meta
-                    cargarViews(originalPost);
+                    cargarViews(originalOffer);
                     break;
 
                 case "2":
@@ -193,15 +195,15 @@ public class UpdateFragment extends Fragment {
 
     /**
      * Carga los datos iniciales del formulario con los
-     * atributos de un objeto {@link Post}
+     * atributos de un objeto {@link Offer}
      *
-     * @param post Instancia
+     * @param offer Instancia
      */
-    private void cargarViews(Post post) {
+    private void cargarViews(Offer offer) {
         // Seteando valores de la respuesta
-        name_input.setText(post.getName());
-        descripcion_input.setText(post.getDescription());
-        fechaEjemplo_text.setText(post.getDate());
+        name_input.setText(offer.getName());
+        descripcion_input.setText(offer.getDescription());
+        fechaEjemplo_text.setText(offer.getTimestamp().toString());
 
 
         // Obteniendo acceso a los array de strings para filtros
@@ -210,7 +212,7 @@ public class UpdateFragment extends Fragment {
         // Obteniendo la posición del spinner filtro
         int posicion_filtro = 0;
         for (int i = 0; i < filtros.length; i++) {
-            if (filtros[i].compareTo(post.getFilters().get(0)) == 0) {
+            if (filtros[i].compareTo(offer.getTags().get(0)) == 0) {
                 posicion_filtro = i;
                 break;
             }
@@ -228,24 +230,32 @@ public class UpdateFragment extends Fragment {
      * @return true si los datos no han cambiado, de lo contrario false
      */
     public boolean validarCambios() {
-        return originalPost.equals(obtenederDatos());
+        return originalOffer.equals(obtenederDatos());
     }
 
     /**
      * Retorna en una nueva meta creada a partir
      * de los datos del formulario actual
      *
-     * @return Instancia {@link Post}
+     * @return Instancia {@link Offer}
      */
-    private Post obtenederDatos() {
+    private Offer obtenederDatos() {
 
         String name = name_input.getText().toString();
         String description = descripcion_input.getText().toString();
-        String date = fechaEjemplo_text.getText().toString();
+
+        Timestamp date = null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+            Date parsedDate = dateFormat.parse(fechaEjemplo_text.getText().toString());
+            date = new java.sql.Timestamp(parsedDate.getTime());
+        }
+        catch(Exception e) {};
+
         String filter = (String) filtro_spinner.getSelectedItem();
         String price = precio_input.getText().toString();
 
-        return new Post(name, description, Integer.parseInt(price), null, date, false,  null, null,0);
+        return new Offer(name, description, Float.parseFloat(price), null, date, false,  null, null, UUID.randomUUID());
     }
 
     @Override

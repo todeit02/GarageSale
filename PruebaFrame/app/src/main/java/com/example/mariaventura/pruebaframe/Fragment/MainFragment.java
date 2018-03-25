@@ -20,7 +20,7 @@ import com.example.mariaventura.pruebaframe.Activity.PostAdapter;
 import com.example.mariaventura.pruebaframe.DataAccess.Constantes;
 import com.example.mariaventura.pruebaframe.DataAccess.VolleySingleton;
 import com.example.mariaventura.pruebaframe.R;
-import com.example.mariaventura.pruebaframe.Src.Post;
+import com.example.mariaventura.pruebaframe.Src.Offer;
 import com.google.gson.Gson;
 
 
@@ -144,12 +144,12 @@ public class MainFragment extends Fragment {
 
             switch (estado) {
                 case "1": // EXITO
-                    // Obtener array "posts" Json
-                    JSONArray mensaje = response.getJSONArray("posts");
+                    // Obtener array "offers" Json
+                    JSONArray mensaje = response.getJSONArray("offers");
                     // Parsear con Gson
-                    Post[] posts = gson.fromJson(mensaje.toString(), Post[].class);
+                    Offer[] offers = gson.fromJson(mensaje.toString(), Offer[].class);
                     // Inicializar adaptador
-                    adapter = new PostAdapter(Arrays.asList(posts), getActivity());
+                    adapter = new PostAdapter(Arrays.asList(offers), getActivity());
                     // Setear adaptador a la lista
                     lista.setAdapter(adapter);
                     break;

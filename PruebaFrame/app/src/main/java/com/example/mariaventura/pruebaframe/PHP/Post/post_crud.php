@@ -4,23 +4,23 @@
  * Representa el la estructura de las metas
  * almacenadas en la base de datos
  */
-require 'Database.php';
+require '../Database.php';
 
-class Person
+class OfferCrud
 {
     function __construct()
     {
     }
 
     /**
-     * Retorna en la fila especificada de la tabla 'post'
+     * Retorna en la fila especificada de la tabla 'offer'
      *
-     * @param $code Identificador del registro
+     * @param $id Identificador del registro
      * @return array Datos del registro
      */
     public static function getAll()
     {
-        $consulta = "SELECT * FROM post";
+        $consulta = "SELECT * FROM offers";
         try {
             // Preparar sentencia
             $comando = Database::getInstance()->getDb()->prepare($consulta);
@@ -35,13 +35,13 @@ class Person
     }
 
     /**
-     * Obtiene los campos de un post con un identificador
+     * Obtiene los campos de un offer con un identificador
      * determinado
      *
-     * @param $code Identificador del post
+     * @param $id Identificador del offer
      * @return mixed
      */
-    public static function getById($code)
+    public static function getById($id)
     {
         // Consulta de la meta
         $consulta = "SELECT
@@ -50,8 +50,8 @@ class Person
                              price,
                              publishDate,
                              seller
-                             FROM post
-                             WHERE code = ?";
+                             FROM offers
+                             WHERE id = ?";
 
         try {
             // Preparar sentencia
@@ -80,7 +80,7 @@ class Person
         * @param $publishDate    fecha de publicacion del nuevo registro
          * @param $sold    estado del nuevo registro
         * @param seller   vendedor del nuevo registro
-         * @param $code    codigo  del nuevo registro
+         * @param $id    codigo  del nuevo registro
      */
     public static function update(
         $name,
@@ -89,19 +89,19 @@ class Person
         $publishDate,
         $sold,
         $seller,
-        $code
+        $id
     )
     {
         // Creando consulta UPDATE
-        $consulta = "UPDATE post" .
-            " SET name=?, description=?, price=?, publishDate=?,sold=?,seller=?, code=? " .
-            "WHERE code=?";
+        $consulta = "UPDATE offer" .
+            " SET name=?, description=?, price=?, publishDate=?,sold=?,seller=?, id=? " .
+            "WHERE id=?";
 
         // Preparar la sentencia
         $cmd = Database::getInstance()->getDb()->prepare($consulta);
 
         // Relacionar y ejecutar la sentencia
-        $cmd->execute(array($name, $description, $price, $publishDate, $sold, $seller, $code));
+        $cmd->execute(array($name, $description, $price, $publishDate, $sold, $seller, $id));
 
         return $cmd;
     }
@@ -116,7 +116,7 @@ class Person
      * @param $publishDate    fecha de publicacion del nuevo registro
       * @param $sold    estado del nuevo registro
      * @param seller   vendedor del nuevo registro
-      * @param $code    codigo  del nuevo registro
+      * @param $id    codigo  del nuevo registro
      * @return PDOStatement
      */
     public static function insert(
@@ -126,11 +126,11 @@ class Person
         $publishDate,
          $sold,
          $seller,
-        $code
+        $id
     )
     {
         // Sentencia INSERT
-        $comando = "INSERT INTO post ( " .
+        $comando = "INSERT INTO offer ( " .
             "name," .
             " description," .
             " price," .
@@ -150,7 +150,7 @@ class Person
                 $publishDate,
                 $sold,
                 $seller,
-                $code
+                $id
             )
         );
 
@@ -159,18 +159,18 @@ class Person
     /**
      * Eliminar el registro con el identificador especificado
      *
-     * @param $idCode identificador del post
+     * @param $idCode identificador del offer
      * @return bool Respuesta de la eliminación
      */
-    public static function delete($code)
+    public static function delete($id)
     {
         // Sentencia DELETE
-        $comando = "DELETE FROM post WHERE code=?";
+        $comando = "DELETE FROM offer WHERE id=?";
 
         // Preparar la sentencia
         $sentencia = Database::getInstance()->getDb()->prepare($comando);
 
-        return $sentencia->execute(array($code));
+        return $sentencia->execute(array($id));
     }
 }
 

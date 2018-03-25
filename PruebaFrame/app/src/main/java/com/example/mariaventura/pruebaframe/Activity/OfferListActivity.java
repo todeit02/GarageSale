@@ -1,21 +1,23 @@
 package com.example.mariaventura.pruebaframe.Activity;
 
-import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
 
-import com.example.mariaventura.pruebaframe.Fragment.MainFragment;
+import com.example.mariaventura.pruebaframe.DataAccess.DatabaseManager;
+import com.example.mariaventura.pruebaframe.DataAccess.IOffersConsumer;
 import com.example.mariaventura.pruebaframe.R;
+import com.example.mariaventura.pruebaframe.Src.Offer;
 
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class OfferListActivity extends AppCompatActivity {
 
+public class OfferListActivity extends AppCompatActivity
+{
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +27,34 @@ public class OfferListActivity extends AppCompatActivity {
         linearLayout = (LinearLayout)findViewById(R.id.offerListContent);
         linearLayoutInflater = LayoutInflater.from(this);
 
-        createDummyItems();
+        DatabaseManager.loadOffers(this, new IOffersConsumer() {
+            @Override
+            public void consume(Offer[] offers) {
+                createOfferViews(offers);
+            }
+        });
+    }
 
-	// Creación del fragmento principal
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainFragment(),"MainFragment")
-                    .commit();
+    private void createOfferViews(Offer[] creatingOffers)
+    {
+        int idOffset = 1;
+
+        for(Offer creatingOffer : creatingOffers)
+        {
+            View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
+            inflatedOffer.setId(R.layout.offer_list_item + idOffset);
+
+            TextView inflatedPostOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
+            inflatedPostOfferItemTitle.setId(R.id.tv_offer_item_title + idOffset*(100 + 1));
+
+            TextView inflatedPostOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
+            inflatedPostOfferItemPrice.setId(R.id.tv_offer_item_price + idOffset*(10000 + 1));
+
+            inflatedPostOfferItemTitle.setText(creatingOffer.getName());
+            inflatedPostOfferItemPrice.setText("" + creatingOffer.getPrice() + getString(R.string.currency));
+
+            linearLayout.addView(inflatedOffer);
+            idOffset++;
         }
     }
 

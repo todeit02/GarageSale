@@ -20,7 +20,7 @@ import com.example.mariaventura.pruebaframe.DataAccess.Constantes;
 import com.example.mariaventura.pruebaframe.DataAccess.VolleySingleton;
 import com.example.mariaventura.pruebaframe.R;
 import com.example.mariaventura.pruebaframe.Activity.*;
-import com.example.mariaventura.pruebaframe.Src.Post;
+import com.example.mariaventura.pruebaframe.Src.Offer;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -146,14 +146,14 @@ public class DetailFragment extends Fragment {
 
             switch (mensaje) {
                 case "1":
-                    // Obtener objeto "post"
-                    JSONObject object = response.getJSONObject("post");
+                    // Obtener objeto "offer"
+                    JSONObject object = response.getJSONObject("offer");
 
                     //Parsear objeto
-                    Post post = gson.fromJson(object.toString(), Post.class);
+                    Offer offer = gson.fromJson(object.toString(), Offer.class);
 
                    /* // Asignar color del fondo
-                    switch (post.getFilters().get(0)) {
+                    switch (offer.getTags().get(0)) {
                         case "Salud":
                             cabecera.setBackgroundColor(getResources().getColor(R.color.saludColor));
                             break;
@@ -172,11 +172,11 @@ public class DetailFragment extends Fragment {
                     }
 */
                     // Seteando valores en los views
-                    name.setText(post.getName());
-                    description.setText(post.getDescription());
-                    price.setText(post.getPrice());
-                    publishDate.setText(post.getDate());
-                    seller.setText(post.getSeller().getUser());
+                    name.setText(offer.getName());
+                    description.setText(offer.getDescription());
+                    price.setText("" + offer.getPrice());
+                    publishDate.setText(offer.getTimestamp().toString());
+                    seller.setText(offer.getSeller().getName());
 
                     break;
 

@@ -1,19 +1,19 @@
-<?php
+	<?php
 /**
  * Obtiene todas las metas de la base de datos
  */
 
-require 'person_crud.php';
+require 'post_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     // Manejar petición GET
-    $people = PersonCrud::getAll();
+    $offers = OfferCrud::getAll();
 
-    if ($people) {
+    if ($offers) {
 
         $datos["estado"] = 1;
-        $datos["people"] = $people;
+        $datos["offers"] = $offers;
 
         print json_encode($datos);
     } else {

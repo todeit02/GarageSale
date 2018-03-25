@@ -1,6 +1,6 @@
 <?php
 /**
- * Insertar un nuevo post en la base de datos
+ * Insertar un nuevo offer en la base de datos
  */
 
 require 'post_crud.php';
@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Decodificando formato Json
     $body = json_decode(file_get_contents("php://input"), true);
 
-    // Insertar post
+    // Insertar offer
     $retorno = post_crud::insert(
         $body['name'],
         $body['desription'],
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $body['publishDate'],
         $body['sold']),
          $body['seller']),
-          $body['code']);
+          $body['id']);
 
     if ($retorno) {
         // Código de éxito

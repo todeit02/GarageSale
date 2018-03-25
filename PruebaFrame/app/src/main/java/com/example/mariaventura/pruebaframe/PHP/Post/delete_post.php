@@ -1,6 +1,6 @@
 <?php
 /**
- * Elimina un post de la base de datos
+ * Elimina un offer de la base de datos
  * distinguida por su identificador
  */
 
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Decodificando formato Json
     $body = json_decode(file_get_contents("php://input"), true);
 
-    $retorno = post_crud::delete($body['code']);
+    $retorno = post_crud::delete($body['id']);
 
     if ($retorno) {
         print json_encode(

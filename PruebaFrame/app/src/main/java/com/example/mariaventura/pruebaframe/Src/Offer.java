@@ -1,31 +1,32 @@
 package com.example.mariaventura.pruebaframe.Src;
 
-import com.orm.SugarRecord;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by mariaventura on 7/3/18.
  */
 
-/*cambiar String a date*/
-public class Offer extends SugarRecord<Offer> {
+/*cambiar String a timestamp*/
+public class Offer {
 
     private String name;
     private String description;
-    private int price;
-    private ArrayList<String> filters;
-    private String date;
-    private boolean sold; //pensarlo, porque si esta en la lista de purchases esta vendida
+    private float price;
+    private ArrayList<String> tags;
+    private Timestamp timestamp;
+    private boolean sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
     private Seller seller;
     private ArrayList<Person> interested;
-    private int code;
+    private UUID id;
+    private ArrayList<String> photoPaths;
     //poner galeria de fotos
 
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -33,89 +34,77 @@ public class Offer extends SugarRecord<Offer> {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
-
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public ArrayList<String> getFilters() {
-        return filters;
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
     }
 
-    public void setFilters(ArrayList<String> filters) {
-        this.filters = filters;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public boolean isSold() {
         return sold;
     }
-
     public void setSold(boolean sold) {
         this.sold = sold;
     }
 
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
+    public Seller getSeller() { return seller; }
+    public void setSeller(Seller seller) { this.seller = seller; }
 
     public ArrayList<Person> getInterested() {
         return interested;
     }
-
     public void setInterested(ArrayList<Person> interested) {
         this.interested = interested;
     }
 
-    public int getCode() {
-        return code;
+    public UUID getId() {
+        return id;
+    }
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public Offer(String name, String description, int price, ArrayList<String> filters, String date, boolean sold, Seller seller, ArrayList<Person> interested, int code) {
+    public Offer(String name, String description, float price, ArrayList<String> tags, Timestamp timestamp, boolean sold, Seller seller, ArrayList<Person> interested, UUID id) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.filters = filters;
-        this.date = date;
+        this.tags = tags;
+        this.timestamp = timestamp;
         this.sold = sold;
         this.seller = seller;
         this.interested = interested;
-        this.code= code;
+        this.id = id;
     }
 
     public Offer() {
         this.name = "";
         this.description = "";
         this.price = 0;
-        this.filters = new ArrayList<String>();
-        this.date = "";
+        this.tags = new ArrayList<String>();
+        this.timestamp = null;
         this.sold = false;
         this.seller = null;
         this.interested = new ArrayList<Person>();
-        this.code= 0;
+        this.id = UUID.randomUUID();
     }
 
     @Override
@@ -124,8 +113,8 @@ public class Offer extends SugarRecord<Offer> {
                 "name=" + name + '\'' +
                 ", description=" + description + '\'' +
                 ", price=" + price +
-                ", filters=" + filters +
-                ", date='" + date + '\'' +
+                ", tags=" + tags +
+                ", timestamp='" + timestamp + '\'' +
                 ", sold=" + sold +
                 ", seller=" + seller +
                 ", interested=" + interested;
@@ -138,8 +127,7 @@ public class Offer extends SugarRecord<Offer> {
 
         Offer offer = (Offer) o;
 
-        return code == offer.code;
+        return id == offer.id;
     }
-
 
 }
