@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Adaptador del recycler view
  */
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>
+public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.OfferViewHolder>
         implements ItemClickListener {
 
     /**
@@ -31,7 +31,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     private Context context;
 
 
-    public PostAdapter(List<Offer> items, Context context) {
+    public OfferAdapter(List<Offer> items, Context context) {
         this.context = context;
         this.items = items;
     }
@@ -42,14 +42,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     @Override
-    public PostViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public OfferViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.post_item, viewGroup, false);
-        return new PostViewHolder(v, this);
+                .inflate(R.layout.offer_item, viewGroup, false);
+        return new OfferViewHolder(v, this);
     }
 
     @Override
-    public void onBindViewHolder(PostViewHolder viewHolder, int i) {
+    public void onBindViewHolder(OfferViewHolder viewHolder, int i) {
         viewHolder.name.setText(items.get(i).getName());
         viewHolder.filtro.setText(items.get(i).getTags().get(0));
         viewHolder.fecha.setText(items.get(i).getTimestamp().toString());
@@ -69,7 +69,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
 
-    public static class PostViewHolder extends RecyclerView.ViewHolder
+    public static class OfferViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         // Campos respectivos de un item
         public TextView name;
@@ -78,7 +78,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         public TextView precio;
         public ItemClickListener listener;
 
-        public PostViewHolder(View v, ItemClickListener listener) {
+        public OfferViewHolder(View v, ItemClickListener listener) {
             super(v);
             name = (TextView) v.findViewById(R.id.name);
             filtro = (TextView) v.findViewById(R.id.filtro);

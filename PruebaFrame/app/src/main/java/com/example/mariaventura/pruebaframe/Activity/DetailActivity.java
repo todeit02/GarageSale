@@ -14,19 +14,19 @@ import com.example.mariaventura.pruebaframe.Fragment.*;
 
 /**
  * Esta actividad contiene un fragmento que muestra el detalle
- * de los posts.
+ * de las ofertas.
  */
 public class DetailActivity extends AppCompatActivity {
     /**
-     * Instancia global del post a detallar
+     * Instancia global de la oferta a detallar
      */
-    private String selectedPost;
+    private String selectedOffer;
 
     /**
      * Inicia una nueva instancia de la actividad
      *
      * @param activity Contexto desde donde se lanzará
-     * @param code   Identificador del post a detallar
+     * @param code   Identificador de la oferta a detallar
      */
     public static void launch(Activity activity, String code) {
         Intent intent = getLaunchIntent(activity, code);
@@ -61,12 +61,12 @@ public class DetailActivity extends AppCompatActivity {
 
         // Retener instancia
         if (getIntent().getStringExtra(Constantes.EXTRA_ID) != null)
-            selectedPost = getIntent().getStringExtra(Constantes.EXTRA_ID);
+            selectedOffer = getIntent().getStringExtra(Constantes.EXTRA_ID);
 
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, DetailFragment.createInstance(selectedPost), "DetailFragment")
+                    .add(R.id.container, DetailFragment.createInstance(selectedOffer), "DetailFragment")
                     .commit();
         }
     }

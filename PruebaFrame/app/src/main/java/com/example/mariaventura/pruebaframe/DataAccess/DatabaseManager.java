@@ -45,7 +45,6 @@ public class DatabaseManager
                                         Log.d(methodName, "Error Volley: " + error.getMessage());
                                     }
                                 }
-
                         )
                 );
     }
@@ -57,11 +56,11 @@ public class DatabaseManager
 
             switch (state) {
                 case successResponse:
-                    JSONArray posts = response.getJSONArray("offers");
-                    System.out.println("Message: " + posts.toString());
+                    JSONArray offersResponse = response.getJSONArray("offers");
+                    System.out.println("Message: " + offersResponse.toString());
 
                     Gson gson = new Gson();
-                    Offer[] offers = gson.fromJson(posts.toString(), Offer[].class);
+                    Offer[] offers = gson.fromJson(offersResponse.toString(), Offer[].class);
                     callback.consume(offers);
                     break;
                 case failResponse:

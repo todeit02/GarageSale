@@ -4,14 +4,14 @@
  * distinguida por su identificador
  */
 
-require 'post_crud.php';
+require 'offer_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Decodificando formato Json
     $body = json_decode(file_get_contents("php://input"), true);
 
-    $retorno = post_crud::delete($body['id']);
+    $retorno = offer_crud::delete($body['id']);
 
     if ($retorno) {
         print json_encode(

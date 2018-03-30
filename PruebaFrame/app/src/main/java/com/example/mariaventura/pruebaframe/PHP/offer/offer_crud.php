@@ -44,14 +44,7 @@ class OfferCrud
     public static function getById($id)
     {
         // Consulta de la meta
-        $consulta = "SELECT
-                            name,
-                             description,
-                             price,
-                             publishDate,
-                             seller
-                             FROM offers
-                             WHERE id = ?";
+        $consulta = "SELECT * FROM offers WHERE id = ?";
 
         try {
             // Preparar sentencia

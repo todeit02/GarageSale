@@ -30,14 +30,14 @@ public class Constantes {
     /**
      * URLs del Web Service
      */
-    public static final String GET = PROTOCOL + IP + "/Post/get_post.php";
-    public static final String GET_BY_ID = PROTOCOL + IP + "/Post/get_post_detail.php";
-    public static final String UPDATE = PROTOCOL + IP + "/Post/update_post.php";
-    public static final String DELETE = PROTOCOL + IP + "/Post/delete_post.php";
-    public static final String INSERT = PROTOCOL + IP + "/Post/insert_post.php";
+    public static final String GET = PROTOCOL + IP + "/offer/get_offer.php";
+    public static final String GET_BY_ID = PROTOCOL + IP + "/offer/get_offer_details.php";
+    public static final String UPDATE = PROTOCOL + IP + "/offer/update_offer.php";
+    public static final String DELETE = PROTOCOL + IP + "/offer/delete_offer.php";
+    public static final String INSERT = PROTOCOL + IP + "/offer/insert_offer.php";
 
     /**
-     * Clave para el valor extra que representa al identificador de un post
+     * Clave para el valor extra que representa al identificador de una oferta
      */
     public static final String EXTRA_ID = "IDEXTRA";
 

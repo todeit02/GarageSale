@@ -15,7 +15,7 @@
         android:gravity="center"
         android:paddingRight="24dp"
         android:showDividers="middle"
-        android:divider="@drawable/post_divider">
+        android:divider="@drawable/offer_divider">
     </LinearLayout>
 
 </ScrollView>

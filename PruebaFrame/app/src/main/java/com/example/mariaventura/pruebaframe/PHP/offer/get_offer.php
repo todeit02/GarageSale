@@ -1,9 +1,9 @@
-	<?php
+<?php
 /**
  * Obtiene todas las metas de la base de datos
  */
 
-require 'post_crud.php';
+require 'offer_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
@@ -23,3 +23,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         ));
     }
 }
+
+?>

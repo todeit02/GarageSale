@@ -71,7 +71,7 @@ public class UpdateActivity extends AppCompatActivity
                     getString(R.string.dialog_delete_msg);
 
             if (extra.compareTo(msg) == 0) {
-                fragment.eliminarPost(); // Eliminar la tarea
+                fragment.deleteOffer(); // Eliminar la tarea
             } else {
                 finish();
             }

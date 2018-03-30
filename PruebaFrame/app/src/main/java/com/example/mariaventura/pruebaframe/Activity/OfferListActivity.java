@@ -44,14 +44,14 @@ public class OfferListActivity extends AppCompatActivity
             View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
             inflatedOffer.setId(R.layout.offer_list_item + idOffset);
 
-            TextView inflatedPostOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
-            inflatedPostOfferItemTitle.setId(R.id.tv_offer_item_title + idOffset*(100 + 1));
+            TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
+            inflatedOfferItemTitle.setId(R.id.tv_offer_item_title + idOffset*(100 + 1));
 
-            TextView inflatedPostOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
-            inflatedPostOfferItemPrice.setId(R.id.tv_offer_item_price + idOffset*(10000 + 1));
+            TextView inflatedOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
+            inflatedOfferItemPrice.setId(R.id.tv_offer_item_price + idOffset*(10000 + 1));
 
-            inflatedPostOfferItemTitle.setText(creatingOffer.getName());
-            inflatedPostOfferItemPrice.setText("" + creatingOffer.getPrice() + getString(R.string.currency));
+            inflatedOfferItemTitle.setText(creatingOffer.getName());
+            inflatedOfferItemPrice.setText("" + creatingOffer.getPrice() + getString(R.string.currency));
 
             linearLayout.addView(inflatedOffer);
             idOffset++;
@@ -61,22 +61,22 @@ public class OfferListActivity extends AppCompatActivity
     private void createDummyItems()
     {
         for (int i = 0; i < 16; i++) {
-            View inflatedPost = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
-            inflatedPost.setId(R.layout.offer_list_item + i + 1);
+            View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
+            inflatedOffer.setId(R.layout.offer_list_item + i + 1);
 
-            TextView inflatedPostOfferItemTitle = inflatedPost.findViewById(R.id.tv_offer_item_title);
-            inflatedPostOfferItemTitle.setId(R.id.tv_offer_item_title + i + 1);
+            TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
+            inflatedOfferItemTitle.setId(R.id.tv_offer_item_title + i + 1);
 
-            LinearLayout inflatedPostOfferItemTexts = inflatedPost.findViewById(R.id.ll_offer_item_texts);
-            inflatedPostOfferItemTexts.setId(R.id.ll_offer_item_texts + i + 101);
+            LinearLayout inflatedOfferItemTexts = inflatedOffer.findViewById(R.id.ll_offer_item_texts);
+            inflatedOfferItemTexts.setId(R.id.ll_offer_item_texts + i + 101);
 
-            TextView inflatedPostOfferItemPrice = inflatedPost.findViewById(R.id.tv_offer_item_price);
-            inflatedPostOfferItemPrice.setId(R.id.tv_offer_item_price + i + 10001);
+            TextView inflatedOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
+            inflatedOfferItemPrice.setId(R.id.tv_offer_item_price + i + 10001);
 
-            inflatedPostOfferItemTitle.setText("Título de la oferta " + (i + 1));
-            inflatedPostOfferItemPrice.setText("" + (13.07 * (i + 1)) + getString(R.string.currency));
+            inflatedOfferItemTitle.setText("Título de la oferta " + (i + 1));
+            inflatedOfferItemPrice.setText("" + (13.07 * (i + 1)) + getString(R.string.currency));
 
-            linearLayout.addView(inflatedPost);
+            linearLayout.addView(inflatedOffer);
         }
     }
 }

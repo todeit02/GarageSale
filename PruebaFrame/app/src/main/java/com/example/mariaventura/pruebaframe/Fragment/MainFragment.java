@@ -16,7 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.mariaventura.pruebaframe.Activity.InsertActivity;
-import com.example.mariaventura.pruebaframe.Activity.PostAdapter;
+import com.example.mariaventura.pruebaframe.Activity.OfferAdapter;
 import com.example.mariaventura.pruebaframe.DataAccess.Constantes;
 import com.example.mariaventura.pruebaframe.DataAccess.VolleySingleton;
 import com.example.mariaventura.pruebaframe.R;
@@ -44,7 +44,7 @@ public class MainFragment extends Fragment {
     /*
     Adaptador del recycler view
      */
-    private PostAdapter adapter;
+    private OfferAdapter adapter;
 
     /*
     Instancia global del recycler view
@@ -79,7 +79,7 @@ public class MainFragment extends Fragment {
         lista.setLayoutManager(lManager);
 
         // Cargar datos en el adaptador
-        cargarAdaptador();
+        loadAdapter();
 
         // Obtener instancia del FAB
         fab = (com.melnykov.fab.FloatingActionButton) v.findViewById(R.id.fab);
@@ -100,10 +100,10 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * Carga el adaptador con los posts obtenidos
+     * Carga el adaptador con las ofertas obtenidas
      * en la respuesta
      */
-    public void cargarAdaptador() {
+    public void loadAdapter() {
         // Petición GET
         VolleySingleton.
                 getInstance(getActivity()).
@@ -117,7 +117,7 @@ public class MainFragment extends Fragment {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         // Procesar la respuesta Json
-                                        procesarRespuesta(response);
+                                        processResponse(response);
                                     }
                                 },
                                 new Response.ErrorListener() {
@@ -137,7 +137,7 @@ public class MainFragment extends Fragment {
      *
      * @param response Objeto Json con la respuesta
      */
-    private void procesarRespuesta(JSONObject response) {
+    private void processResponse(JSONObject response) {
         try {
             // Obtener atributo "estado"
             String estado = response.getString("estado");
@@ -149,7 +149,7 @@ public class MainFragment extends Fragment {
                     // Parsear con Gson
                     Offer[] offers = gson.fromJson(mensaje.toString(), Offer[].class);
                     // Inicializar adaptador
-                    adapter = new PostAdapter(Arrays.asList(offers), getActivity());
+                    adapter = new OfferAdapter(Arrays.asList(offers), getActivity());
                     // Setear adaptador a la lista
                     lista.setAdapter(adapter);
                     break;

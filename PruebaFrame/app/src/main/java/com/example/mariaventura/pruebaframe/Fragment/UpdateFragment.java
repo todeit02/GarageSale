@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 
 /**
@@ -64,7 +63,7 @@ public class UpdateFragment extends Fragment {
     private String code;
 
     /**
-     * Es el post obtenido como respuesta de la petición HTTP
+     * Es la oferta obtenida como respuesta de la petición HTTP
      */
     private Offer originalOffer;
 
@@ -255,7 +254,7 @@ public class UpdateFragment extends Fragment {
         String filter = (String) filtro_spinner.getSelectedItem();
         String price = precio_input.getText().toString();
 
-        return new Offer(name, description, Float.parseFloat(price), null, date, false,  null, null, UUID.randomUUID());
+        return new Offer(name, description, Float.parseFloat(price), null, date, false,  null, null);
     }
 
     @Override
@@ -271,7 +270,7 @@ public class UpdateFragment extends Fragment {
         switch (id) {
             case android.R.id.home:// CONFIRMAR
                 if (!validarCambios())
-                    guardarPost();
+                    saveOffer();
                 else
                     // Terminar actividad, ya que no hay cambios
                     getActivity().finish();
@@ -301,7 +300,7 @@ public class UpdateFragment extends Fragment {
      * Si está en modo inserción, entonces crea una nueva
      * meta en la base de datos
      */
-    private void guardarPost() {
+    private void saveOffer() {
 
         // Obtener valores actuales de los controles
         String name = name_input.getText().toString();
@@ -368,7 +367,7 @@ public class UpdateFragment extends Fragment {
      * una meta en la aplicación. Este método solo se usa
      * en la edición
      */
-    public void eliminarPost() {
+    public void deleteOffer() {
 
         HashMap<String, String> map = new HashMap<>();// MAPEO
 

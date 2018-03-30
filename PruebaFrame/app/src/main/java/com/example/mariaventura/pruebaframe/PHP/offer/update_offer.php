@@ -1,38 +1,38 @@
 <?php
 /**
- * Insertar un nuevo offer en la base de datos
+ * Actualiza una oferta especificada por su identificador
  */
 
-require 'post_crud.php';
+require 'offer_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Decodificando formato Json
     $body = json_decode(file_get_contents("php://input"), true);
 
-    // Insertar offer
-    $retorno = post_crud::insert(
+    // Actualizar meta
+    $retorno = offer_crud::update(
         $body['name'],
-        $body['desription'],
+        $body['description'],
         $body['price'],
         $body['publishDate'],
-        $body['sold']),
-         $body['seller']),
-          $body['id']);
+        $body['sold'],
+        $body['seller'],
+        $body['id']);
 
     if ($retorno) {
         // Código de éxito
         print json_encode(
             array(
                 'estado' => '1',
-                'mensaje' => 'Creación exitosa')
+                'mensaje' => 'Actualización exitosa')
         );
     } else {
         // Código de falla
         print json_encode(
             array(
                 'estado' => '2',
-                'mensaje' => 'Creación fallida')
+                'mensaje' => 'Actualización fallida')
         );
     }
 }

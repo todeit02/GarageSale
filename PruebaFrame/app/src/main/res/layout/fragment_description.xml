@@ -37,7 +37,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del post"
+            android:text="Nombre del offer"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginBottom="48dp"
             android:layout_toRightOf="@+id/fab"

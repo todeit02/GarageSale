@@ -26,9 +26,9 @@
 
 
         <!-- Actividades -->
-        <string name="title_activity_update">Editar Post</string>
+        <string name="title_activity_update">Editar Oferta</string>
         <string name="title_activity_detail">Detalle</string>
-        <string name="title_activity_insert">Insertar Nuevo post</string>
+        <string name="title_activity_insert">Insertar Nueva Oferta</string>
 
         <!-- Action Buttons -->
         <string name="action_delete">Borrar</string>

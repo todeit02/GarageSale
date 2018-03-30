@@ -3,7 +3,6 @@ package com.example.mariaventura.pruebaframe.Src;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Created by mariaventura on 7/3/18.
@@ -20,7 +19,7 @@ public class Offer {
     private boolean sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
     private Seller seller;
     private ArrayList<Person> interested;
-    private UUID id;
+    private int id;
     private ArrayList<String> photoPaths;
     //poner galeria de fotos
 
@@ -76,14 +75,11 @@ public class Offer {
         this.interested = interested;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
-    public Offer(String name, String description, float price, ArrayList<String> tags, Timestamp timestamp, boolean sold, Seller seller, ArrayList<Person> interested, UUID id) {
+    public Offer(String name, String description, float price, ArrayList<String> tags, Timestamp timestamp, boolean sold, Seller seller, ArrayList<Person> interested) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -92,7 +88,7 @@ public class Offer {
         this.sold = sold;
         this.seller = seller;
         this.interested = interested;
-        this.id = id;
+        // ID is set by database
     }
 
     public Offer() {
@@ -104,7 +100,7 @@ public class Offer {
         this.sold = false;
         this.seller = null;
         this.interested = new ArrayList<Person>();
-        this.id = UUID.randomUUID();
+        // ID is set by database
     }
 
     @Override

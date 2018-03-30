@@ -1,10 +1,10 @@
 <?php
 /**
- * Obtiene el detalle de un offer especificado por
+ * Obtiene el detalle de una oferta especificado por
  * su identificador "idCode"
  */
 
-require 'post_crud.php';
+require 'offer_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
