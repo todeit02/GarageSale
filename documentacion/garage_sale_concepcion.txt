@@ -1,0 +1,24 @@
+Garage Sale
+===========
+
+- papeles: vendedor, interesado latente, comprador
+- base de datos para usuarios, anuncios y negociaciones
+- vendedor: diálogo para la creación de un anuncio
+- interesado latente: búsqueda de productos, con filtros
+- anuncio: detalles, fotos, mapa para indicar el punto de venta
+- negocaciones sobre cada producto a partir del señalamiento de interés
+- opciones durante la negociación para ajustar la oferta (precio, añadiduras)
+- envío automático de mails para acontecimientos importantes
+
+Etapas de trabajo
+=================
+- casos de empleo
+- requisitos (?)
+- mockups
+- arquitectura
+- implementación
+	- interfaz
+	- lógica
+	- base de datos
+- documentación (?)
+- presentación

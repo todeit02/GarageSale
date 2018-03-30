@@ -1,4 +1,6 @@
-package com.example.mariaventura.pruebaframe;
+package com.example.mariaventura.pruebaframe.Src;
+
+import com.orm.SugarRecord;
 
 /**
  * Created by mariaventura on 7/3/18.
@@ -6,19 +8,19 @@ package com.example.mariaventura.pruebaframe;
 
 /*cambiar String a date*/
 
-public class Purchase {
-    private Post post;
+public class Purchase extends SugarRecord<Purchase>{
+    private Offer offer;
     private String date;
     private Person buyer;
     private int totalPrice;
     private int code;
 
-    public Post getPost() {
-        return post;
+    public Offer getOffer() {
+        return offer;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setOffer(Offer offer) {
+        this.offer = offer;
     }
 
     public String getDate() {
@@ -53,8 +55,8 @@ public class Purchase {
         this.code = code;
     }
 
-    public Purchase(Post post, String date, Person buyer, int totalPrice, int code) {
-        this.post = post;
+    public Purchase(Offer offer, String date, Person buyer, int totalPrice, int code) {
+        this.offer = offer;
         this.date = date;
         this.buyer = buyer;
         this.totalPrice = totalPrice;
@@ -62,7 +64,7 @@ public class Purchase {
     }
 
     public Purchase(){
-        this.post = null;
+        this.offer = null;
         this.date = "";
         this.buyer = null;
         this.totalPrice = 0;
@@ -72,7 +74,7 @@ public class Purchase {
     @Override
     public String toString() {
         return "Purchase: " +
-                "post=" + post +
+                "offer=" + offer +
                 ", date='" + date + '\'' +
                 ", buyer=" + buyer +
                 ", totalPrice=" + totalPrice + "price" + totalPrice;

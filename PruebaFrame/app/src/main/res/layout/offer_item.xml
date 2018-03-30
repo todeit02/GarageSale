@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
+android:paddingBottom="@dimen/activity_vertical_margin"
+android:background="@color/myAqua">
+
+<!-- Nombre -->
+<TextView
+    android:id="@+id/name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Nombre"
+    android:fontFamily="sans-serif-smallcaps"
+    android:textAllCaps="false"
+    android:textColor="@android:color/background_light"
+    android:layout_below="@+id/fecha"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="16dp" />
+
+<!-- Filtro -->
+<TextView
+    android:id="@+id/filtro"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:text="Filtro"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textColor="@color/accent" />
+
+<!-- Fecha -->
+<TextView
+    android:id="@+id/fecha"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Fecha"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="false"
+    android:layout_alignParentStart="false"
+    android:textColor="@android:color/black"
+    android:layout_toRightOf="@+id/imageView" />
+
+<!-- Precio -->
+<TextView
+    android:id="@+id/precio"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Precio"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:layout_marginTop="8dp"
+    android:layout_below="@+id/name"
+    android:textStyle="italic" />
+
+<!-- Icono para la fecha -->
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/imageView"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:src="@mipmap/calendar"
+    android:layout_marginRight="3dp" />
+
+    <Button
+        android:id="@+id/buttonPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quiero"
+        />
+
+</RelativeLayout>
