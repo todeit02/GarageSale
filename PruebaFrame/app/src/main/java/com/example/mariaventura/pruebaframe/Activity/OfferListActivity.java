@@ -1,5 +1,6 @@
 package com.example.mariaventura.pruebaframe.Activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
@@ -13,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-public class OfferListActivity extends AppCompatActivity
+public class OfferListActivity extends Activity
 {
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;

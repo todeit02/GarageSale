@@ -64,7 +64,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.OfferViewHol
      */
     @Override
     public void onItemClick(View view, int position) {
-        DetailActivity.launch(
+        OfferDetailActivity.launch(
                 (Activity) context, String.valueOf(items.get(position).getId()));
     }
 
