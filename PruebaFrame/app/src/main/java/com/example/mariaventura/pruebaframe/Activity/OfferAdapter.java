@@ -62,10 +62,11 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.OfferViewHol
      * @param view     item actual
      * @param position posición del item actual
      */
+
     @Override
     public void onItemClick(View view, int position) {
-        OfferDetailActivity.launch(
-                (Activity) context, String.valueOf(items.get(position).getId()));
+        //OfferDetailActivity.launch(
+                //(Activity) context, String.valueOf(items.get(position).getId()));
     }
 
 
