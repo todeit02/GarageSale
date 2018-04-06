@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="0"
+            android:background="@drawable/border_rounded">
+
+            <TextView
+                android:id="@+id/tv_activity_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:text="ActivityName"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_subarea_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/myAqua"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="3dp">
+
+
+            <ImageButton
+                android:id="@+id/imgbtn_sales"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:background="@drawable/border_left_rounded"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/dollar_to_user" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_purchases"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:background="@drawable/border"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/dollar_from_user" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_messages"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:background="@drawable/border"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/comments" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_personal_data"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:background="@drawable/border_right_rounded"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/user" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrv_submenu_contents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/myAqua"
+            android:fitsSystemWindows="true">
+
+        </ScrollView>
+
+    </LinearLayout>
+</RelativeLayout>

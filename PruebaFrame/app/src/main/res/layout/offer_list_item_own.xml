@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_offer_list_item_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2.5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="2.5dp"
+    android:background="@drawable/border_rounded"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <ImageSwitcher
+        android:id="@+id/imgsw_offer_item_photos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2.5dp"
+        android:layout_weight="1.2" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_offer_item_main_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2.5dp"
+        android:layout_weight="1.8"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_offer_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="0"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Título de la oferta"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+            <LinearLayout
+                android:id="@+id/ll_offer_state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/imgbtn_delete">
+
+                <TextView
+                    android:id="@+id/tv_product_condition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Condición: condición"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_offer_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Vendido: estado"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_bid_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ofertas: N"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imgbtn_delete"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:background="@drawable/border_rounded"
+                android:padding="5dp"
+                android:scaleType="fitXY"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:srcCompat="@mipmap/trash_alt" />
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_offer_item_current_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="PriceText"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

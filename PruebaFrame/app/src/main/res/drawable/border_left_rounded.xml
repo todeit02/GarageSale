@@ -11,4 +11,9 @@
         android:color="@color/black">
     </stroke>
 
+    <corners
+        android:topLeftRadius="5dp"
+        android:bottomLeftRadius="5dp">
+    </corners>
+
 </shape>

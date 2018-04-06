@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1.5dp"
-        android:background="@drawable/border"
+        android:background="@drawable/border_rounded"
         android:columnCount="2"
         android:rowCount="2">
 
@@ -20,13 +20,12 @@
             android:id="@+id/tvOfferDetailsOfferTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_column="0"
             android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="3dp"
             android:layout_marginStart="3dp"
             android:layout_marginTop="3dp"
-            android:layout_row="0"
             android:background="@color/white"
-            android:text="Cortacésped"
+            android:text="Título de la oferta"
             android:textAlignment="center"
             android:textColor="@color/black" />
 
@@ -34,11 +33,9 @@
             android:id="@+id/imgbtnOfferDetailsFavorite"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_column="1"
-            android:layout_row="0"
             android:layout_rowSpan="2"
             android:adjustViewBounds="true"
-            android:background="@drawable/border"
+            android:background="@drawable/border_rounded"
             android:contentDescription="Hacer favorito"
             android:padding="6.5dp"
             android:scaleType="fitXY"
@@ -48,10 +45,9 @@
             android:id="@+id/tvOfferDetailsOfferUsedState"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_column="0"
             android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="3dp"
             android:layout_marginStart="3dp"
-            android:layout_row="1"
             android:background="@color/white"
             android:text="estado"
             android:textAlignment="center"
@@ -68,62 +64,77 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
-        android:background="@drawable/border">
+        android:background="@drawable/border_rounded">
 
         <Button
             android:id="@+id/btn_offer_details_photos_prev"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="<" />
+            android:text="&lt;" />
 
         <ImageSwitcher
             android:id="@+id/imgsw_offer_details_photos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/btn_offer_details_photos_prev"></ImageSwitcher>
+            app:layout_constraintLeft_toRightOf="@+id/btn_offer_details_photos_prev">
+        </ImageSwitcher>
 
         <Button
             android:id="@+id/btn_offer_details_photos_next"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text=">"
+            android:text="&gt;"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/imgsw_offer_details_photos" />
     </android.support.constraint.ConstraintLayout>
 
-    <GridLayout
-        android:id="@+id/gl_offer_details_description_place"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1.5dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
-        android:background="@drawable/border"
-        android:columnCount="2"
-        android:rowCount="2">
+        android:background="@drawable/border_rounded"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_offer_details_description"
-            android:layout_column="0"
-            android:layout_row="0"
-            android:layout_rowSpan="2"
-            android:text="La descripción de la oferta es abc def ghijk. Abc def ghij klmn opqr. Def ghijkl mno pqrst uvw." />
+        <LinearLayout
+            android:id="@+id/ll_description_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/ll_offer_location"
+            app:layout_constraintRight_toLeftOf="@+id/ll_offer_location"
+            app:layout_constraintTop_toTopOf="@+id/ll_offer_location">
 
-        <TextView
-            android:id="@+id/tv_offer_details_location"
-            android:layout_column="1"
-            android:layout_row="0"
-            android:text="Ciudad\n(x,yz km)" />
+            <TextView
+                android:id="@+id/tv_offer_details_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="La descripción de la oferta es abc def ghijk. Abc def ghij klmn opqr. Def ghijkl mno pqrst uvw." />
+        </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/imgbtn_offer_details_map"
-            android:layout_column="1"
-            android:layout_row="1"
-            android:background="@drawable/border"
-            android:contentDescription="mostrar mapa"
-            android:src="@mipmap/map_marker" />
-    </GridLayout>
+        <LinearLayout
+            android:id="@+id/ll_offer_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tv_offer_details_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ciudad\n(x,yz km)" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_offer_details_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_rounded"
+                android:contentDescription="mostrar mapa"
+                android:src="@mipmap/map_marker" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <TableLayout
         android:id="@+id/tl_offer_details_time_price"
@@ -133,7 +144,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
-        android:background="@drawable/border"
+        android:background="@drawable/border_rounded"
         android:columnCount="2"
         android:gravity="center"
         android:rowCount="2">
@@ -173,7 +184,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
-        android:background="@drawable/border"
+        android:background="@drawable/border_rounded"
         android:clickable="true"
         android:columnCount="2"
         android:focusable="true"
