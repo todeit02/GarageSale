@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_personal_data_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/myAqua"
+    android:gravity="top|center_horizontal"
+    android:orientation="vertical"
+    android:padding="3dp">
+
+    <LinearLayout
+        android:id="@+id/ll_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1.5dp"
+        android:layout_marginTop="3dp"
+        android:layout_weight="0"
+        android:background="@drawable/border_rounded"
+        android:orientation="vertical"
+        android:padding="3dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl_title_switch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0">
+
+            <Button
+                android:id="@+id/btn_mrs"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@drawable/border_left_rounded"
+                android:text="Señora"
+                app:layout_constraintRight_toLeftOf="@+id/btn_mr" />
+
+            <Button
+                android:id="@+id/btn_mr"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@drawable/border"
+                android:text="Señor"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <Button
+                android:id="@+id/btn_indisclosed"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@drawable/border_right_rounded"
+                android:text="-"
+                app:layout_constraintLeft_toRightOf="@+id/btn_mr" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TableRow
+                android:id="@+id/tr_forename"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_forename"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="start"
+                    android:text="Nombre:"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_forename"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:inputType="text|textCapWords|textPersonName"
+                    android:textAlignment="viewStart" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tr_surname"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_surname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="start"
+                    android:text="Apellido(s):"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_surname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:inputType="text|textCapCharacters|textPersonName"
+                    android:textAlignment="viewStart" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tr_street_number"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_street_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="start"
+                    android:text="Calle y número:"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_street_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:inputType="text|textCapWords|textPostalAddress"
+                    android:textAlignment="viewStart" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tr_city"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="start"
+                    android:text="Ciudad:"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:inputType="text|textCapWords|textPostalAddress"
+                    android:textAlignment="viewStart" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tr_zipcode"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_zipcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="start"
+                    android:text="Código postal:"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_zipcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:inputType="number"
+                    android:textAlignment="viewStart" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tr_country"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="start"
+                    android:text="País:"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black" />
+
+                <Spinner
+                    android:id="@+id/sp_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/countries_es"
+                    android:layout_weight="1" />
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1.5dp"
+        android:layout_marginTop="1.5dp"
+        android:layout_weight="0"
+        android:background="@drawable/border_rounded"
+        android:orientation="vertical"
+        android:padding="3dp">
+
+        <TextView
+            android:id="@+id/tv_payment_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            tools:text="Si quieres ofrecer la posibilidad de pago por transferencia:" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow android:id="@+id/tr_account_holder">
+
+                <TextView
+                    android:id="@+id/tv_account_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Titular:"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_account_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text|textCapWords|textPersonName" />
+            </TableRow>
+
+            <TableRow android:id="@+id/tr_iban">
+
+                <TextView
+                    android:id="@+id/tv_iban"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="IBAN:"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_iban"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text|textCapCharacters|textNoSuggestions"
+                    android:text="ES" />
+            </TableRow>
+
+            <TableRow android:id="@+id/tr_bic">
+
+                <TextView
+                    android:id="@+id/tv_bic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="BIC:"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_bic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text|textCapCharacters|textNoSuggestions" />
+            </TableRow>
+
+                <ToggleButton
+                    android:id="@+id/tgbtn_payment_enable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="ToggleButton"
+                    android:textOff="inactivo"
+                    android:textOn="activo" />
+        </TableLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/imgbtn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/border_rounded"
+        android:padding="3dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/save"
+        app:srcCompat="@mipmap/save" />
+</LinearLayout>
