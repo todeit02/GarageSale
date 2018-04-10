@@ -1,0 +1,20 @@
+Sources
+=======
+
+Images
+------
+
+camera.svg -> fontawesome.com/icons
+gavel.svg -> fontawesome.com/icons
+search.svg -> fontawesome.com/icons
+upload.svg -> fontawesome.com/icons
+comments.svg -> fontawesome.com/icons
+long-arrow-alt-right.svg -> fontawesome.com/icons
+shopping-cart.svg -> fontawesome.com/icons
+user.svg -> fontawesome.com/icons
+dollar-sign.svg -> fontawesome.com/icons
+map-marker.svg -> fontawesome.com/icons
+star.svg -> fontawesome.com/icons
+envelope.svg -> fontawesome.com/icons
+save.svg -> fontawesome.com/icons
+trash_alt.svg -> fontawesome.com/icons
