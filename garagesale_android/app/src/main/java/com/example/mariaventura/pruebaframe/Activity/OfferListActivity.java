@@ -68,9 +68,6 @@ public class OfferListActivity extends Activity
             TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
             inflatedOfferItemTitle.setId(R.id.tv_offer_item_title + i + 1);
 
-            LinearLayout inflatedOfferItemTexts = inflatedOffer.findViewById(R.id.ll_offer_item_texts);
-            inflatedOfferItemTexts.setId(R.id.ll_offer_item_texts + i + 101);
-
             TextView inflatedOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
             inflatedOfferItemPrice.setId(R.id.tv_offer_item_price + i + 10001);
 
