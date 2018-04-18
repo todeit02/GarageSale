@@ -10,4 +10,3 @@ public interface IOffersConsumer
 {
     void consume(Offer[] offers);
 }
-

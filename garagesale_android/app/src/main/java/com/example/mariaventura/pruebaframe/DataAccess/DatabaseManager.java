@@ -29,7 +29,7 @@ public class DatabaseManager
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                Constantes.GET,
+                                Constantes.GET_ALL_OFFERS,
                                 (String)null,
                                 new Response.Listener<JSONObject>() {
 
@@ -66,6 +66,56 @@ public class DatabaseManager
                 case failResponse:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void checkLoginCredentials(Activity callingActivity, final String username, final String password, final ILoginResponseConsumer callback)
+    {
+        VolleySingleton.
+                getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.GET,
+                                String.format(Constantes.GET_LOGIN_VALID + "?username=\"%1$s\"&password=\"%2$s\"", username, password),
+                                (String)null,
+                                new Response.Listener<JSONObject>() {
+
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        processLoginResponse(response, username, password, callback);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                    }
+                                }
+                        )
+                );
+    }
+
+    private static void processLoginResponse(JSONObject response, final String username, final String password, final ILoginResponseConsumer callback) {
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    boolean isLoginValid = response.getBoolean("isLoginValid");
+                    System.out.println("Message: " + isLoginValid);
+                    callback.consume(isLoginValid, username, password);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    callback.consume(false, username, password);
                     break;
             }
 

@@ -131,7 +131,7 @@ public class UpdateFragment extends Fragment {
      */
     private void cargarDatos() {
         // Añadiendo idMeta como parámetro a la URL
-        String newURL = Constantes.GET_BY_ID + "?code=" + code;
+        String newURL = Constantes.GET_OFFER_BY_ID + "?code=" + code;
 
         // Consultar el detalle de la meta
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(
@@ -143,7 +143,7 @@ public class UpdateFragment extends Fragment {
 
                             @Override
                             public void onResponse(JSONObject response) {
-                                // Procesa la respuesta GET_BY_ID
+                                // Procesa la respuesta GET_OFFER_BY_ID
                                 procesarRespuestaGet(response);
                             }
                         },
@@ -329,7 +329,7 @@ public class UpdateFragment extends Fragment {
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(
                 new JsonObjectRequest(
                         Request.Method.POST,
-                        Constantes.UPDATE,
+                        Constantes.UPDATE_OFFER,
                         jobject,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -379,7 +379,7 @@ public class UpdateFragment extends Fragment {
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(
                 new JsonObjectRequest(
                         Request.Method.POST,
-                        Constantes.DELETE,
+                        Constantes.DELETE_OFFER,
                         jobject,
                         new Response.Listener<JSONObject>() {
                             @Override

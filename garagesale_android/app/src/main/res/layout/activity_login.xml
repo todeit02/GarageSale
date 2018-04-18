@@ -29,7 +29,7 @@
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />
 
-        <!--  Email Label -->
+        <!--  User Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,11 +37,10 @@
             android:layout_marginBottom="8dp">
 
             <EditText
-                android:id="@+id/input_email"
+                android:id="@+id/input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
+                android:hint="Usuario"
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 

@@ -1,8 +1,11 @@
 package com.example.mariaventura.pruebaframe.Activity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.*;
 
 import com.example.mariaventura.pruebaframe.DataAccess.DatabaseManager;
@@ -34,6 +37,10 @@ public class OfferListActivity extends Activity
                 createOfferViews(offers);
             }
         });
+
+        SharedPreferences sp1=this.getSharedPreferences("login", MODE_PRIVATE);
+
+       Log.d(this.getClass().getSimpleName(), sp1.getString("username", null));
     }
 
     private void createOfferViews(Offer[] creatingOffers)
@@ -56,25 +63,6 @@ public class OfferListActivity extends Activity
 
             linearLayout.addView(inflatedOffer);
             idOffset++;
-        }
-    }
-
-    private void createDummyItems()
-    {
-        for (int i = 0; i < 16; i++) {
-            View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
-            inflatedOffer.setId(R.layout.offer_list_item + i + 1);
-
-            TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
-            inflatedOfferItemTitle.setId(R.id.tv_offer_item_title + i + 1);
-
-            TextView inflatedOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
-            inflatedOfferItemPrice.setId(R.id.tv_offer_item_price + i + 10001);
-
-            inflatedOfferItemTitle.setText("Título de la oferta " + (i + 1));
-            inflatedOfferItemPrice.setText("" + (13.07 * (i + 1)) + getString(R.string.currency));
-
-            linearLayout.addView(inflatedOffer);
         }
     }
 }

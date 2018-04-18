@@ -1,6 +1,8 @@
 package com.example.mariaventura.pruebaframe.Activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,16 +14,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mariaventura.pruebaframe.DataAccess.DatabaseManager;
+import com.example.mariaventura.pruebaframe.DataAccess.ILoginResponseConsumer;
+import com.example.mariaventura.pruebaframe.DataAccess.IOffersConsumer;
 import com.example.mariaventura.pruebaframe.R;
+import com.example.mariaventura.pruebaframe.Src.Offer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private ProgressDialog progressDialog = null;
 
-    @BindView(R.id.input_email) EditText _emailText;
+    @BindView(R.id.input_username) EditText _usernameText;
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) Button _loginButton;
     @BindView(R.id.link_signup) TextView _signupLink;
@@ -32,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // REMOVE in production.
-        boolean debug_loginIsJumped = true;
+        boolean debug_loginIsJumped = false;
         if(debug_loginIsJumped)
         {
             continueToMainActivity();
@@ -66,23 +73,44 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         Log.d(TAG, "Login");
 
-        if (!validate()) {
-            onLoginFailed();
-            return;
-        }
-
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
+        progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Autentificando...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
+        String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
+        DatabaseManager.checkLoginCredentials(this, username, password, new ILoginResponseConsumer() {
+            @Override
+            public void consume(boolean areCredentialsValid, String username, String password) {
+                onLoginResponse(areCredentialsValid, username, password);
+            }
+        });
+    }
+
+    private void onLoginResponse(boolean areCredentialsValid, String username, String password)
+    {
+        progressDialog.dismiss();
+
+        if(!areCredentialsValid)
+        {
+            onLoginFailed();
+            return;
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
+        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+        sharedPreferencesEditor.putString("username", username);
+        sharedPreferencesEditor.commit();
+
+        onLoginSuccess();
+
+        /*
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -93,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+                */
     }
 
 
@@ -128,14 +157,16 @@ public class LoginActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        String email = _emailText.getText().toString();
+        String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+        if (username.isEmpty())
+        {
+            _usernameText.setError("enter a user name");
             valid = false;
-        } else {
-            _emailText.setError(null);
+        }
+        else {
+            _usernameText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {

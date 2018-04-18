@@ -104,13 +104,13 @@ public class MainFragment extends Fragment {
      * en la respuesta
      */
     public void loadAdapter() {
-        // Petición GET
+        // Petición GET_ALL_OFFERS
         VolleySingleton.
                 getInstance(getActivity()).
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                Constantes.GET,
+                                Constantes.GET_ALL_OFFERS,
                                 (String)null,
                                 new Response.Listener<JSONObject>() {
 

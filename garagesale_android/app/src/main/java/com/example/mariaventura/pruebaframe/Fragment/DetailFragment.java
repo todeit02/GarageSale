@@ -106,9 +106,9 @@ public class DetailFragment extends Fragment {
     public void cargarDatos() {
 
         // Añadir parámetro a la URL del web service
-        String newURL = Constantes.GET_BY_ID + "?code=" + extra;
+        String newURL = Constantes.GET_OFFER_BY_ID + "?code=" + extra;
 
-        // Realizar petición GET_BY_ID
+        // Realizar petición GET_OFFER_BY_ID
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(
                 new JsonObjectRequest(
                         Request.Method.GET,

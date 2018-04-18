@@ -30,11 +30,12 @@ public class Constantes {
     /**
      * URLs del Web Service
      */
-    public static final String GET = PROTOCOL + IP + "/offer/get_offer.php";
-    public static final String GET_BY_ID = PROTOCOL + IP + "/offer/get_offer_details.php";
-    public static final String UPDATE = PROTOCOL + IP + "/offer/update_offer.php";
-    public static final String DELETE = PROTOCOL + IP + "/offer/delete_offer.php";
-    public static final String INSERT = PROTOCOL + IP + "/offer/insert_offer.php";
+    public static final String GET_ALL_OFFERS = PROTOCOL + IP + "/offer/get_offer.php";
+    public static final String GET_OFFER_BY_ID = PROTOCOL + IP + "/offer/get_offer_details.php";
+    public static final String UPDATE_OFFER = PROTOCOL + IP + "/offer/update_offer.php";
+    public static final String DELETE_OFFER = PROTOCOL + IP + "/offer/delete_offer.php";
+    public static final String INSERT_OFFER = PROTOCOL + IP + "/offer/insert_offer.php";
+    public static final String GET_LOGIN_VALID = PROTOCOL + IP + "/person/get_login_valid.php";
 
     /**
      * Clave para el valor extra que representa al identificador de una oferta
