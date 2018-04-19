@@ -35,14 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.OfferListActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.SignupActivity" />
+        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.OfferListActivity" />
+        <activity android:name=".Activity.OfferCreationActivity" />
         <activity android:name=".Activity.OfferDetailActivity" />
-        <activity
-            android:name=".Activity.InsertActivity"
-            android:label="@string/title_activity_insert"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

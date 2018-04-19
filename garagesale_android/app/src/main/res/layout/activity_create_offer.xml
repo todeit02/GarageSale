@@ -9,7 +9,7 @@
     android:background="@color/myAqua">
 
     <TextView
-        android:id="@+id/tvActivityName"
+        android:id="@+id/tv_activity_name"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_gravity="center"
@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvActivityName">
+        app:layout_constraintTop_toBottomOf="@+id/tv_activity_name">
 
         <LinearLayout
             android:id="@+id/ll_scroll_content"

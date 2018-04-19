@@ -10,7 +10,6 @@ import android.view.MenuItem;
 
 import com.example.mariaventura.pruebaframe.DataAccess.Constantes;
 import com.example.mariaventura.pruebaframe.R;
-import com.example.mariaventura.pruebaframe.Fragment.*;
 
 public class OfferDetailActivity extends Activity {
 

@@ -1,10 +1,10 @@
 package com.example.mariaventura.pruebaframe.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Debug;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.*;
 
@@ -21,6 +21,7 @@ public class OfferListActivity extends Activity
 {
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;
+    private FloatingActionButton buttonAddOffer = null;
 
 
     @Override
@@ -28,8 +29,9 @@ public class OfferListActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_list);
 
-        linearLayout = (LinearLayout)findViewById(R.id.offerListContent);
+        linearLayout = (LinearLayout)findViewById(R.id.offer_list_content);
         linearLayoutInflater = LayoutInflater.from(this);
+        buttonAddOffer = findViewById(R.id.fab_add_offer);
 
         DatabaseManager.loadOffers(this, new IOffersConsumer() {
             @Override
@@ -38,9 +40,16 @@ public class OfferListActivity extends Activity
             }
         });
 
-        SharedPreferences sp1=this.getSharedPreferences("login", MODE_PRIVATE);
+        buttonAddOffer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent createOfferActivityIntent = new Intent(getApplicationContext(), OfferCreationActivity.class);
+                startActivity(createOfferActivityIntent);
+            }
+        });
 
-       Log.d(this.getClass().getSimpleName(), sp1.getString("username", null));
+        SharedPreferences sharedPreferences = this.getSharedPreferences("login", MODE_PRIVATE);
+        Log.d(this.getClass().getSimpleName(), sharedPreferences.getString("username", null));
     }
 
     private void createOfferViews(Offer[] creatingOffers)
