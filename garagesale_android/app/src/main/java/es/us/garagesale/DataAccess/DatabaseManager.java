@@ -1,4 +1,4 @@
-package com.example.mariaventura.pruebaframe.DataAccess;
+package es.us.garagesale.DataAccess;
 
 import android.app.Activity;
 import android.util.Log;
@@ -7,7 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.mariaventura.pruebaframe.Src.Offer;
+import es.us.garagesale.Src.Offer;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;

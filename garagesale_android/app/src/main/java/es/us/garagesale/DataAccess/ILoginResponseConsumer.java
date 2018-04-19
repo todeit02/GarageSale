@@ -1,4 +1,4 @@
-package com.example.mariaventura.pruebaframe.DataAccess;
+package es.us.garagesale.DataAccess;
 
 /**
  * Created by Tobias on 18/04/2018.

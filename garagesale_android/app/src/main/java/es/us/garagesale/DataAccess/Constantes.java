@@ -1,4 +1,4 @@
-package com.example.mariaventura.pruebaframe.DataAccess;
+package es.us.garagesale.DataAccess;
 
 /**
  * Clase que contiene los códigos usados en "I Wish" para

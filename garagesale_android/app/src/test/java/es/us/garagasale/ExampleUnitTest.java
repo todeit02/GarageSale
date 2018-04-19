@@ -1,4 +1,4 @@
-package com.example.mariaventura.pruebaframe;
+package es.us.garagasale;
 
 import org.junit.Test;
 

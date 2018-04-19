@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mariaventura.pruebaframe">
+    package="es.us.garagesale">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -28,18 +28,18 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.example" />
 
-        <activity android:name=".Activity.SplashScreen">
+        <activity android:name="es.us.garagesale.Activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.SignupActivity" />
-        <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.OfferListActivity" />
-        <activity android:name=".Activity.OfferCreationActivity" />
-        <activity android:name=".Activity.OfferDetailActivity" />
+        <activity android:name="es.us.garagesale.Activity.SignupActivity" />
+        <activity android:name="es.us.garagesale.Activity.LoginActivity" />
+        <activity android:name="es.us.garagesale.Activity.OfferListActivity" />
+        <activity android:name="es.us.garagesale.Activity.OfferCreationActivity" />
+        <activity android:name="es.us.garagesale.Activity.OfferDetailActivity" />
     </application>
 
 </manifest>

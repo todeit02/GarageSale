@@ -1,15 +1,12 @@
-package com.example.mariaventura.pruebaframe.Activity;
+package es.us.garagesale.Activity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.example.mariaventura.pruebaframe.DataAccess.Constantes;
-import com.example.mariaventura.pruebaframe.R;
+import android.app.Activity;
+import android.os.Bundle;
+
+import es.us.garagesale.R;
+
 
 public class OfferDetailActivity extends Activity {
 

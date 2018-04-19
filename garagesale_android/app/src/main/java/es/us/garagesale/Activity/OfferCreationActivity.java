@@ -1,9 +1,9 @@
-package com.example.mariaventura.pruebaframe.Activity;
+package es.us.garagesale.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.example.mariaventura.pruebaframe.R;
+import es.us.garagesale.R;
 
 /**
  * Created by Tobias on 18/04/2018.

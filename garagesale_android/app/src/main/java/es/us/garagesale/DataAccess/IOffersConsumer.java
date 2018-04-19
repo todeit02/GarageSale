@@ -1,6 +1,6 @@
-package com.example.mariaventura.pruebaframe.DataAccess;
+package es.us.garagesale.DataAccess;
 
-import com.example.mariaventura.pruebaframe.Src.Offer;
+import es.us.garagesale.Src.Offer;
 
 /**
  * Created by Tobias on 25/03/2018.

@@ -1,4 +1,4 @@
-package com.example.mariaventura.pruebaframe.Activity;
+package es.us.garagesale.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,13 +8,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.*;
 
-import com.example.mariaventura.pruebaframe.DataAccess.DatabaseManager;
-import com.example.mariaventura.pruebaframe.DataAccess.IOffersConsumer;
-import com.example.mariaventura.pruebaframe.R;
-import com.example.mariaventura.pruebaframe.Src.Offer;
+import es.us.garagesale.DataAccess.DatabaseManager;
+import es.us.garagesale.DataAccess.IOffersConsumer;
+import es.us.garagesale.Src.Offer;
 
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import es.us.garagesale.R;
 
 
 public class OfferListActivity extends Activity

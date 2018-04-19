@@ -1,4 +1,4 @@
-package com.example.mariaventura.pruebaframe;
+package es.us.garagasale.pruebaframe;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

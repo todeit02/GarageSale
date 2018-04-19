@@ -1,8 +1,7 @@
-package com.example.mariaventura.pruebaframe.Src;
+package es.us.garagesale.Src;
 
 import com.orm.SugarRecord;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

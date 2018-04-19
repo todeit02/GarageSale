@@ -1,4 +1,4 @@
-package com.example.mariaventura.pruebaframe.Activity;
+package es.us.garagesale.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,8 +6,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ImageView;
-
-import com.example.mariaventura.pruebaframe.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,9 +22,9 @@ public class SplashScreen extends Activity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-            setContentView(R.layout.activity_splash_screen);
+            setContentView(es.us.garagesale.R.layout.activity_splash_screen);
 
-            ImageView demoImage = (ImageView)findViewById(R.id.logo);
+            ImageView demoImage = (ImageView)findViewById(es.us.garagesale.R.id.logo);
             demoImage.getLayoutParams().height = 500;
             demoImage.getLayoutParams().width = 500;
 

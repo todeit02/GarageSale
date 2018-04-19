@@ -1,10 +1,9 @@
-package com.example.mariaventura.pruebaframe.Activity;
+package es.us.garagesale.Activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import android.content.Intent;
@@ -14,11 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mariaventura.pruebaframe.DataAccess.DatabaseManager;
-import com.example.mariaventura.pruebaframe.DataAccess.ILoginResponseConsumer;
-import com.example.mariaventura.pruebaframe.DataAccess.IOffersConsumer;
-import com.example.mariaventura.pruebaframe.R;
-import com.example.mariaventura.pruebaframe.Src.Offer;
+import es.us.garagesale.DataAccess.DatabaseManager;
+import es.us.garagesale.DataAccess.ILoginResponseConsumer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,10 +24,10 @@ public class LoginActivity extends Activity {
     private static final int REQUEST_SIGNUP = 0;
     private ProgressDialog progressDialog = null;
 
-    @BindView(R.id.input_username) EditText _usernameText;
-    @BindView(R.id.input_password) EditText _passwordText;
-    @BindView(R.id.btn_login) Button _loginButton;
-    @BindView(R.id.link_signup) TextView _signupLink;
+    @BindView(es.us.garagesale.R.id.input_username) EditText _usernameText;
+    @BindView(es.us.garagesale.R.id.input_password) EditText _passwordText;
+    @BindView(es.us.garagesale.R.id.btn_login) Button _loginButton;
+    @BindView(es.us.garagesale.R.id.link_signup) TextView _signupLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -46,7 +42,7 @@ public class LoginActivity extends Activity {
             return;
         }
 
-        setContentView(R.layout.activity_login);
+        setContentView(es.us.garagesale.R.layout.activity_login);
         ButterKnife.bind(this);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +58,10 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                Intent intent = new Intent(getApplicationContext(), es.us.garagesale.Activity.SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                overridePendingTransition(es.us.garagesale.R.anim.push_left_in, es.us.garagesale.R.anim.push_left_out);
             }
         });
     }
@@ -76,7 +72,7 @@ public class LoginActivity extends Activity {
         _loginButton.setEnabled(false);
 
         progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+                es.us.garagesale.R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Autentificando...");
         progressDialog.show();
@@ -181,7 +177,7 @@ public class LoginActivity extends Activity {
 
     private void continueToMainActivity()
     {
-        Intent intent = new Intent(LoginActivity.this, OfferListActivity.class);
+        Intent intent = new Intent(LoginActivity.this, es.us.garagesale.Activity.OfferListActivity.class);
         startActivity(intent);
         finish();
     }
