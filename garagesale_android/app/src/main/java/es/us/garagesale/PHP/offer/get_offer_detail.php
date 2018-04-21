@@ -1,28 +1,29 @@
 <?php
 /**
  * Obtiene el detalle de una oferta especificado por
- * su identificador "idCode"
+ * su identificador "id"
  */
 
-require 'offer_crud.php';
+require_once ('offer_crud.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if (isset($_GET['idCode'])) {
+    if (isset($_GET['id'])) {
 
-        // Obtener parámetro idMeta
-        $parametro = $_GET['idCode'];
+        // Obtener parámetro id
+        $parametro = $_GET['id'];
+
 
         // Tratar retorno
-        $retorno = Meta::getById($parametro);
+        $retorno = getById($parametro);
 
 
         if ($retorno) {
 
             $offer["estado"] = "1";
             $offer["offer"] = $retorno;
-            // Enviar objeto json de la meta
-            print json_encode($meta);
+            // Enviar objeto json de la oferta
+            print json_encode($offer);
         } else {
             // Enviar respuesta de error general
             print json_encode(

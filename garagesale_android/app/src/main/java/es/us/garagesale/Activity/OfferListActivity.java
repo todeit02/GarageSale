@@ -57,10 +57,14 @@ public class OfferListActivity extends Activity
     {
         int idOffset = 1;
 
-        for(Offer creatingOffer : creatingOffers)
+        for(final Offer creatingOffer : creatingOffers)
         {
+
+
             View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
             inflatedOffer.setId(R.layout.offer_list_item + idOffset);
+
+
 
             TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
             inflatedOfferItemTitle.setId(R.id.tv_offer_item_title + idOffset*(100 + 1));
@@ -70,6 +74,15 @@ public class OfferListActivity extends Activity
 
             inflatedOfferItemTitle.setText(creatingOffer.getName());
             inflatedOfferItemPrice.setText("" + creatingOffer.getPrice() + getString(R.string.currency));
+
+            inflatedOffer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent createOfferDetailActivityIntent = new Intent(getApplicationContext(), OfferDetailActivity.class);
+                    createOfferDetailActivityIntent.putExtra("id", creatingOffer.getId());
+                    startActivity(createOfferDetailActivityIntent);
+                }
+            });
 
             linearLayout.addView(inflatedOffer);
             idOffset++;
