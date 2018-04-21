@@ -2,11 +2,14 @@ package es.us.garagesale.DataAccess;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+
+import es.us.garagesale.R;
 import es.us.garagesale.Src.Offer;
 import com.google.gson.Gson;
 
@@ -22,6 +25,7 @@ public class DatabaseManager
 {
     private static final String successResponse = "1";
     private static final String failResponse = "2";
+Activity aux;
 
     public static void loadOffers(Activity callingActivity, final IOffersConsumer callback) {
         VolleySingleton.
@@ -74,6 +78,7 @@ public class DatabaseManager
                         )
                 );
     }
+
 
     private static void processOffersResponse(JSONObject response, final IOffersConsumer callback) {
         try {

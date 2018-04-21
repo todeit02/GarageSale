@@ -15,15 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         // Tratar retorno
-        $retorno = getById($parametro);
+        $retorno = OfferCrud::getById($parametro);
 
 
         if ($retorno) {
 
-            $offer["estado"] = "1";
-            $offer["offer"] = $retorno;
+            $datos["estado"] = "1";
+            $datos["offer"] = $retorno;
             // Enviar objeto json de la oferta
-            print json_encode($offer);
+            print json_encode($datos);
         } else {
             // Enviar respuesta de error general
             print json_encode(
@@ -44,3 +44,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         );
     }
 }
+?>
