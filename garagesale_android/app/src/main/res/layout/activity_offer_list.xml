@@ -35,10 +35,11 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:autoSizeTextType="uniform"
-                android:background="@drawable/border"
+                android:background="@color/myLightAqua"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="Ofertas"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/base" />
 
             <ImageButton
                 android:id="@+id/imgbtn_personal_area"

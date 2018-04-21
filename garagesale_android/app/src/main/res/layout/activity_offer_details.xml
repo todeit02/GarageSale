@@ -43,19 +43,6 @@
             android:scaleType="fitXY"
             android:src="@mipmap/star" />
 
-        <TextView
-            android:id="@+id/tvOfferDetailsOfferUsedState"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp"
-            android:background="@color/white"
-            android:text="estado"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/tvOfferDetailsOfferTitle"
-            tools:layout_editor_absoluteX="26dp" />
     </GridLayout>
 
     <LinearLayout

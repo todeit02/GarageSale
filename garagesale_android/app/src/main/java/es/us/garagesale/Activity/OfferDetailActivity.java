@@ -15,6 +15,7 @@ public class OfferDetailActivity extends Activity {
 
     private int selectedOfferId;
     TextView title;
+    TextView detail;
     private Offer offer;
 
     @Override
@@ -23,8 +24,9 @@ public class OfferDetailActivity extends Activity {
         setContentView(R.layout.activity_offer_details);
 
         title = findViewById(R.id.tvOfferDetailsOfferUsedState);
+        detail = findViewById(R.id.tv_offer_details_description);
         selectedOfferId = getIntent().getIntExtra("id", 0);
-        
+
         DatabaseManager.loadOffer(selectedOfferId, this, new IOfferConsumer() {
             @Override
             public void consume(Offer receivedOffer) {
@@ -36,6 +38,7 @@ public class OfferDetailActivity extends Activity {
 
     private void displayOffer(Offer received){
         title.setText(received.getName());
+        detail.setText(received.getDescription());
     }
    //FALTAN SETEAR MAS COSAS..
 
