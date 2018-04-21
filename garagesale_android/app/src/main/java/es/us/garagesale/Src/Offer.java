@@ -15,7 +15,7 @@ public class Offer {
     private String description;
     private float price;
     private ArrayList<String> tags;
-    private Timestamp timestamp;
+    private Timestamp publishDate2;
     private boolean sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
     private Seller seller;
     private ArrayList<Person> interested;
@@ -52,10 +52,10 @@ public class Offer {
     }
 
     public Timestamp getTimestamp() {
-        return timestamp;
+        return publishDate2;
     }
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setTimestamp(Timestamp publishDate) {
+        this.publishDate2 = publishDate;
     }
 
     public boolean isSold() {
@@ -84,7 +84,7 @@ public class Offer {
         this.description = description;
         this.price = price;
         this.tags = tags;
-        this.timestamp = timestamp;
+        this.publishDate2 = timestamp;
         this.sold = sold;
         this.seller = seller;
         this.interested = interested;
@@ -96,7 +96,7 @@ public class Offer {
         this.description = "";
         this.price = 0;
         this.tags = new ArrayList<String>();
-        this.timestamp = null;
+        this.publishDate2 = null;
         this.sold = false;
         this.seller = null;
         this.interested = new ArrayList<Person>();
@@ -110,7 +110,7 @@ public class Offer {
                 ", description=" + description + '\'' +
                 ", price=" + price +
                 ", tags=" + tags +
-                ", timestamp='" + timestamp + '\'' +
+                ", timestamp='" + publishDate2 + '\'' +
                 ", sold=" + sold +
                 ", seller=" + seller +
                 ", interested=" + interested;
