@@ -11,8 +11,12 @@ import es.us.garagesale.R;
 import es.us.garagesale.Src.Offer;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Period;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class OfferDetailActivity extends Activity {
@@ -48,24 +52,12 @@ public class OfferDetailActivity extends Activity {
     private void displayOffer(Offer received){
         title.setText(received.getName());
         detail.setText(received.getDescription());
-       // calculateRemainingTime(received); ACA SE ROMPE POR EL TIMESTAMP
-    }
-
-    private void calculateRemainingTime(Offer received){
-        String str = received.getTimestamp().toString();
-        String[] splitStr = str.trim().split("\\s+");
-        String date = splitStr[0];
-        String aux[] = splitStr[1].split(":");
-        String hour = aux[0];
-
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Calendar cal = Calendar.getInstance();
-        System.out.println(dateFormat.format(cal));
-
-        //ACA TENGO QUE HACER EL CALCULO DE HORAS RESTANTES
+        state.setText(received.getState());
+        remainingTime.setText(received.calculateRemainingTime()+" horas");
 
     }
+
+
 
 }
 

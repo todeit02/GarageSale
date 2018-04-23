@@ -2,7 +2,12 @@ package es.us.garagesale.Src;
 
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by mariaventura on 7/3/18.
@@ -15,11 +20,14 @@ public class Offer {
     private String description;
     private float price;
     private ArrayList<String> tags;
-    private Timestamp publishDate2;
+    private String publishDate;
+    private String endTime;
     private boolean sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
     private Seller seller;
     private ArrayList<Person> interested;
     private int id;
+    private String state;
+    private int activePeriod;
     private ArrayList<String> photoPaths;
     //poner galeria de fotos
 
@@ -51,11 +59,48 @@ public class Offer {
         this.tags = tags;
     }
 
-    public Timestamp getTimestamp() {
-        return publishDate2;
+    public String getPublishDate() {
+        return publishDate;
     }
-    public void setTimestamp(Timestamp publishDate) {
-        this.publishDate2 = publishDate;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getActivePeriod() {
+        return activePeriod;
+    }
+
+    public void setActivePeriod(int activePeriod) {
+        this.activePeriod = activePeriod;
+    }
+
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTimestamp() {
+        return publishDate;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setTimestamp(String publishDate) {
+        this.publishDate = publishDate;
     }
 
     public boolean isSold() {
@@ -79,12 +124,12 @@ public class Offer {
         return id;
     }
 
-    public Offer(String name, String description, float price, ArrayList<String> tags, Timestamp timestamp, boolean sold, Seller seller, ArrayList<Person> interested) {
+    public Offer(String name, String description, float price, ArrayList<String> tags, String timestamp, boolean sold, Seller seller, ArrayList<Person> interested) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.tags = tags;
-        this.publishDate2 = timestamp;
+        this.publishDate = timestamp;
         this.sold = sold;
         this.seller = seller;
         this.interested = interested;
@@ -96,7 +141,7 @@ public class Offer {
         this.description = "";
         this.price = 0;
         this.tags = new ArrayList<String>();
-        this.publishDate2 = null;
+        this.publishDate = null;
         this.sold = false;
         this.seller = null;
         this.interested = new ArrayList<Person>();
@@ -110,7 +155,7 @@ public class Offer {
                 ", description=" + description + '\'' +
                 ", price=" + price +
                 ", tags=" + tags +
-                ", timestamp='" + publishDate2 + '\'' +
+                ", timestamp='" + publishDate + '\'' +
                 ", sold=" + sold +
                 ", seller=" + seller +
                 ", interested=" + interested;
@@ -124,6 +169,37 @@ public class Offer {
         Offer offer = (Offer) o;
 
         return id == offer.id;
+    }
+
+
+
+    //hacer funcion para filtrar las ofertas validas.
+
+    public int calculateRemainingTime(){
+        Offer received = this;
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date offerDate = null;
+        try {
+            offerDate = format.parse(received.getTimestamp());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(offerDate);
+        cal.add(Calendar.DATE, received.getActivePeriod());
+        Date updatedDate = cal.getTime();
+        Date today = new Date();
+        long secs = (updatedDate.getTime() - today.getTime()) / 1000;
+        int hours = (int)secs / 3600;
+
+        return hours < 0 ? 0 : hours;
+    }
+
+    public boolean isValid(){
+        int hours = calculateRemainingTime();
+        if(hours<0) return false;
+        return true;
     }
 
 }

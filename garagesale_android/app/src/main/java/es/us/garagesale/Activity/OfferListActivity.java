@@ -56,36 +56,44 @@ public class OfferListActivity extends Activity
     private void createOfferViews(Offer[] creatingOffers)
     {
         int idOffset = 1;
+        int length = 0;
 
         for(final Offer creatingOffer : creatingOffers)
         {
 
+            if(creatingOffer.isValid()) {
 
-            View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
-            inflatedOffer.setId(R.layout.offer_list_item + idOffset);
+                length++;
+
+                View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
+                inflatedOffer.setId(R.layout.offer_list_item + idOffset);
 
 
+                TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
+                inflatedOfferItemTitle.setId(R.id.tv_offer_item_title + idOffset * (100 + 1));
 
-            TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
-            inflatedOfferItemTitle.setId(R.id.tv_offer_item_title + idOffset*(100 + 1));
+                TextView inflatedOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
+                inflatedOfferItemPrice.setId(R.id.tv_offer_item_price + idOffset * (10000 + 1));
 
-            TextView inflatedOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
-            inflatedOfferItemPrice.setId(R.id.tv_offer_item_price + idOffset*(10000 + 1));
+                inflatedOfferItemTitle.setText(creatingOffer.getName());
+                inflatedOfferItemPrice.setText("" + creatingOffer.getPrice() + getString(R.string.currency));
 
-            inflatedOfferItemTitle.setText(creatingOffer.getName());
-            inflatedOfferItemPrice.setText("" + creatingOffer.getPrice() + getString(R.string.currency));
+                inflatedOffer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent createOfferDetailActivityIntent = new Intent(getApplicationContext(), OfferDetailActivity.class);
+                        createOfferDetailActivityIntent.putExtra("id", creatingOffer.getId());
+                        startActivity(createOfferDetailActivityIntent);
+                    }
+                });
 
-            inflatedOffer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent createOfferDetailActivityIntent = new Intent(getApplicationContext(), OfferDetailActivity.class);
-                    createOfferDetailActivityIntent.putExtra("id", creatingOffer.getId());
-                    startActivity(createOfferDetailActivityIntent);
-                }
-            });
+                linearLayout.addView(inflatedOffer);
+                idOffset++;
+            }
+        }
 
-            linearLayout.addView(inflatedOffer);
-            idOffset++;
+        if(length==0 || creatingOffers.length==0){
+            //Mostrar mensaje :"No hay ofertas disponibles"
         }
     }
 }
