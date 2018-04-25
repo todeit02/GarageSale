@@ -124,5 +124,10 @@ public class DatabaseManager
         }
     }
 
+    public static void createOffer(Offer creatingOffer)
+    {
+
+    }
+
     private DatabaseManager(){};
 }

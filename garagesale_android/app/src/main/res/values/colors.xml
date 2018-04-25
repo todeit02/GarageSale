@@ -24,4 +24,6 @@
     <color name="button_background">#FFFFFF</color>
     <color name="button_background_group_selected">#FFFFFF</color>
     <color name="button_background_group_unselected">#A0A0A0</color>
+
+    <color name="invalid_input">#FF0000</color>
 </resources>

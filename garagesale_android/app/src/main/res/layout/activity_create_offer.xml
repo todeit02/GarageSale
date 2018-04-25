@@ -76,7 +76,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_group_left_selected_background"
-                        android:text="nuevo"
+                        android:text="@string/offer_condition_new"
                         android:textSize="18sp" />
 
                     <Button
@@ -85,7 +85,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_group_middle_unselected_background"
-                        android:text="casi nuevo"
+                        android:text="@string/offer_condition_nearly_new"
                         android:textSize="18sp" />
 
                     <Button
@@ -94,7 +94,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_group_middle_unselected_background"
-                        android:text="usado"
+                        android:text="@string/offer_condition_used"
                         android:textSize="18sp" />
 
                     <Button
@@ -103,7 +103,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_group_right_unselected_background"
-                        android:text="defecto"
+                        android:text="@string/offer_condition_defective"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -259,12 +259,13 @@
                         android:ems="10"
                         android:gravity="end"
                         android:hint="0"
-                        android:inputType="textPersonName"
+                        android:inputType="numberDecimal"
+                        android:maxLength="@integer/max_offer_price_length"
                         android:textAlignment="textEnd"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent" />
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -298,7 +299,7 @@
                         android:layout_weight="0.5"
                         android:background="@drawable/button_group_left_selected_background"
                         android:padding="3dp"
-                        android:text="3 días"
+                        android:text="@string/offer_duration"
                         android:textSize="18sp" />
 
                     <Button
@@ -308,7 +309,7 @@
                         android:layout_weight="0.5"
                         android:background="@drawable/button_group_middle_unselected_background"
                         android:padding="3dp"
-                        android:text="7 días"
+                        android:text="@string/offer_duration"
                         android:textSize="18sp" />
 
                     <Button
@@ -318,7 +319,7 @@
                         android:layout_weight="0.5"
                         android:background="@drawable/button_group_right_unselected_background"
                         android:padding="3dp"
-                        android:text="14 días"
+                        android:text="@string/offer_duration"
                         android:textSize="18sp" />
 
                     <Space

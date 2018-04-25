@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="integer" name ="max_offer_title_length">100</item>
-    <item type="integer" name ="max_offer_tags_length">200</item>
-    <item type="integer" name ="max_offer_description_length">400</item>
+    <item type="integer" name = "min_offer_title_length">10</item>
+    <item type="integer" name = "max_offer_title_length">100</item>
+
+    <item type="integer" name = "min_offer_tags_length">4</item>
+    <item type="integer" name = "max_offer_tags_length">200</item>
+
+    <item type="integer" name = "min_offer_description_length">0</item>
+    <item type="integer" name = "max_offer_description_length">400</item>
+
+    <item type="integer" name = "min_offer_price_length">1</item>
+    <item type="integer" name = "max_offer_price_length">10</item>
 </resources>

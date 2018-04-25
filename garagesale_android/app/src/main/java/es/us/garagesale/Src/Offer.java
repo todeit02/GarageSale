@@ -3,19 +3,44 @@ package es.us.garagesale.Src;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * Created by mariaventura on 7/3/18.
  */
 
-/*cambiar String a timestamp*/
-public class Offer {
+/*cambiar String a startTime*/
+public class Offer
+{
+    public enum Condition
+    {
+        NEW,
+        NEARLY_NEW,
+        USED,
+        DEFECTIVE,
+
+        INVALID
+    }
+
+    public enum Duration
+    {
+        SHORT,
+        MEDIUM,
+        LONG,
+
+        INVALID
+    }
+
+    public static final Map<Duration, Integer> durationsDays = new EnumMap<>(Duration.class);
 
     private String name;
+    private Condition condition;
     private String description;
     private float price;
     private ArrayList<String> tags;
-    private Timestamp timestamp;
+    private Timestamp startTime;
+    private int durationDays;
     private boolean sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
     private Seller seller;
     private ArrayList<Person> interested;
@@ -23,11 +48,23 @@ public class Offer {
     private ArrayList<String> photoPaths;
     //poner galeria de fotos
 
+    static
+    {
+        initializeDurationMap();
+    }
+
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+    public void setCondition(Condition condition) {
+        this.condition = condition;
     }
 
     public String getDescription() {
@@ -51,12 +88,15 @@ public class Offer {
         this.tags = tags;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public Timestamp getStartTime() {
+        return startTime;
     }
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
+
+    public int getDurationDays() { return durationDays; }
+    public void setDurationDays(int durationDays) { this.durationDays = durationDays; }
 
     public boolean isSold() {
         return sold;
@@ -79,12 +119,12 @@ public class Offer {
         return id;
     }
 
-    public Offer(String name, String description, float price, ArrayList<String> tags, Timestamp timestamp, boolean sold, Seller seller, ArrayList<Person> interested) {
+    public Offer(String name, String description, float price, ArrayList<String> tags, Timestamp startTime, boolean sold, Seller seller, ArrayList<Person> interested) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.tags = tags;
-        this.timestamp = timestamp;
+        this.startTime = startTime;
         this.sold = sold;
         this.seller = seller;
         this.interested = interested;
@@ -96,7 +136,7 @@ public class Offer {
         this.description = "";
         this.price = 0;
         this.tags = new ArrayList<String>();
-        this.timestamp = null;
+        this.startTime = null;
         this.sold = false;
         this.seller = null;
         this.interested = new ArrayList<Person>();
@@ -110,7 +150,7 @@ public class Offer {
                 ", description=" + description + '\'' +
                 ", price=" + price +
                 ", tags=" + tags +
-                ", timestamp='" + timestamp + '\'' +
+                ", startTime='" + startTime + '\'' +
                 ", sold=" + sold +
                 ", seller=" + seller +
                 ", interested=" + interested;
@@ -126,4 +166,10 @@ public class Offer {
         return id == offer.id;
     }
 
+    private static void initializeDurationMap()
+    {
+        durationsDays.put(Duration.SHORT, 3);
+        durationsDays.put(Duration.MEDIUM, 7);
+        durationsDays.put(Duration.LONG, 14);
+    }
 }
