@@ -42,15 +42,11 @@ public class OfferCreationActivity extends Activity
         findViewReferences();
         //prepareEditTextLimits();
 
-        for(Button listenerSettingButton : conditionButtons)
-        {
-            listenerSettingButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        ButtonGroupAppearanceManager conditionButtonsManager = new ButtonGroupAppearanceManager(conditionButtons);
+        ButtonGroupAppearanceManager durationButtonsManager = new ButtonGroupAppearanceManager(durationButtons);
 
-                }
-            });
-        }
+        for(Button listenerSettingButton : conditionButtons) listenerSettingButton.setOnClickListener(conditionButtonsManager);
+        for(Button listenerSettingButton : durationButtons) listenerSettingButton.setOnClickListener(durationButtonsManager);
     }
 
     private void findViewReferences()
@@ -85,5 +81,30 @@ public class OfferCreationActivity extends Activity
         titleEdit.addTextChangedListener(new TextLengthLimiter(titleEdit, maxTitleCharacters, this));
         tagsEdit.addTextChangedListener(new TextLengthLimiter(tagsEdit, maxTagsCharacters, this));
         descriptionEdit.addTextChangedListener(new TextLengthLimiter(descriptionEdit, maxDescriptionCharacters, this));
+    }
+
+    private class ButtonGroupAppearanceManager implements View.OnClickListener
+    {
+        private ArrayList<Button> groupButtons = null;
+
+        @Override
+        public void onClick(View v) {
+            for(Button appearanceChangingButton : groupButtons)
+            {
+                if(appearanceChangingButton == v)
+                {
+                    appearanceChangingButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_group_middle_selected_background));
+                }
+                else
+                {
+                    appearanceChangingButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_group_middle_unselected_background));
+                }
+            }
+        }
+
+        public ButtonGroupAppearanceManager(ArrayList<Button> groupButtons)
+        {
+            this.groupButtons = groupButtons;
+        }
     }
 }

@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_weight="0"
-            android:background="@drawable/border_rounded">
+            android:background="@drawable/border_rounded_background">
 
             <TextView
                 android:id="@+id/tv_activity_name"
@@ -44,7 +44,7 @@
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_weight="0"
-                android:background="@drawable/border_left_rounded"
+                android:background="@drawable/button_group_left_selected_background"
                 android:padding="3dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@mipmap/dollar_to_user" />
@@ -74,7 +74,7 @@
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_weight="0"
-                android:background="@drawable/border_right_rounded"
+                android:background="@drawable/button_group_right_selected_background"
                 android:padding="3dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@mipmap/user" />

@@ -14,7 +14,7 @@
         android:layout_height="65dp"
         android:layout_gravity="center"
         android:autoSizeTextType="uniform"
-        android:background="@drawable/border_rounded"
+        android:background="@drawable/border_rounded_background"
         android:text="Elaborar oferta"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -47,7 +47,7 @@
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="3dp"
                 android:layout_weight="1"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border_left_rounded"
+                        android:background="@drawable/button_group_left_selected_background"
                         android:text="nuevo"
                         android:textSize="18sp" />
 
@@ -84,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border"
+                        android:background="@drawable/button_group_middle_unselected_background"
                         android:text="casi nuevo"
                         android:textSize="18sp" />
 
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border"
+                        android:background="@drawable/button_group_middle_unselected_background"
                         android:text="usado"
                         android:textSize="18sp" />
 
@@ -102,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border_right_rounded"
+                        android:background="@drawable/button_group_right_unselected_background"
                         android:text="defecto"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -143,7 +143,7 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="1.5dp"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="10dp">
@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_rounded"
+                    android:background="@drawable/border_rounded_background"
                     android:padding="3dp">
 
                     <ImageView
@@ -199,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_rounded"
+                    android:background="@drawable/border_rounded_background"
                     android:padding="3dp">
 
                     <ImageView
@@ -241,7 +241,7 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="1.5dp"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -296,7 +296,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/border_left_rounded"
+                        android:background="@drawable/button_group_left_selected_background"
                         android:padding="3dp"
                         android:text="3 días"
                         android:textSize="18sp" />
@@ -306,7 +306,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/border"
+                        android:background="@drawable/button_group_middle_unselected_background"
                         android:padding="3dp"
                         android:text="7 días"
                         android:textSize="18sp" />
@@ -316,7 +316,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/border_right_rounded"
+                        android:background="@drawable/button_group_right_unselected_background"
                         android:padding="3dp"
                         android:text="14 días"
                         android:textSize="18sp" />
@@ -338,7 +338,7 @@
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="1.5dp"
                 android:layout_weight="1"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:padding="10dp">
 
                 <ImageView
