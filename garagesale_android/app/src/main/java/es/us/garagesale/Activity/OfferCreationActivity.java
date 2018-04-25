@@ -19,10 +19,6 @@ import es.us.garagesale.Src.TextLengthLimiter;
 
 public class OfferCreationActivity extends Activity
 {
-    private static final int maxTitleCharacters = 100;
-    private static final int maxTagsCharacters = 200;
-    private static final int maxDescriptionCharacters = 400;
-
     private EditText titleEdit = null;
     private ArrayList<Button> conditionButtons = new ArrayList<>();
     private EditText tagsEdit = null;
@@ -44,7 +40,7 @@ public class OfferCreationActivity extends Activity
         String[] offerTags = leadingIntent.getStringArrayExtra("selected_filter_tags");
 
         findViewReferences();
-        prepareEditTextLimits();
+        //prepareEditTextLimits();
 
         for(Button listenerSettingButton : conditionButtons)
         {
@@ -82,6 +78,10 @@ public class OfferCreationActivity extends Activity
 
     private void prepareEditTextLimits()
     {
+        int maxTitleCharacters = getResources().getInteger(R.integer.max_offer_title_length);
+        int maxTagsCharacters = getResources().getInteger(R.integer.max_offer_tags_length);
+        int maxDescriptionCharacters = getResources().getInteger(R.integer.max_offer_description_length);
+
         titleEdit.addTextChangedListener(new TextLengthLimiter(titleEdit, maxTitleCharacters, this));
         tagsEdit.addTextChangedListener(new TextLengthLimiter(tagsEdit, maxTagsCharacters, this));
         descriptionEdit.addTextChangedListener(new TextLengthLimiter(descriptionEdit, maxDescriptionCharacters, this));

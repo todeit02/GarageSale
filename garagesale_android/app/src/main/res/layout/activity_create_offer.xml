@@ -59,7 +59,8 @@
                     android:layout_weight="0"
                     android:ems="10"
                     android:hint="@string/offer_creation_title_hint"
-                    android:inputType="textCapWords|textShortMessage" />
+                    android:inputType="textCapWords|textShortMessage"
+                    android:maxLength="@integer/max_offer_title_length" />
 
                 <LinearLayout
                     android:id="@+id/ll_condition_selection"
@@ -115,6 +116,7 @@
                     android:gravity="top|left|start"
                     android:hint="@string/offer_creation_tags_hint"
                     android:inputType="textMultiLine"
+                    android:maxLength="@integer/max_offer_tags_length"
                     android:singleLine="false"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
@@ -129,6 +131,7 @@
                     android:gravity="top|left|start"
                     android:hint="@string/offer_creation_description_hint"
                     android:inputType="textMultiLine"
+                    android:maxLength="@integer/max_offer_description_length"
                     android:singleLine="false"
                     android:textAlignment="textStart" />
             </LinearLayout>

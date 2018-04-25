@@ -75,7 +75,8 @@ public class TextLengthLimiter implements TextWatcher
     private String getRemainingCharactersIndicator(CharSequence entireText)
     {
         int userTextLength = extractUserText(entireText).length();
-        return appContext.getString(R.string.remaining_characters_count, userTextLength);
+        int remainingLength = maxTextCharacterCount - userTextLength;
+        return appContext.getString(R.string.remaining_characters_count, remainingLength);
     }
 
     private String extractUserText(CharSequence entireText)
