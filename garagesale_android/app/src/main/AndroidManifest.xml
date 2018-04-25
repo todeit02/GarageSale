@@ -28,6 +28,7 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.example" />
 
+        <!--
         <activity android:name="es.us.garagesale.Activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,10 +36,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        -->
         <activity android:name="es.us.garagesale.Activity.SignupActivity" />
         <activity android:name="es.us.garagesale.Activity.LoginActivity" />
         <activity android:name="es.us.garagesale.Activity.OfferListActivity" />
-        <activity android:name="es.us.garagesale.Activity.OfferCreationActivity" />
+        <activity android:name="es.us.garagesale.Activity.OfferCreationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="es.us.garagesale.Activity.OfferDetailActivity" />
     </application>
 
