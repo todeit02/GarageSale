@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
+import es.us.garagesale.DataAccess.IInterestedConsumer;
 import es.us.garagesale.DataAccess.IOfferConsumer;
+import es.us.garagesale.DataAccess.IOffersConsumer;
 import es.us.garagesale.R;
+import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
 
 import java.text.DateFormat;
@@ -22,10 +25,7 @@ import java.util.Locale;
 public class OfferDetailActivity extends Activity {
 
     private int selectedOfferId;
-    TextView title;
-    TextView detail;
-    TextView state;
-    TextView remainingTime;
+    TextView title, detail, state, remainingTime, currentPrice, currentOffers;
     private Offer offer;
 
     @Override
@@ -33,10 +33,12 @@ public class OfferDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_details);
 
-        title = findViewById(R.id.tvOfferDetailsOfferUsedState);
+        title = findViewById(R.id.tvOfferDetailsOfferTitle);
         detail = findViewById(R.id.tv_offer_details_description);
         state =  findViewById(R.id.tvOfferDetailsOfferUsedState);
         remainingTime = findViewById(R.id.tv_offer_details_remaining_time);
+        currentPrice = findViewById(R.id.tv_offer_details_current_price);
+        currentOffers = findViewById(R.id.tv_offer_details_offer_count);
 
         selectedOfferId = getIntent().getIntExtra("id", 0);
 
@@ -51,10 +53,37 @@ public class OfferDetailActivity extends Activity {
 
     private void displayOffer(Offer received){
         title.setText(received.getName());
-        detail.setText(received.getDescription());
+        detail.setText(received.getDescription()+" \n"+ "Precio original: "+ getString(R.string.currency) +received.getPrice());
         state.setText(received.getState());
         remainingTime.setText(received.calculateRemainingTime()+" horas");
+        getMaxOffer(received);
 
+    }
+
+    private void getMaxOffer(Offer received){
+        DatabaseManager.loadInterested(received.getId(),this, new IInterestedConsumer() {
+            @Override
+            public void consume(Interested[] interested) {
+                currentOffers.setText("Hay " + interested.length + " ofertas");
+                if(interested.length>0){
+                    currentPrice.setText(getMaxInterested(interested)+ getString(R.string.currency)+ " es la oferta mas alta");
+                }
+                else{
+                    currentPrice.setText("Nadie ha ofertado aun");
+                }
+            }
+        });
+    }
+
+    private int getMaxInterested(Interested[] interested){
+        int max=0;
+        for(Interested i : interested)
+        {
+            if(i.getPrice()>max){
+                max= i.getPrice();
+            }
+        }
+        return max;
     }
 
 

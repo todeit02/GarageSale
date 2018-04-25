@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import es.us.garagesale.R;
+import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
 import com.google.gson.Gson;
 
@@ -52,6 +53,59 @@ Activity aux;
                         )
                 );
     }
+
+
+    public static void loadInterested(int id,Activity callingActivity, final IInterestedConsumer callback) {
+        VolleySingleton.
+                getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.GET,
+                                Constantes.GET_OFFER_INTERESTED+"?offer_id="+id,
+                                (String)null,
+                                new Response.Listener<JSONObject>() {
+
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        processInterestedResponse(response, callback);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                    }
+                                }
+                        )
+                );
+    }
+
+    private static void processInterestedResponse(JSONObject response, final IInterestedConsumer callback) {
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    JSONArray offersResponse = response.getJSONArray("interested");
+                    System.out.println("Message: " + offersResponse.toString());
+
+                    Gson gson = new Gson();
+                    Interested[] interested = gson.fromJson(offersResponse.toString(), Interested[].class);
+                    callback.consume(interested);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void loadOffer(int id, Activity callingActivity, final IOfferConsumer callback) {
         VolleySingleton.

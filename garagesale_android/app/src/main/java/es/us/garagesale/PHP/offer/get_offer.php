@@ -1,6 +1,6 @@
 <?php
 /**
- * Obtiene todas las metas de la base de datos
+ * Obtiene todas las ofertas de la base de datos
  */
 
 require 'offer_crud.php';

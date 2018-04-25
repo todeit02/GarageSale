@@ -76,7 +76,7 @@ public class OfferListActivity extends Activity
                 inflatedOfferItemPrice.setId(R.id.tv_offer_item_price + idOffset * (10000 + 1));
 
                 inflatedOfferItemTitle.setText(creatingOffer.getName());
-                inflatedOfferItemPrice.setText("" + creatingOffer.getPrice() + getString(R.string.currency));
+                inflatedOfferItemPrice.setText("Precio original: " + creatingOffer.getPrice() + getString(R.string.currency));
 
                 inflatedOffer.setOnClickListener(new View.OnClickListener() {
                     @Override

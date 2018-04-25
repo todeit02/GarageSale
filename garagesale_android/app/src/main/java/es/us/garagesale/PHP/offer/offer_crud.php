@@ -34,6 +34,24 @@ class OfferCrud
         }
     }
 
+    public static function getInterested($offer_id)
+    {
+        // Consulta de la meta
+        $consulta = "SELECT * FROM interests WHERE offer_id = ?";
+
+        try {
+            // Preparar sentencia
+            $comando = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando->execute(array($offer_id));
+
+        return $comando->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
     /**
      * Obtiene los campos de un offer con un identificador
      * determinado
