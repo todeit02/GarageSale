@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">GarageSale</string>
-    <string name="title_activity_login">Sign in</string>
     <string name="currency">€</string>
 
     <!-- Strings related to login -->
@@ -17,40 +16,47 @@
     </string>
 
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="remaining_characters_count">(quedan %1$d characteres)</string>
 
+    <!-- Creación de la oferta -->
+    <string name="offer_creation_title_hint">¿Qué quieres vender? &#8230;</string>
+    <string name="offer_creation_tags_hint">#unTag #otroTag &#8230; (separa por espacios)</string>
+    <string name="offer_creation_description_hint">Cuéntanos un poco sobre el artículo. Menciona lo más importante primero! &#8230;</string>
+    <string name="offer_condition_new">nuevo</string>
+    <string name="offer_condition_nearly_new">casi nuevo</string>
+    <string name="offer_condition_used">usado</string>
+    <string name="offer_condition_defective">defecto</string>
+    <string name="offer_duration">%1$d días</string>
 
+    <!-- Nombre de la actividad -->
+    <string name="title_activity_login">Sign in</string>
 
-        <!-- Nombre de la actividad -->
+    <!-- Actividades -->
+    <string name="title_activity_update">Editar Oferta</string>
+    <string name="title_activity_detail">Detalle</string>
+    <string name="title_activity_insert">Insertar Nueva Oferta</string>
 
+    <!-- Action Buttons -->
+    <string name="action_delete">Borrar</string>
+    <string name="action_discard">Descartar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_done">Guardar</string>
 
-        <!-- Actividades -->
-        <string name="title_activity_update">Editar Oferta</string>
-        <string name="title_activity_detail">Detalle</string>
-        <string name="title_activity_insert">Insertar Nueva Oferta</string>
+    <!-- Categorías -->
+    <string-array name="entradas_categoria">
+        <item>Salud</item>
+        <item>Finanzas</item>
+        <item>Espiritual</item>
+        <item>Profesional</item>
+        <item>Material</item>
+    </string-array>
 
-        <!-- Action Buttons -->
-        <string name="action_delete">Borrar</string>
-        <string name="action_discard">Descartar</string>
-        <string name="action_edit">Editar</string>
-        <string name="action_done">Guardar</string>
-
-        <!-- Categorías -->
-        <string-array name="entradas_categoria">
-            <item>Salud</item>
-            <item>Finanzas</item>
-            <item>Espiritual</item>
-            <item>Profesional</item>
-            <item>Material</item>
-        </string-array>
-
-
-        <!-- Diálogos -->
-        <string name="dialog_ok">OK</string>
-        <string name="dialog_discard_msg">¿Descartar Cambios?</string>
-        <string name="dialog_cancel">Cancelar</string>
-        <string name="dialog_delete_msg">Se eliminará la meta</string>
+    <!-- Diálogos -->
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_discard_msg">¿Descartar Cambios?</string>
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="dialog_delete_msg">Se eliminará la meta</string>
 </resources>
 
 

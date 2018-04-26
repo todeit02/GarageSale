@@ -14,7 +14,7 @@
         android:layout_height="65dp"
         android:layout_gravity="center"
         android:autoSizeTextType="uniform"
-        android:background="@drawable/border_rounded"
+        android:background="@drawable/border_rounded_background"
         android:text="Elaborar oferta"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -47,127 +47,92 @@
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="3dp"
                 android:layout_weight="1"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:orientation="vertical"
                 android:padding="10dp">
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/et_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
+                    android:layout_weight="0"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="¿Qué quieres vender? ..." />
-
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp">
-
-                    <TextView
-                        android:id="@+id/tv_category"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:gravity="center_vertical"
-                        android:text="Categoría X\n→ Subcategoría Y"
-                        android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/cl_btn_change_category"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cl_btn_change_category"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/border_rounded"
-                        android:padding="3dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/imgv_btn_change_category"
-                            android:layout_width="40dp"
-                            android:layout_height="0dp"
-                            android:scaleType="fitCenter"
-                            android:src="@mipmap/arrows_cycle"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tv_btn_change_category"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:gravity="center"
-                            android:text="cambiar"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toRightOf="@+id/imgv_btn_change_category"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.constraint.ConstraintLayout>
+                    android:hint="@string/offer_creation_title_hint"
+                    android:inputType="textCapWords|textShortMessage"
+                    android:maxLength="@integer/max_offer_title_length" />
 
                 <LinearLayout
+                    android:id="@+id/ll_condition_selection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
+                    android:layout_weight="0"
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/button4"
+                        android:id="@+id/btn_condition_new"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border_left_rounded"
-                        android:text="nuevo"
+                        android:background="@drawable/button_group_left_selected_background"
+                        android:text="@string/offer_condition_new"
                         android:textSize="18sp" />
 
                     <Button
-                        android:id="@+id/button5"
+                        android:id="@+id/btn_condition_like_new"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border"
-                        android:text="casi nuevo"
+                        android:background="@drawable/button_group_middle_unselected_background"
+                        android:text="@string/offer_condition_nearly_new"
                         android:textSize="18sp" />
 
                     <Button
-                        android:id="@+id/button6"
+                        android:id="@+id/btn_condition_used"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border"
-                        android:text="usado"
+                        android:background="@drawable/button_group_middle_unselected_background"
+                        android:text="@string/offer_condition_used"
                         android:textSize="18sp" />
 
                     <Button
-                        android:id="@+id/button7"
+                        android:id="@+id/btn_condition_defect"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:background="@drawable/border_right_rounded"
-                        android:text="defecto"
+                        android:background="@drawable/button_group_right_unselected_background"
+                        android:text="@string/offer_condition_defective"
                         android:textSize="18sp" />
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/editText3"
+                    android:id="@+id/et_tags"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="0"
+                    android:gravity="top|left|start"
+                    android:hint="@string/offer_creation_tags_hint"
+                    android:inputType="textMultiLine"
+                    android:maxLength="@integer/max_offer_tags_length"
+                    android:singleLine="false"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:ems="10"
                     android:gravity="top|left|start"
+                    android:hint="@string/offer_creation_description_hint"
                     android:inputType="textMultiLine"
+                    android:maxLength="@integer/max_offer_description_length"
                     android:singleLine="false"
-                    android:text="Cuéntanos un poco sobre el artículo.\nMenciona lo más importante primero!\n... (quedan 200 palabras)"
                     android:textAlignment="textStart" />
             </LinearLayout>
 
@@ -178,7 +143,7 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="1.5dp"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="10dp">
@@ -194,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_rounded"
+                    android:background="@drawable/border_rounded_background"
                     android:padding="3dp">
 
                     <ImageView
@@ -212,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="añade\nuna foto"
                         android:textAlignment="textStart"
                         android:textColor="@color/black"
@@ -234,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_rounded"
+                    android:background="@drawable/border_rounded_background"
                     android:padding="3dp">
 
                     <ImageView
@@ -252,7 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:text="añade\nla ubicación"
                         android:textAlignment="textStart"
                         android:textColor="@color/black"
@@ -276,58 +241,47 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="1.5dp"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:gravity="center_horizontal|center"
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editText"
-                        android:layout_width="100dp"
+                        android:id="@+id/et_price"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="0"
-                        android:textAlignment="textEnd" />
+                        android:gravity="end"
+                        android:hint="0"
+                        android:inputType="numberDecimal"
+                        android:maxLength="@integer/max_offer_price_length"
+                        android:textAlignment="textEnd"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:gravity="start|center_vertical"
                         android:text="@string/currency"
                         android:textAlignment="gravity"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/btn_fixed_price"
-                        android:layout_width="80dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="0"
-                        android:background="@drawable/border_left_rounded"
-                        android:text="fijo"
-                        android:textSize="18sp" />
-
-                    <Button
-                        android:id="@+id/btn_auction_price"
-                        android:layout_width="80dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="0"
-                        android:background="@drawable/border_right_rounded"
-                        android:text="subasta"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toRightOf="@+id/et_price" />
+                </android.support.constraint.ConstraintLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_duration_selection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -339,33 +293,33 @@
                         android:layout_weight="0.25" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/btn_3_days"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/border_left_rounded"
+                        android:background="@drawable/button_group_left_selected_background"
                         android:padding="3dp"
-                        android:text="3 días"
+                        android:text="@string/offer_duration"
                         android:textSize="18sp" />
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/btn_7_days"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/border"
+                        android:background="@drawable/button_group_middle_unselected_background"
                         android:padding="3dp"
-                        android:text="7 días"
+                        android:text="@string/offer_duration"
                         android:textSize="18sp" />
 
                     <Button
-                        android:id="@+id/button3"
+                        android:id="@+id/btn_14_days"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/border_right_rounded"
+                        android:background="@drawable/button_group_right_unselected_background"
                         android:padding="3dp"
-                        android:text="14 días"
+                        android:text="@string/offer_duration"
                         android:textSize="18sp" />
 
                     <Space
@@ -376,84 +330,42 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_confirmation_buttons"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_btn_publish"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="3dp"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:paddingTop="1.5dp">
+                android:layout_height="65dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="1.5dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_rounded_background"
+                android:padding="10dp">
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cl_btn_save"
+                <ImageView
+                    android:id="@+id/imgv_btn_publish_label"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/upload"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_btn_publish_label"
                     android:layout_width="wrap_content"
-                    android:layout_height="65dp"
-                    android:layout_marginRight="1.5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_rounded"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:id="@+id/imgv_btn_save_label"
-                        android:layout_width="50dp"
-                        android:layout_height="0dp"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/save"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_btn_save_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="61dp"
-                        android:gravity="center"
-                        android:text="Guardar"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/imgv_btn_save_label"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </android.support.constraint.ConstraintLayout>
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cl_btn_publish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="65dp"
-                    android:layout_marginLeft="1.5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_rounded"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:id="@+id/imgv_btn_publish_label"
-                        android:layout_width="50dp"
-                        android:layout_height="0dp"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/upload"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_btn_publish_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:gravity="center"
-                        android:text="¡Publícalo!"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/imgv_btn_publish_label"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </android.support.constraint.ConstraintLayout>
-            </LinearLayout>
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="¡Publícalo!"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/imgv_btn_publish_label"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>

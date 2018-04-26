@@ -23,7 +23,7 @@
                 android:layout_height="65dp"
                 android:layout_weight="0"
                 android:adjustViewBounds="true"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:padding="6.5dp"
                 android:scaleType="fitXY"
                 android:src="@mipmap/search" />
@@ -47,7 +47,7 @@
                 android:layout_height="65dp"
                 android:layout_weight="0"
                 android:adjustViewBounds="true"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:padding="6.5dp"
                 android:scaleType="fitXY"
                 android:src="@mipmap/mail_user" />

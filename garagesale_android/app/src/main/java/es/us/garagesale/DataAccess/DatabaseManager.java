@@ -236,5 +236,10 @@ Activity aux;
         }
     }
 
+    public static void createOffer(Offer creatingOffer)
+    {
+
+    }
+
     private DatabaseManager(){};
 }

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1.5dp"
-        android:background="@drawable/border_rounded"
+        android:background="@drawable/border_rounded_background"
         android:columnCount="2"
         android:rowCount="2">
 
@@ -37,7 +37,7 @@
             android:layout_margin="3dp"
             android:layout_rowSpan="2"
             android:adjustViewBounds="true"
-            android:background="@drawable/border_rounded"
+            android:background="@drawable/border_rounded_background"
             android:contentDescription="Hacer favorito"
             android:padding="6.5dp"
             android:scaleType="fitXY"
@@ -67,7 +67,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
-        android:background="@drawable/border_rounded"
+        android:background="@drawable/border_rounded_background"
         android:orientation="horizontal"
         android:padding="3dp">
 
@@ -89,7 +89,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="3dp"
                 android:layout_weight="2"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:padding="3dp"
                 android:text="&lt;"
                 android:textSize="20sp" />
@@ -132,7 +132,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="3dp"
                 android:layout_weight="2"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:padding="3dp"
                 android:text="&gt;"
                 android:textSize="20sp" />
@@ -153,7 +153,7 @@
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
         android:layout_weight="1"
-        android:background="@drawable/border_rounded"
+        android:background="@drawable/border_rounded_background"
         android:orientation="horizontal"
         android:padding="3dp">
 
@@ -203,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1.5dp"
                 android:layout_weight="1"
-                android:background="@drawable/border_rounded"
+                android:background="@drawable/border_rounded_background"
                 android:padding="3dp">
 
                 <ImageView
@@ -242,7 +242,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
-        android:background="@drawable/border_rounded"
+        android:background="@drawable/border_rounded_background"
         android:columnCount="2"
         android:gravity="center"
         android:rowCount="2">
@@ -298,7 +298,7 @@
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
         android:layout_weight="0"
-        android:background="@drawable/border_rounded"
+        android:background="@drawable/border_rounded_background"
         android:padding="10dp">
 
         <ImageView

@@ -8,20 +8,44 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * Created by mariaventura on 7/3/18.
  */
 
-/*cambiar String a timestamp*/
-public class Offer {
+/*cambiar String a startTime*/
+public class Offer
+{
+    public enum Condition
+    {
+        NEW,
+        NEARLY_NEW,
+        USED,
+        DEFECTIVE,
+
+        INVALID
+    }
+
+    public enum Duration
+    {
+        SHORT,
+        MEDIUM,
+        LONG,
+
+        INVALID
+    }
+
+    public static final Map<Duration, Integer> durationsDays = new EnumMap<>(Duration.class);
 
     private String name;
+    private Condition condition;
     private String description;
     private float price;
     private ArrayList<String> tags;
-    private String publishDate;
-    private String endTime;
+    private Timestamp startTime;
+    private int durationDays;
     private boolean sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
     private Seller seller;
     private ArrayList<Person> interested;
@@ -31,11 +55,23 @@ public class Offer {
     private ArrayList<String> photoPaths;
     //poner galeria de fotos
 
+    static
+    {
+        initializeDurationMap();
+    }
+
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+    public void setCondition(Condition condition) {
+        this.condition = condition;
     }
 
     public String getDescription() {
@@ -59,14 +95,9 @@ public class Offer {
         this.tags = tags;
     }
 
-    public String getPublishDate() {
-        return publishDate;
-    }
-
     public String getState() {
         return state;
     }
-
     public void setState(String state) {
         this.state = state;
     }
@@ -74,34 +105,17 @@ public class Offer {
     public int getActivePeriod() {
         return activePeriod;
     }
-
     public void setActivePeriod(int activePeriod) {
         this.activePeriod = activePeriod;
     }
 
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
+    public Timestamp getStartTime() {
+        return startTime;
     }
+    public void setStartTime(Timestamp startTime) { this.startTime = startTime; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTimestamp() {
-        return publishDate;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    public void setTimestamp(String publishDate) {
-        this.publishDate = publishDate;
-    }
+    public int getDurationDays() { return durationDays; }
+    public void setDurationDays(int durationDays) { this.durationDays = durationDays; }
 
     public boolean isSold() {
         return sold;
@@ -120,16 +134,18 @@ public class Offer {
         this.interested = interested;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public int getId() {
         return id;
     }
 
-    public Offer(String name, String description, float price, ArrayList<String> tags, String timestamp, boolean sold, Seller seller, ArrayList<Person> interested) {
+public Offer(String name, String description, float price, ArrayList<String> tags, Timestamp startTime, boolean sold, Seller seller, ArrayList<Person> interested) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.tags = tags;
-        this.publishDate = timestamp;
+        this.tags = tags;this.startTime = startTime;
         this.sold = sold;
         this.seller = seller;
         this.interested = interested;
@@ -141,7 +157,7 @@ public class Offer {
         this.description = "";
         this.price = 0;
         this.tags = new ArrayList<String>();
-        this.publishDate = null;
+        this.startTime = null;
         this.sold = false;
         this.seller = null;
         this.interested = new ArrayList<Person>();
@@ -155,7 +171,7 @@ public class Offer {
                 ", description=" + description + '\'' +
                 ", price=" + price +
                 ", tags=" + tags +
-                ", timestamp='" + publishDate + '\'' +
+                ", startTime='" + startTime + '\'' +
                 ", sold=" + sold +
                 ", seller=" + seller +
                 ", interested=" + interested;
@@ -172,18 +188,13 @@ public class Offer {
     }
 
 
-
     //hacer funcion para filtrar las ofertas validas.
 
-    public int calculateRemainingTime(){
+
+    public int calculateRemainingTime()
+    {
         Offer received = this;
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date offerDate = null;
-        try {
-            offerDate = format.parse(received.getTimestamp());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date offerDate = new Date(received.getStartTime().getTime());
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(offerDate);
@@ -196,10 +207,17 @@ public class Offer {
         return hours < 0 ? 0 : hours;
     }
 
-    public boolean isValid(){
+    public boolean isValid()
+    {
         int hours = calculateRemainingTime();
         if(hours<0) return false;
         return true;
     }
 
+    private static void initializeDurationMap()
+    {
+        durationsDays.put(Duration.SHORT, 3);
+        durationsDays.put(Duration.MEDIUM, 7);
+        durationsDays.put(Duration.LONG, 14);
+    }
 }
