@@ -44,7 +44,7 @@ public class Offer
     private String description;
     private float price;
     private ArrayList<String> tags;
-    private Timestamp startTime;
+    private String startTime;
     private int durationDays;
     private boolean sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
     private Seller seller;
@@ -109,10 +109,10 @@ public class Offer
         this.activePeriod = activePeriod;
     }
 
-    public Timestamp getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
-    public void setStartTime(Timestamp startTime) { this.startTime = startTime; }
+    public void setStartTime(String startTime) { this.startTime = startTime; }
 
     public int getDurationDays() { return durationDays; }
     public void setDurationDays(int durationDays) { this.durationDays = durationDays; }
@@ -141,7 +141,7 @@ public class Offer
         return id;
     }
 
-public Offer(String name, String description, float price, ArrayList<String> tags, Timestamp startTime, boolean sold, Seller seller, ArrayList<Person> interested) {
+public Offer(String name, String description, float price, ArrayList<String> tags, String startTime, boolean sold, Seller seller, ArrayList<Person> interested) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -194,7 +194,13 @@ public Offer(String name, String description, float price, ArrayList<String> tag
     public int calculateRemainingTime()
     {
         Offer received = this;
-        Date offerDate = new Date(received.getStartTime().getTime());
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date offerDate = null;
+        try {
+            offerDate = format.parse(received.getStartTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(offerDate);
@@ -210,7 +216,7 @@ public Offer(String name, String description, float price, ArrayList<String> tag
     public boolean isValid()
     {
         int hours = calculateRemainingTime();
-        if(hours<0) return false;
+        if(hours<=0) return false;
         return true;
     }
 

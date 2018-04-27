@@ -94,6 +94,13 @@ public class OfferListActivity extends Activity
 
         if(length==0 || creatingOffers.length==0){
             //Mostrar mensaje :"No hay ofertas disponibles"
+
+            View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_empty, null);
+
+            TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
+            inflatedOfferItemTitle.setText("No hay ofertas disponibles");
+
+            linearLayout.addView(inflatedOffer);
         }
     }
 }
