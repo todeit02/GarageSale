@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_activity_name">
 
         <LinearLayout
-            android:id="@+id/ll_scroll_content"
+            android:id="@+id/ll_segments_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -137,6 +137,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_photo_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1.5dp"

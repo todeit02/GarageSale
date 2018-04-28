@@ -1,6 +1,8 @@
 package es.us.garagesale.Src;
 
 
+import android.graphics.Bitmap;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -45,7 +47,7 @@ public class Offer
     private Seller seller;
     private ArrayList<Person> interested;
     private int id;
-    private ArrayList<String> photoPaths;
+    private ArrayList<Bitmap> photos;
     //poner galeria de fotos
 
     static
@@ -115,6 +117,32 @@ public class Offer
         this.interested = interested;
     }
 
+
+    public ArrayList<Bitmap> getPhotos() { return photos; }
+
+    public void addPhoto(Bitmap addingPhoto)
+    {
+        photos.add(addingPhoto);
+    }
+
+    public void deletePhoto(Bitmap deletingPhoto)
+    {
+        photos.remove(deletingPhoto);
+    }
+
+    public void deletePhotoLast()
+    {
+        int lastPhotoIndex = photos.size() - 1;
+        if(lastPhotoIndex < 0) return;
+
+        photos.remove(lastPhotoIndex);
+    }
+
+    public boolean hasPhotos()
+    {
+        return (photos.size() > 0);
+    }
+
     public int getId() {
         return id;
     }
@@ -128,6 +156,7 @@ public class Offer
         this.sold = sold;
         this.seller = seller;
         this.interested = interested;
+        this.photos = new ArrayList<>();
         // ID is set by database
     }
 
@@ -140,6 +169,7 @@ public class Offer
         this.sold = false;
         this.seller = null;
         this.interested = new ArrayList<Person>();
+        this.photos = new ArrayList<>();
         // ID is set by database
     }
 

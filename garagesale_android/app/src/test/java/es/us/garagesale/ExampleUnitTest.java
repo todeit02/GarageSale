@@ -1,4 +1,4 @@
-package es.us.garagasale;
+package es.us.garagesale;
 
 import org.junit.Test;
 

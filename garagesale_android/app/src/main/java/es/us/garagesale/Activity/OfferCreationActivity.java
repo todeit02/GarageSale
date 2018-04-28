@@ -2,17 +2,29 @@ package es.us.garagesale.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.FileProvider;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import java.sql.Timestamp;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.R;
@@ -26,11 +38,15 @@ import es.us.garagesale.Src.TextLengthLimiter;
 
 public class OfferCreationActivity extends Activity
 {
+    private static final int PHOTO_INTENT_REQUEST_CODE = 1;
+
+    private LinearLayout segmentsContainer = null;
     private EditText titleEdit = null;
     private ArrayList<Button> conditionButtons = new ArrayList<>();
     private EditText tagsEdit = null;
     private EditText descriptionEdit = null;
-    private View addPhotoButton = null;
+    private LinearLayout photoLocationSegment = null;
+    private View addFirstPhotoButton = null;
     private View addLocationButton = null;
     private EditText priceEdit = null;
     private Button shortDurationButton = null;
@@ -40,6 +56,7 @@ public class OfferCreationActivity extends Activity
     private ConstraintLayout publishButton = null;
 
     private Offer workingOffer = new Offer();
+    private String currentPhotoPath = null;
 
 
     @Override
@@ -56,8 +73,17 @@ public class OfferCreationActivity extends Activity
         //prepareEditTextLimits();
         prepareConditionButtons();
         //fillFilterTags(offerTags);
+        prepareAddPhotoButton(addFirstPhotoButton);
         prepareDurationButtons();
         preparePublishButton();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PHOTO_INTENT_REQUEST_CODE && resultCode == RESULT_OK)
+        {
+            handlePhotoResult(data);
+        }
     }
 
 
@@ -71,9 +97,11 @@ public class OfferCreationActivity extends Activity
             conditionButtons.add( (Button)conditionSelectors.getChildAt(i) );
         }
 
+        segmentsContainer = findViewById(R.id.ll_segments_container);
         tagsEdit = findViewById(R.id.et_tags);
         descriptionEdit = findViewById(R.id.et_description);
-        addPhotoButton = findViewById(R.id.cl_btn_add_photo);
+        photoLocationSegment = findViewById(R.id.ll_photo_location);
+        addFirstPhotoButton = findViewById(R.id.cl_btn_add_photo);
         addLocationButton = findViewById(R.id.cl_btn_add_location);
         priceEdit = findViewById(R.id.et_price);
 
@@ -140,6 +168,19 @@ public class OfferCreationActivity extends Activity
     }
 
 
+    private void prepareAddPhotoButton(View photoAddButton)
+    {
+        photoAddButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                handleAddPhotoButtonClick();
+            }
+        });
+    }
+
+
     private void prepareDurationButtons()
     {
         shortDurationButton.setText(getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.SHORT)));
@@ -178,6 +219,189 @@ public class OfferCreationActivity extends Activity
             @Override
             public void onClick(View v) { tryPublishOffer(); }
         });
+    }
+
+
+    private void prepareDeletePhotoButton()
+    {
+        View deletePhotoButton = findViewById(R.id.cl_btn_delete_photo);
+        deletePhotoButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                deleteLastPhoto();
+            }
+        });
+    }
+
+
+    private void handleAddPhotoButtonClick()
+    {
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        boolean cameraAppAvailable = (takePhotoIntent.resolveActivity(getPackageManager()) != null);
+        if(!cameraAppAvailable) return;
+
+        File photoFile = null;
+        try
+        {
+            photoFile = createEmptyImageFile();
+        }
+        catch(IOException e){}
+
+        if(photoFile == null) return;
+
+        Uri photoUri = FileProvider.getUriForFile(this, "es.us.garagesale.fileprovider", photoFile);
+        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        startActivityForResult(takePhotoIntent, PHOTO_INTENT_REQUEST_CODE);
+    }
+
+
+    private void handlePhotoResult(Intent resultIntent)
+    {
+        addPhotoToGallery();
+
+        if(workingOffer.hasPhotos())
+        {
+            appendPhotoToScrollingContainer();
+        }
+        else
+        {
+            exchangeSegmentToTakenPhotoNoLocation();
+        }
+
+        Bitmap fullsizePhoto = getCurrentPhoto();
+        workingOffer.addPhoto(fullsizePhoto);
+    }
+
+
+    private void addPhotoToGallery() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
+
+    private void setViewToFirstTakenImage()
+    {
+        LinearLayout photosContainer = findViewById(R.id.ll_photos_container);
+        ImageView dummyPhotoView = (ImageView) photosContainer.getChildAt(0);
+        Bitmap takenResizedPhoto = getCurrentPhotoResized(dummyPhotoView.getWidth(), dummyPhotoView.getHeight());
+        dummyPhotoView.setImageBitmap(takenResizedPhoto);
+    }
+
+
+    private void exchangeSegmentToTakenPhotoNoLocation()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+
+        View inflatedPhotoLocationSection = layoutInflater.inflate(R.layout.create_offer_photo_taken_section, null);
+
+        final int photoLocationSegmentIndex = segmentsContainer.indexOfChild(photoLocationSegment);
+        segmentsContainer.removeViewAt(photoLocationSegmentIndex);
+        segmentsContainer.addView(inflatedPhotoLocationSection, photoLocationSegmentIndex);
+
+        View appendFurtherPhotoButton = findViewById(R.id.cl_btn_add_photo);
+        prepareAddPhotoButton(appendFurtherPhotoButton);
+        prepareDeletePhotoButton();
+
+        segmentsContainer.post(new Runnable() {
+            @Override
+            public void run() {
+                setViewToFirstTakenImage();
+                lockPhotoScrollSize();
+            }
+        });
+    }
+
+    private void lockPhotoScrollSize()
+    {
+        HorizontalScrollView photoScroll = findViewById(R.id.hsv_photos_scroll);
+        int currentWidth = photoScroll.getWidth();
+        int currentHeight = photoScroll.getHeight();
+        LinearLayout.LayoutParams fixParams = new LinearLayout.LayoutParams(currentWidth, currentHeight);
+
+        photoScroll.setLayoutParams(fixParams);
+    }
+
+    private void appendPhotoToScrollingContainer()
+    {
+        LinearLayout photosContainer = findViewById(R.id.ll_photos_container);
+        LayoutInflater imageViewInflater = LayoutInflater.from(this);
+        ImageView photoView = (ImageView) imageViewInflater.inflate(R.layout.create_offer_photo_view, null);
+        photosContainer.addView(photoView);
+
+        int presentPhotoWidth = photosContainer.getChildAt(0).getWidth();
+        int presentPhotoHeight = photosContainer.getChildAt(0).getHeight();
+        Bitmap resizedTakenPhoto = getCurrentPhotoResized(presentPhotoWidth, presentPhotoHeight);
+        photoView.setImageBitmap(resizedTakenPhoto);
+    }
+
+    private void deleteLastPhoto()
+    {
+        LinearLayout photosContainer = findViewById(R.id.ll_photos_container);
+        int lastPhotoIndex = photosContainer.getChildCount() - 1;
+        if(lastPhotoIndex >= 0)
+        {
+            photosContainer.removeViewAt(lastPhotoIndex);
+        }
+
+        workingOffer.deletePhotoLast();
+    }
+
+    private File createEmptyImageFile() throws IOException
+    {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File emptyPhoto = File.createTempFile(imageFileName, ".jpg", storageDirectory);
+
+        currentPhotoPath = emptyPhoto.getAbsolutePath();
+
+        return emptyPhoto;
+    }
+
+    private BitmapFactory.Options allocatePhotoMemory()
+    {
+        BitmapFactory.Options allocationOnlyOptions = new BitmapFactory.Options();
+        allocationOnlyOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(currentPhotoPath, allocationOnlyOptions);
+
+        return allocationOnlyOptions;
+    }
+
+    private Bitmap getCurrentPhoto()
+    {
+        BitmapFactory.Options allocationResultOptions = allocatePhotoMemory();
+        BitmapFactory.Options decodingOptions = allocationResultOptions;
+
+        decodingOptions.inJustDecodeBounds = false;
+        decodingOptions.inSampleSize = 1; // no rescaling
+        decodingOptions.inPurgeable = true;
+
+        Bitmap photo = BitmapFactory.decodeFile(currentPhotoPath, decodingOptions);
+        return photo;
+    }
+
+    private Bitmap getCurrentPhotoResized(int targetWidthPx, int targetHeightPx)
+    {
+        BitmapFactory.Options allocationResultOptions = allocatePhotoMemory();
+
+        int photoWidthPx = allocationResultOptions.outWidth;
+        int photoHeightPx = allocationResultOptions.outHeight;
+
+        int scaleFactor = Math.min(photoWidthPx/targetWidthPx, photoHeightPx/targetHeightPx);
+
+        BitmapFactory.Options decodingOptions = allocationResultOptions;
+
+        decodingOptions.inJustDecodeBounds = false;
+        decodingOptions.inSampleSize = scaleFactor;
+        decodingOptions.inPurgeable = true;
+
+        Bitmap photo = BitmapFactory.decodeFile(currentPhotoPath, decodingOptions);
+        return photo;
     }
 
 
