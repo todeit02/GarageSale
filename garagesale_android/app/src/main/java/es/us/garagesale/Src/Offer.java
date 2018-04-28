@@ -3,6 +3,9 @@ package es.us.garagesale.Src;
 
 import android.graphics.Bitmap;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -48,6 +51,7 @@ public class Offer
     private ArrayList<Person> interested;
     private int id;
     private ArrayList<Bitmap> photos;
+    private Place location;
     //poner galeria de fotos
 
     static
@@ -117,7 +121,6 @@ public class Offer
         this.interested = interested;
     }
 
-
     public ArrayList<Bitmap> getPhotos() { return photos; }
 
     public void addPhoto(Bitmap addingPhoto)
@@ -142,6 +145,9 @@ public class Offer
     {
         return (photos.size() > 0);
     }
+
+    public Place getLocation() { return location; }
+    public void setLocation(Place location) { this.location = location; }
 
     public int getId() {
         return id;
@@ -170,6 +176,7 @@ public class Offer
         this.seller = null;
         this.interested = new ArrayList<Person>();
         this.photos = new ArrayList<>();
+        this.location = null;
         // ID is set by database
     }
 

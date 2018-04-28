@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,11 +27,19 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+
+import org.w3c.dom.Text;
+
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.ButtonGroupAppearanceManager;
 import es.us.garagesale.Src.Offer;
 import es.us.garagesale.Src.TextLengthLimiter;
+
+import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 /**
  * Created by Tobias on 18/04/2018.
@@ -39,6 +48,7 @@ import es.us.garagesale.Src.TextLengthLimiter;
 public class OfferCreationActivity extends Activity
 {
     private static final int PHOTO_INTENT_REQUEST_CODE = 1;
+    private static final int PLACE_PICKER_INTENT_REQUEST_CODE = 2;
 
     private LinearLayout segmentsContainer = null;
     private EditText titleEdit = null;
@@ -74,6 +84,7 @@ public class OfferCreationActivity extends Activity
         prepareConditionButtons();
         //fillFilterTags(offerTags);
         prepareAddPhotoButton(addFirstPhotoButton);
+        prepareAddLocationButton(addLocationButton);
         prepareDurationButtons();
         preparePublishButton();
     }
@@ -83,6 +94,10 @@ public class OfferCreationActivity extends Activity
         if (requestCode == PHOTO_INTENT_REQUEST_CODE && resultCode == RESULT_OK)
         {
             handlePhotoResult(data);
+        }
+        else if (requestCode == PLACE_PICKER_INTENT_REQUEST_CODE && resultCode == RESULT_OK)
+        {
+            handleLocationResult(data);
         }
     }
 
@@ -168,9 +183,9 @@ public class OfferCreationActivity extends Activity
     }
 
 
-    private void prepareAddPhotoButton(View photoAddButton)
+    private void prepareAddPhotoButton(View addPhotoButton)
     {
-        photoAddButton.setOnClickListener(new View.OnClickListener()
+        addPhotoButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -178,6 +193,22 @@ public class OfferCreationActivity extends Activity
                 handleAddPhotoButtonClick();
             }
         });
+    }
+
+
+    private void prepareAddLocationButton(View addLocationButton)
+    {
+        addLocationButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                handleAddLocationButtonClick();
+            }
+        });
+
+        Place selectedLocation = workingOffer.getLocation();
+        if(selectedLocation != null) updateLocationView();
     }
 
 
@@ -275,6 +306,48 @@ public class OfferCreationActivity extends Activity
     }
 
 
+    private void handleAddLocationButtonClick()
+    {
+        PlacePicker.IntentBuilder pickerIntentBuilder = new PlacePicker.IntentBuilder();
+        try
+        {
+            Intent pickerIntent = pickerIntentBuilder.build(this);
+            startActivityForResult(pickerIntent, PLACE_PICKER_INTENT_REQUEST_CODE);
+        }
+        catch (Exception e) {}
+    }
+
+
+    private void handleLocationResult(Intent locationSelectionIntent)
+    {
+        Place selectedPlace = PlacePicker.getPlace(this, locationSelectionIntent);
+        workingOffer.setLocation(selectedPlace);
+
+        /*
+        View addLocationButton = findViewById(R.id.cl_btn_add_location);
+        photoLocationSegment.removeView(addLocationButton);
+
+        LayoutInflater locationTextInflater = LayoutInflater.from(this);
+        TextView locationTextView = (TextView) locationTextInflater.inflate(R.layout.create_offer_tv_chosen_location, null);
+        photoLocationSegment.addView(locationTextView);
+        */
+
+        updateLocationView();
+    }
+
+
+    private void updateLocationView()
+    {
+        CharSequence placeName = workingOffer.getLocation().getName();
+        LatLng coordinates = workingOffer.getLocation().getLatLng();
+
+        TextView locationTextView = findViewById(R.id.tv_btn_add_location);
+        CharSequence locationText = getString(R.string.offer_location, placeName.toString(), coordinates.toString());
+        locationTextView.setText(locationText);
+        locationTextView.setTextSize(COMPLEX_UNIT_SP, 12);
+    }
+
+
     private void addPhotoToGallery() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(currentPhotoPath);
@@ -306,6 +379,8 @@ public class OfferCreationActivity extends Activity
         View appendFurtherPhotoButton = findViewById(R.id.cl_btn_add_photo);
         prepareAddPhotoButton(appendFurtherPhotoButton);
         prepareDeletePhotoButton();
+        addLocationButton = findViewById(R.id.cl_btn_add_location);
+        prepareAddLocationButton(addLocationButton);
 
         segmentsContainer.post(new Runnable() {
             @Override

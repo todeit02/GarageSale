@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tv_location"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:gravity="start"
+    android:text="Sevilla, N 12.3456° W 12.3456°"
+    android:textAlignment="textStart"
+    android:textColor="@color/black"
+    android:textSize="12sp"
+    android:layout_weight="1"
+    android:padding="3dp"/>
