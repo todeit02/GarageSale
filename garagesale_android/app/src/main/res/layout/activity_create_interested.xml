@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_create_interested"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/myAqua"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="215dp">
+
+        <TextView
+            android:id="@+id/tv_activity_name"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/border_rounded_background"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Proponer precio"
+            android:textAlignment="center"
+            android:textColor="@color/base"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/sv_create_interested"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_activity_name"
+            app:layout_constraintVertical_bias="1.0">
+
+            <LinearLayout
+                android:id="@+id/ll_scroll_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.5dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_rounded_background"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_offer_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="TextView"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.5dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="1.5dp"
+                    android:background="@drawable/border_rounded_background"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center_horizontal|center"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:gravity="end"
+                            android:hint="0"
+                            android:inputType="numberDecimal"
+                            android:maxLength="@integer/max_offer_price_length"
+                            android:textAlignment="textEnd"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/currency"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toRightOf="@+id/et_price" />
+                    </android.support.constraint.ConstraintLayout>
+
+                </LinearLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cl_btn_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="1.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_rounded_background"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/imgv_btn_publish_label"
+                        android:layout_width="50dp"
+                        android:layout_height="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/cancel"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_btn_publish_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:gravity="center"
+                        android:text="Cancelar"
+                        android:textColor="@color/oil"
+                        android:textSize="18sp"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/imgv_btn_publish_label"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cl_btn_publish"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="1.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_rounded_background"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/imgv_btn_publish_label"
+                        android:layout_width="50dp"
+                        android:layout_height="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/publish"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_btn_publish_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:gravity="center"
+                        android:text="¡Publícalo!"
+                        android:textColor="@color/oil"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/imgv_btn_publish_label"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

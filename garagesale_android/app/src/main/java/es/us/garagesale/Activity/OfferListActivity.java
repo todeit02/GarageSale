@@ -68,7 +68,6 @@ public class OfferListActivity extends Activity
                 View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
                 inflatedOffer.setId(R.layout.offer_list_item + idOffset);
 
-
                 TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
                 inflatedOfferItemTitle.setId(R.id.tv_offer_item_title + idOffset * (100 + 1));
 

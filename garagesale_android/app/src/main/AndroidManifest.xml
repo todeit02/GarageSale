@@ -40,6 +40,7 @@
         <activity android:name="es.us.garagesale.Activity.OfferListActivity" />
         <activity android:name="es.us.garagesale.Activity.OfferCreationActivity" />
         <activity android:name="es.us.garagesale.Activity.OfferDetailActivity" />
+        <activity android:name="es.us.garagesale.Activity.InterestedCreationActivity" />
     </application>
 
 </manifest>

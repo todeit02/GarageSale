@@ -2,7 +2,9 @@ package es.us.garagesale.Activity;
 
 import android.app.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
@@ -25,7 +27,7 @@ import java.util.Locale;
 public class OfferDetailActivity extends Activity {
 
     private int selectedOfferId;
-    TextView title, detail, state, remainingTime, currentPrice, currentOffers;
+    TextView title, detail, state, remainingTime, currentPrice, currentOffers, createInterested;
     private Offer offer;
 
     @Override
@@ -39,6 +41,7 @@ public class OfferDetailActivity extends Activity {
         remainingTime = findViewById(R.id.tv_offer_details_remaining_time);
         currentPrice = findViewById(R.id.tv_offer_details_current_price);
         currentOffers = findViewById(R.id.tv_offer_details_offer_count);
+        createInterested = findViewById(R.id.tv_btn_bid_label);
 
         selectedOfferId = getIntent().getIntExtra("id", 0);
 
@@ -57,6 +60,14 @@ public class OfferDetailActivity extends Activity {
         state.setText(received.getState());
         remainingTime.setText(received.calculateRemainingTime()+" horas");
         getMaxOffer(received);
+        createInterested.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent createInterestedActivityIntent = new Intent(getApplicationContext(), InterestedCreationActivity.class);
+                createInterestedActivityIntent.putExtra("id", selectedOfferId);
+                startActivity(createInterestedActivityIntent);
+            }
+        });
 
     }
 
