@@ -241,5 +241,9 @@ Activity aux;
 
     }
 
+    public static void createInterested(Interested newInterested){
+
+    }
+
     private DatabaseManager(){};
 }

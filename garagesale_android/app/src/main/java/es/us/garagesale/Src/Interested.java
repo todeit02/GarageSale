@@ -5,24 +5,24 @@ package es.us.garagesale.Src;
  */
 
 public class Interested {
-   Person person;
-   Offer offer;
+   String username;
+   int offer_id;
    int price;
 
-    public Person getPerson() {
-        return person;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Offer getOffer() {
-        return offer;
+    public int getOfferId() {
+        return offer_id;
     }
 
-    public void setOffer(Offer offer) {
-        this.offer = offer;
+    public void setOfferId(int offerId) {
+        this.offer_id = offerId;
     }
 
     public int getPrice() {
@@ -33,9 +33,9 @@ public class Interested {
         this.price = price;
     }
 
-    public Interested(Person person, Offer offer, int price) {
-        this.person = person;
-        this.offer = offer;
+    public Interested(String username, int offerId, int price) {
+        this.username = username;
+        this.offer_id = offerId;
         this.price = price;
     }
     public Interested(){
