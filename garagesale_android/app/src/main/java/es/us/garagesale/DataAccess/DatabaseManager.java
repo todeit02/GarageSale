@@ -18,6 +18,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Tobias on 25/03/2018.
  */
@@ -167,7 +170,7 @@ Activity aux;
 
             switch (state) {
                 case successResponse:
-                    JSONObject offerResponse = response.getJSONObject("offer"); //ACA TIENE CODIGO HTML EN VEZ DE JSON
+                    JSONObject offerResponse = response.getJSONObject("offer");
 
                     System.out.println("Message: " + offerResponse.toString());
 
@@ -241,8 +244,81 @@ Activity aux;
 
     }
 
-    public static void createInterested(Interested newInterested){
+    public static void saveInterested(Interested newInterested, Activity callingActivity){
 
+
+            HashMap<String, String> map = new HashMap<>();// Mapeo previo
+
+            map.put("username", newInterested.getUsername());
+            map.put("offer_id", String.valueOf(newInterested.getOfferId()));
+            map.put("price", String.valueOf(newInterested.getPrice()));
+
+            // Crear nuevo objeto Json basado en el mapa
+            JSONObject jobject = new JSONObject(map);
+
+            // Actualizar datos en el servidor
+            VolleySingleton.getInstance(callingActivity).
+                    addToRequestQueue(
+                            new JsonObjectRequest(
+                                    Request.Method.POST,
+                                    Constantes.INSERT_OFFER_INTERESTED,
+                                    jobject,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            // Procesar la respuesta del servidor
+                                            processInsertInterested(response);
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                            Log.d(methodName, "Error Volley: " + error.getMessage());
+                                        }
+                                    }
+
+                    ) {
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            Map<String, String> headers = new HashMap<String, String>();
+                            headers.put("Content-Type", "application/json; charset=utf-8");
+                            headers.put("Accept", "application/json");
+                            return headers;
+                        }
+
+                        @Override
+                        public String getBodyContentType() {
+                            return "application/json; charset=utf-8" + getParamsEncoding();
+                        }
+                    }
+            );
+
+    }
+
+    public static void processInsertInterested(JSONObject response){
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    JSONObject interestedResponse = response.getJSONObject("interested");
+
+                    System.out.println("Message: " + interestedResponse.toString());
+
+                    Gson gson = new Gson();
+                    Interested interested = gson.fromJson(interestedResponse.toString(), Interested.class);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private DatabaseManager(){};

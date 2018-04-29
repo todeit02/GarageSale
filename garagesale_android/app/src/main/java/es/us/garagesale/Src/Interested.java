@@ -41,4 +41,13 @@ public class Interested {
     public Interested(){
 
     }
+
+    @Override
+    public String toString() {
+        return "Interested{" +
+                "username='" + username + '\'' +
+                ", offer_id=" + offer_id +
+                ", price=" + price +
+                '}';
+    }
 }

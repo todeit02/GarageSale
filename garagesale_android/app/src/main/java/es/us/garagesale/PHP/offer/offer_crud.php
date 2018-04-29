@@ -183,6 +183,42 @@ class OfferCrud
 
         return $sentencia->execute(array($id));
     }
+
+     /**
+         * Insertar una nueva meta
+         *
+         * @param $titulo      titulo del nuevo registro
+         * @param $descripcion descripción del nuevo registro
+         * @param $fechaLim    fecha limite del nuevo registro
+         * @param $categoria   categoria del nuevo registro
+         * @param $prioridad   prioridad del nuevo registro
+         * @return PDOStatement
+         */
+        public static function insertOfferInterested(
+            $username,
+            $offer_id,
+            $price
+        )
+        {
+            // Sentencia INSERT
+            $comando = "INSERT INTO interests ( " .
+                "username," .
+                " offer_id," .
+                " price)" .
+                " VALUES( ?,?,?)";
+
+            // Preparar la sentencia
+            $sentencia = Database::getInstance()->getDb()->prepare($comando);
+
+            return $sentencia->execute(
+                array(
+                    $username,
+                    $offer_id,
+                    $price
+                )
+            );
+
+        }
 }
 
 ?>

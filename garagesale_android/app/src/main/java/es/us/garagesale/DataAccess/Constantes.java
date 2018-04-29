@@ -27,6 +27,7 @@ public class Constantes {
      */
     private static final String PROTOCOL = "http://";
     private static final String IP = "192.168.1.4"; // Windows: 10.0.2.2, iOS: 192.168.1.4
+
     /**
      * URLs del Web Service
      */
@@ -37,6 +38,7 @@ public class Constantes {
     public static final String DELETE_OFFER = PROTOCOL + IP + "/offer/delete_offer.php";
     public static final String INSERT_OFFER = PROTOCOL + IP + "/offer/insert_offer.php";
     public static final String GET_LOGIN_VALID = PROTOCOL + IP + "/person/get_login_valid.php";
+    public static final String INSERT_OFFER_INTERESTED = PROTOCOL + IP + "/offer/offer_interested.php";
 
     /**
      * Clave para el valor extra que representa al identificador de una oferta

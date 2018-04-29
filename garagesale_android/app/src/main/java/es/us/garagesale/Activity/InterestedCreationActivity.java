@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -64,11 +63,10 @@ public class InterestedCreationActivity extends Activity {
 
                 if (invalidUserInputViews.size() == 0) {
                     Interested newInterested =  new Interested();
-                    newInterested.setPrice(Integer.parseInt(offeredPrice.getText().toString());
+                    newInterested.setPrice(Integer.parseInt(offeredPrice.getText().toString()));
                     newInterested.setUsername(usr);
                     newInterested.setOfferId(selectedOfferId);
-                    DatabaseManager.createInterested(newInterested);
-                    finish();
+                    DatabaseManager.saveInterested(newInterested, InterestedCreationActivity.this);
                 } else {
                     highlightInvalidInputViews(invalidUserInputViews);
                 }
@@ -89,7 +87,7 @@ public class InterestedCreationActivity extends Activity {
     private ArrayList<View> validateFreeUserInputs(){
         ArrayList<View> invalidValueContainers = new ArrayList<>();
 
-        if((offeredPrice.getText().toString().trim().length()!=0))
+        if((offeredPrice.getText().toString().trim().length()==0))
         {
             invalidValueContainers.add(priceLayout);
         }
