@@ -11,18 +11,10 @@ import android.widget.TextView;
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IInterestedConsumer;
 import es.us.garagesale.DataAccess.IOfferConsumer;
-import es.us.garagesale.DataAccess.IOffersConsumer;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Period;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 
 public class OfferDetailActivity extends Activity {
@@ -80,7 +72,6 @@ public class OfferDetailActivity extends Activity {
                 else{
                     createInterested.setText("No es posible autotarifar");
                 }
-
             }
         });
 
@@ -121,8 +112,6 @@ public class OfferDetailActivity extends Activity {
         }
         return max;
     }
-
-
 
 }
 
