@@ -3,6 +3,7 @@ package es.us.garagesale.Activity;
 import android.app.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class OfferDetailActivity extends Activity {
     private int selectedOfferId;
     TextView title, detail, state, remainingTime, currentPrice, currentOffers, createInterested;
     private Offer offer;
+    String actualUser;
+    String offerUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,13 @@ public class OfferDetailActivity extends Activity {
         currentPrice = findViewById(R.id.tv_offer_details_current_price);
         currentOffers = findViewById(R.id.tv_offer_details_offer_count);
         createInterested = findViewById(R.id.tv_btn_bid_label);
+        createInterested.setText("Propón un precio!");
 
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("login", MODE_PRIVATE);
+        actualUser = sharedPreferences.getString("username", null);
+
+        offerUser = getIntent().getStringExtra("username");
         selectedOfferId = getIntent().getIntExtra("id", 0);
 
         DatabaseManager.loadOffer(selectedOfferId, this, new IOfferConsumer() {
@@ -63,12 +72,28 @@ public class OfferDetailActivity extends Activity {
         createInterested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createInterestedActivityIntent = new Intent(getApplicationContext(), InterestedCreationActivity.class);
-                createInterestedActivityIntent.putExtra("id", selectedOfferId);
-                startActivity(createInterestedActivityIntent);
+                if(!isTheUsersOffer()){
+                    Intent createInterestedActivityIntent = new Intent(getApplicationContext(), InterestedCreationActivity.class);
+                    createInterestedActivityIntent.putExtra("id", selectedOfferId);
+                    startActivity(createInterestedActivityIntent);
+                }
+                else{
+                    createInterested.setText("No es posible autotarifar");
+                }
+
             }
         });
 
+    }
+
+    private boolean isTheUsersOffer(){
+        boolean areEqual;
+        if(actualUser.equals(offerUser)) {
+            areEqual = true;
+        }else{
+            areEqual = false;
+        }
+        return areEqual;
     }
 
     private void getMaxOffer(Offer received){

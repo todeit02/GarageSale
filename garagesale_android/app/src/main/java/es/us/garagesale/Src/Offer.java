@@ -40,6 +40,7 @@ public class Offer
     public static final Map<Duration, Integer> durationsDays = new EnumMap<>(Duration.class);
 
     private String name;
+    private String seller_username;
     private Condition condition;
     private String description;
     private float price;
@@ -58,6 +59,14 @@ public class Offer
     static
     {
         initializeDurationMap();
+    }
+
+    public String getSellerUsername() {
+        return seller_username;
+    }
+
+    public void setSellerUsername(String sellerUsername) {
+        this.seller_username = sellerUsername;
     }
 
     public String getName() {
@@ -174,7 +183,9 @@ public Offer(String name, String description, float price, ArrayList<String> tag
                 ", startTime='" + startTime + '\'' +
                 ", sold=" + sold +
                 ", seller=" + seller +
+                ", seller_username=" + seller_username +
                 ", interested=" + interested;
+
     }
 
     @Override

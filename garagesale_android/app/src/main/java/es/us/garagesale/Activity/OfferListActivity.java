@@ -81,7 +81,10 @@ public class OfferListActivity extends Activity
                     @Override
                     public void onClick(View v) {
                         Intent createOfferDetailActivityIntent = new Intent(getApplicationContext(), OfferDetailActivity.class);
-                        createOfferDetailActivityIntent.putExtra("id", creatingOffer.getId());
+                        Bundle extras = new Bundle();
+                        extras.putInt("id",creatingOffer.getId());
+                        extras.putString("username",creatingOffer.getSellerUsername());
+                        createOfferDetailActivityIntent.putExtras(extras);
                         startActivity(createOfferDetailActivityIntent);
                     }
                 });
