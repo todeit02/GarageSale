@@ -12,6 +12,7 @@ import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IOffersConsumer;
 import es.us.garagesale.Src.Offer;
 
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class OfferListActivity extends Activity
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;
     private FloatingActionButton buttonAddOffer = null;
+    private ImageButton btnPersonalArea;
 
 
     @Override
@@ -33,6 +35,7 @@ public class OfferListActivity extends Activity
         linearLayout = (LinearLayout)findViewById(R.id.offer_list_content);
         linearLayoutInflater = LayoutInflater.from(this);
         buttonAddOffer = findViewById(R.id.fab_add_offer);
+        btnPersonalArea = findViewById(R.id.imgbtn_personal_area);
 
         DatabaseManager.loadOffers(this, new IOffersConsumer() {
             @Override
@@ -46,6 +49,14 @@ public class OfferListActivity extends Activity
             public void onClick(View v) {
                 Intent createOfferActivityIntent = new Intent(getApplicationContext(), OfferCreationActivity.class);
                 startActivity(createOfferActivityIntent);
+            }
+        });
+
+        btnPersonalArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewProfileActivity = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(viewProfileActivity);
             }
         });
 

@@ -6,6 +6,7 @@
     <color name="myAqua">#c3f4e7</color>
     <color name="myDarkAqua">#70d7bc</color>
     <color name="myLightAqua">#d2ece5</color>
+    <color name="myLightestAqua">#edfdf9</color>
     <color name ="mySalmon">#ee997e</color>
     <color name ="myDarkSalmon">#f1815e</color>
     <color name ="myLightSalmon">#e4b8aa</color>
@@ -28,7 +29,7 @@
     <color name="white">#FFFFFF</color>
 
     <color name="button_background">#FFFFFF</color>
-    <color name="button_background_group_selected">#FFFFFF</color>
+    <color name="button_background_group_selected">#70d7bc</color>
     <color name="button_background_group_unselected">#A0A0A0</color>
 
     <color name="invalid_input">#FF0000</color>

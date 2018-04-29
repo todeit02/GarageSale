@@ -9,9 +9,7 @@ import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Interested;
@@ -27,7 +25,7 @@ public class InterestedCreationActivity extends Activity {
     EditText offeredPrice;
     ConstraintLayout cancelBtn, submitBtn, priceLayout;
     int selectedOfferId;
-    String usr;
+    String actualUser, offerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +39,11 @@ public class InterestedCreationActivity extends Activity {
         priceLayout = findViewById(R.id.cl_offeredPrice);
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("login", MODE_PRIVATE);
-        usr=   sharedPreferences.getString("username", null);
+        actualUser=   sharedPreferences.getString("username", null);
 
         selectedOfferId = getIntent().getIntExtra("id", 0);
+        offerName = getIntent().getStringExtra("name");
+        title.setText("Cuánto deseas ofertar por "+offerName+ "?");
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +64,7 @@ public class InterestedCreationActivity extends Activity {
                 if (invalidUserInputViews.size() == 0) {
                     Interested newInterested =  new Interested();
                     newInterested.setPrice(Integer.parseInt(offeredPrice.getText().toString()));
-                    newInterested.setUsername(usr);
+                    newInterested.setUsername(actualUser);
                     newInterested.setOfferId(selectedOfferId);
                     DatabaseManager.saveInterested(newInterested, InterestedCreationActivity.this);
                 } else {

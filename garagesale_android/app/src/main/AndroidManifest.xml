@@ -41,6 +41,8 @@
         <activity android:name="es.us.garagesale.Activity.OfferCreationActivity" />
         <activity android:name="es.us.garagesale.Activity.OfferDetailActivity" />
         <activity android:name="es.us.garagesale.Activity.InterestedCreationActivity" />
+        <activity android:name="es.us.garagesale.Activity.ProfileActivity" />
+
     </application>
 
 </manifest>

@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IInterestedConsumer;
 import es.us.garagesale.DataAccess.IOfferConsumer;
@@ -55,7 +54,7 @@ public class OfferDetailActivity extends Activity {
     }
 
 
-    private void displayOffer(Offer received){
+    private void displayOffer(final Offer received){
         title.setText(received.getName());
         detail.setText(received.getDescription()+" \n"+ "Precio original: "+ getString(R.string.currency) +received.getPrice());
         state.setText(received.getState());
@@ -66,7 +65,10 @@ public class OfferDetailActivity extends Activity {
             public void onClick(View v) {
                 if(!isTheUsersOffer()){
                     Intent createInterestedActivityIntent = new Intent(getApplicationContext(), InterestedCreationActivity.class);
-                    createInterestedActivityIntent.putExtra("id", selectedOfferId);
+                    Bundle extras = new Bundle();
+                    extras.putInt("id", selectedOfferId);
+                    extras.putString("name",received.getName());
+                    createInterestedActivityIntent.putExtras(extras);
                     startActivity(createInterestedActivityIntent);
                 }
                 else{

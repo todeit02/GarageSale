@@ -24,9 +24,11 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:autoSizeTextType="uniform"
-                android:text="ActivityName"
+                android:background="@drawable/border_activity_name"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Area personal"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/base" />
         </LinearLayout>
 
         <LinearLayout
@@ -36,7 +38,7 @@
             android:background="@color/myAqua"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal"
-            android:paddingTop="3dp">
+            android:paddingTop="10dp">
 
 
             <ImageButton
@@ -44,40 +46,44 @@
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_weight="0"
-                android:background="@drawable/button_group_left_selected_background"
+                android:adjustViewBounds="true"
+                android:background="@drawable/button_group_left_unselected_background"
                 android:padding="3dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/dollar_to_user" />
+                android:src="@mipmap/buy" />
 
             <ImageButton
                 android:id="@+id/imgbtn_purchases"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_weight="0"
-                android:background="@drawable/border"
+                android:adjustViewBounds="true"
+                android:background="@drawable/button_group_middle_unselected_background"
                 android:padding="3dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/dollar_from_user" />
+                android:src="@mipmap/sell" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_personal"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:adjustViewBounds="true"
+                android:background="@drawable/button_group_middle_selected_background"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/user" />
 
             <ImageButton
                 android:id="@+id/imgbtn_messages"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_weight="0"
-                android:background="@drawable/border"
+                android:adjustViewBounds="true"
+                android:background="@drawable/button_group_right_unselected_background"
                 android:padding="3dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/comments" />
-
-            <ImageButton
-                android:id="@+id/imgbtn_personal_data"
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_weight="0"
-                android:background="@drawable/button_group_right_selected_background"
-                android:padding="3dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/user" />
+                android:src="@mipmap/mail" />
 
         </LinearLayout>
 
@@ -88,6 +94,199 @@
             android:layout_weight="1"
             android:background="@color/myAqua"
             android:fitsSystemWindows="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Nombre: "
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_nameFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Juan"
+                        android:textColor="@color/monsoon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Usuario:"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_usernameFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="mi_usuario"
+                        android:textColor="@color/monsoon" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Email:"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_emailFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="un_email"
+                        android:textColor="@color/monsoon" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_birthDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Fecha de nacimiento:"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_birthDateFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="dd/mm/yy"
+                        android:textColor="@color/monsoon" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_nationality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Nacionalidad:"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_nationalityFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="españa"
+                        android:textColor="@color/monsoon" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Tarjeta de debito/credito:"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_cardFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="12345"
+                        android:textColor="@color/monsoon" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_reputation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Reputacion:"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_reputationFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="· ·"
+                        android:textColor="@color/monsoon" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </ScrollView>
 
