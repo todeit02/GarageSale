@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Seller extends Person{
 
     private  String adress;
-    private int reputation; //cuando un buyer compra algo de un seller, se le habilita la opcion de valorar la reputacion de ESTE seller
+   // private int reputation; //cuando un buyer compra algo de un seller, se le habilita la opcion de valorar la reputacion de ESTE seller
     private ArrayList<Offer> offers;
     private int earnedMoney;
     private ArrayList<Purchase> sales;
@@ -23,13 +23,13 @@ public class Seller extends Person{
         this.adress = adress;
     }
 
-    public int getReputation() {
+   /*public int getReputation() {
         return reputation;
-    }
+    }*/
 
-    public void setReputation(int reputation) {
+    /*public void setReputation(int reputation) {
         this.reputation = reputation;
-    }
+    }*/
 
     public ArrayList<Offer> getOffers() {
         return offers;
@@ -63,9 +63,8 @@ public class Seller extends Person{
         this.cellphone = cellphone;
     }
 
-    public Seller(String adress, int reputation, ArrayList<Offer> offers, int earnedMoney, ArrayList<Purchase> sales, int cellphone) {
+    public Seller(String adress, ArrayList<Offer> offers, int earnedMoney, ArrayList<Purchase> sales, int cellphone) {
         this.adress = adress;
-        this.reputation = reputation;
         this.offers = offers;
         this.earnedMoney = earnedMoney;
         this.sales = sales;

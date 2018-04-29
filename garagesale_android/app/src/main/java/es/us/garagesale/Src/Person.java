@@ -13,26 +13,39 @@ import java.util.ArrayList;
 
 public class Person extends SugarRecord<Person> {
 
-    private String user;
+    private String username;
     private String password;
     private String name;
     private String email;
     private String birthDate;
     private String nationality;
-    private Card personalCard;
+    private String card_id;
+    private int reputation;
     private ArrayList<Purchase> purchases;
 
 
-    public Card getPersonalCard(){
-        return this.personalCard;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPersonalCard(Card personalCard){
-        this.personalCard = personalCard;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public int getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(int reputation) {
+        this.reputation = reputation;
+    }
+
+    public String getPersonalCard(){
+        return this.card_id;
+    }
+
+    public void setPersonalCard(String personalCard){
+        this.card_id = personalCard;
     }
 
     public void setName(String name) {
@@ -51,24 +64,14 @@ public class Person extends SugarRecord<Person> {
         return this.name;
     }
 
-    public void setNombre(String name){
-        this.name= name;
-    }
-
     public String getPassword(){
         return this.password;
     }
+
     public void setPassword(String password){
         this.password = password;
     }
 
-    public String getUser(){
-        return this.user;
-    }
-
-    public void setUsuario(String user){
-        this.user= user;
-    }
     public String getBirthDate(){
         return this.birthDate;
     }
@@ -95,35 +98,38 @@ public class Person extends SugarRecord<Person> {
     public Person(){
         this.name = "";
         this.birthDate = "";
-        this.user = "";
+        this.username = "";
         this.nationality = "";
         this.password ="";
         this.email = "";
-        this.personalCard = null;
+        this.card_id = null;
         this.purchases = null;
     }
 
-    public Person(String user, String password, String name, String email, String birthDate, String nationality, Card personalCard, ArrayList<Purchase> purchases) {
-        this.user = user;
+    public Person(String user, String password, String name, String email, String birthDate, String nationality, String personalCard, ArrayList<Purchase> purchases, int reputation) {
+        this.username = user;
         this.password = password;
         this.name = name;
         this.email = email;
         this.birthDate = birthDate;
         this.nationality = nationality;
-        this.personalCard = personalCard;
+        this.card_id = personalCard;
         this.purchases = purchases;
+        this.reputation = reputation;
     }
 
     @Override
     public String toString() {
         return "Person: " +
-                "user=" + user + '\'' +
+                "username=" + username + '\'' +
                 ", password=" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", nationality='" + nationality + '\'' +
-                ", personalCard=" + personalCard;
+                ", reputation='" + reputation + '\'' +
+                ", personalCard=" + card_id;
+
     }
 
     //Redefinir el equals
@@ -135,7 +141,7 @@ public class Person extends SugarRecord<Person> {
 
         Person person = (Person) o;
 
-        if (user != null ? !user.equals(person.user) : person.user != null) return false;
+        if (username != null ? !username.equals(person.username) : person.username != null) return false;
 
         if (email != null ? !email.equals(person.email) : person.email != null) return false;
         return true;
@@ -143,13 +149,13 @@ public class Person extends SugarRecord<Person> {
 
     @Override
     public int hashCode() {
-        int result = user != null ? user.hashCode() : 0;
+        int result = username != null ? username.hashCode() : 0;
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
         result = 31 * result + (nationality != null ? nationality.hashCode() : 0);
-        result = 31 * result + (personalCard != null ? personalCard.hashCode() : 0);
+        result = 31 * result + (card_id != null ? card_id.hashCode() : 0);
         return result;
     }
 }

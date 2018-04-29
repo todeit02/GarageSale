@@ -12,6 +12,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
+import es.us.garagesale.Src.Person;
+
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -136,6 +138,31 @@ Activity aux;
                 );
     }
 
+    public static void loadPersonInfo(String user, Activity callingActivity, final IPersonConsumer callback) {
+        VolleySingleton.
+                getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.GET,
+                                Constantes.GET_PERSON_BY_USERNAME+"?username="+user,
+                                (String)null,
+                                new Response.Listener<JSONObject>() {
+
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        processPersonResponse(response, callback);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                    }
+                                }
+                        )
+                );
+    }
 
     private static void processOffersResponse(JSONObject response, final IOffersConsumer callback) {
         try {
@@ -177,6 +204,32 @@ Activity aux;
                     Gson gson = new Gson();
                     Offer offer = gson.fromJson(offerResponse.toString(), Offer.class);
                     callback.consume(offer);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void processPersonResponse(JSONObject response, final IPersonConsumer callback) {
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    JSONObject personResponse = response.getJSONObject("person");
+
+                    System.out.println("Message: " + personResponse.toString());
+
+                    Gson gson = new Gson();
+                    Person person = gson.fromJson(personResponse.toString(), Person.class);
+                    callback.consume(person);
                     break;
                 case failResponse:
                     String failMessage = response.getString("mensaje");
