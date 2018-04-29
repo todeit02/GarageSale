@@ -27,6 +27,7 @@
     <string name="offer_condition_nearly_new">casi nuevo</string>
     <string name="offer_condition_used">usado</string>
     <string name="offer_condition_defective">defecto</string>
+    <string name="offer_location">%1$s, %2$s</string>
     <string name="offer_duration">%1$d días</string>
 
     <!-- Nombre de la actividad -->

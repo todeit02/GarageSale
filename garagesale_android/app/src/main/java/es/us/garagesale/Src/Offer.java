@@ -1,6 +1,11 @@
 package es.us.garagesale.Src;
 
 
+import android.graphics.Bitmap;
+
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -53,8 +58,8 @@ public class Offer
     private int id;
     private String state;
     private int activePeriod;
-    private ArrayList<String> photoPaths;
-    //poner galeria de fotos
+    private ArrayList<Bitmap> photos;
+    private Place location;
 
     static
     {
@@ -143,6 +148,34 @@ public class Offer
         this.interested = interested;
     }
 
+    public ArrayList<Bitmap> getPhotos() { return photos; }
+
+    public void addPhoto(Bitmap addingPhoto)
+    {
+        photos.add(addingPhoto);
+    }
+
+    public void deletePhoto(Bitmap deletingPhoto)
+    {
+        photos.remove(deletingPhoto);
+    }
+
+    public void deletePhotoLast()
+    {
+        int lastPhotoIndex = photos.size() - 1;
+        if(lastPhotoIndex < 0) return;
+
+        photos.remove(lastPhotoIndex);
+    }
+
+    public boolean hasPhotos()
+    {
+        return (photos.size() > 0);
+    }
+
+    public Place getLocation() { return location; }
+    public void setLocation(Place location) { this.location = location; }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -150,7 +183,7 @@ public class Offer
         return id;
     }
 
-public Offer(String name, String description, float price, ArrayList<String> tags, String startTime, boolean sold, Seller seller, ArrayList<Person> interested) {
+    public Offer(String name, String description, float price, ArrayList<String> tags, String startTime, boolean sold, Seller seller, ArrayList<Person> interested) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -158,6 +191,7 @@ public Offer(String name, String description, float price, ArrayList<String> tag
         this.sold = sold;
         this.seller = seller;
         this.interested = interested;
+        this.photos = new ArrayList<>();
         // ID is set by database
     }
 
@@ -170,6 +204,8 @@ public Offer(String name, String description, float price, ArrayList<String> tag
         this.sold = false;
         this.seller = null;
         this.interested = new ArrayList<Person>();
+        this.photos = new ArrayList<>();
+        this.location = null;
         // ID is set by database
     }
 

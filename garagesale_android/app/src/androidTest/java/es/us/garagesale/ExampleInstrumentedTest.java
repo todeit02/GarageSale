@@ -1,4 +1,4 @@
-package es.us.garagasale.pruebaframe;
+package es.us.garagesale;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
