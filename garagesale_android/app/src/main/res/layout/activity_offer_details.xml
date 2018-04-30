@@ -302,7 +302,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/imgv_btn_bid_label"
+            android:id="@+id/imgv_btn_title_offer"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="fitCenter"
@@ -320,9 +320,9 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imgv_btn_bid_label"
-            app:layout_constraintLeft_toRightOf="@+id/imgv_btn_bid_label"
+            app:layout_constraintBottom_toBottomOf="@+id/imgv_btn_title_offer"
+            app:layout_constraintLeft_toRightOf="@+id/imgv_btn_title_offer"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imgv_btn_bid_label" />
+            app:layout_constraintTop_toTopOf="@+id/imgv_btn_title_offer" />
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

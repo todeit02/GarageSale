@@ -26,6 +26,7 @@ public class ProfileActivity extends Activity {
     ImageButton sales, purchases, messages, personalArea;
     TextView name, username, birthDate, email, reputation, nationality, card;
     String actualUser;
+    Person fromDB;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class ProfileActivity extends Activity {
         DatabaseManager.loadPersonInfo(actualUser, this, new IPersonConsumer() {
             @Override
             public void consume(Person actualPerson) {
+                fromDB = actualPerson;
                 displayPersonalInfo(actualPerson);
             }
         });
@@ -49,6 +51,8 @@ public class ProfileActivity extends Activity {
             public void onClick(View v) {
                 v.setBackgroundResource(R.drawable.button_group_left_selected_background);
                 unSet(1);
+                Intent viewSalesActivity = new Intent(getApplicationContext(), SalesActivity.class);
+                startActivity(viewSalesActivity);
             }
         });
 
@@ -65,7 +69,7 @@ public class ProfileActivity extends Activity {
             public void onClick(View v) {
                 v.setBackgroundResource(R.drawable.button_group_middle_selected_background);
                 unSet(3);
-                //displayPersonalInfo(actualPerson);
+                displayPersonalInfo(fromDB);
             }
         });
 

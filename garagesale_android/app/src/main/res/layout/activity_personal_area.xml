@@ -50,7 +50,7 @@
                 android:background="@drawable/button_group_left_unselected_background"
                 android:padding="3dp"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/buy" />
+                android:src="@mipmap/sell" />
 
             <ImageButton
                 android:id="@+id/imgbtn_purchases"
@@ -61,7 +61,7 @@
                 android:background="@drawable/button_group_middle_unselected_background"
                 android:padding="3dp"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/sell" />
+                android:src="@mipmap/buy" />
 
             <ImageButton
                 android:id="@+id/imgbtn_personal"
@@ -96,6 +96,7 @@
             android:fitsSystemWindows="true">
 
             <LinearLayout
+                android:id="@+id/ll_content_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

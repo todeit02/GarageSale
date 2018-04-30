@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_offer_list_item_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="1dp"
+    android:background="@drawable/border_rounded_background_content"
+    android:orientation="vertical"
+    android:padding="2dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="1.5dp"
+        android:layout_weight="0"
+        android:background="@drawable/border_rounded_background_title"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/imgv_btn_title"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/tag"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_offer_title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center_vertical"
+            android:paddingRight="40dp"
+            android:text="oferta"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgv_btn_title"
+            app:layout_constraintLeft_toRightOf="@+id/imgv_btn_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgv_btn_title" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_weight="0"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="title"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_remaining_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_weight="0"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="quedan xx horas"
+        android:textColor="@color/oil"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:id="@+id/tv_original_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_weight="0"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="precio original $$"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_actual_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_weight="0"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="maxima oferta:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_candidate_buyer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_weight="0"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="candidato a comprar"
+        android:textSize="18sp" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_btn_bid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="1.5dp"
+        android:layout_weight="0"
+        android:background="@drawable/border_rounded_background"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imgv_btn_title_offer"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/success"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_btn_bid_label"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="aceptar precio"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgv_btn_title_offer"
+            app:layout_constraintLeft_toRightOf="@+id/imgv_btn_title_offer"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgv_btn_title_offer" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</LinearLayout>

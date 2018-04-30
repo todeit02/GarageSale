@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/myAqua">
 
     <LinearLayout
         android:id="@+id/ll_main"
@@ -57,9 +58,11 @@
             android:id="@+id/scrv_offer_list_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:background="@color/myAqua"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:paddingTop="5dp">
 
             <LinearLayout
                 android:id="@+id/offer_list_content"

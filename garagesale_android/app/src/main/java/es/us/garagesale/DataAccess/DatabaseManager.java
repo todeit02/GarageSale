@@ -59,6 +59,31 @@ Activity aux;
                 );
     }
 
+    public static void loadUsernameOffers(String username, Activity callingActivity, final IUsernameOffersConsumer callback){
+        VolleySingleton.
+                getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.GET,
+                                Constantes.GET_ALL_USERNAME_OFFERS+"?seller_username="+username,
+                                (String)null,
+                                new Response.Listener<JSONObject>() {
+
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        processUsernameOffersResponse(response, callback);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                    }
+                                }
+                        )
+                );
+}
 
     public static void loadInterested(int id,Activity callingActivity, final IInterestedConsumer callback) {
         VolleySingleton.
@@ -110,7 +135,6 @@ Activity aux;
             e.printStackTrace();
         }
     }
-
 
     public static void loadOffer(int id, Activity callingActivity, final IOfferConsumer callback) {
         VolleySingleton.
@@ -165,6 +189,31 @@ Activity aux;
     }
 
     private static void processOffersResponse(JSONObject response, final IOffersConsumer callback) {
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    JSONArray offersResponse = response.getJSONArray("offers");
+                    System.out.println("Message: " + offersResponse.toString());
+
+                    Gson gson = new Gson();
+                    Offer[] offers = gson.fromJson(offersResponse.toString(), Offer[].class);
+                    callback.consume(offers);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void processUsernameOffersResponse(JSONObject response, final IUsernameOffersConsumer callback) {
         try {
             String state = response.getString("estado");
             System.out.println("State: " + state);
