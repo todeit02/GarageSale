@@ -70,8 +70,9 @@
             android:screenOrientation="userPortrait" />
 
         <activity
-            android:name="es.us.garagesale.Activity.SalesActivity"
+            android:name="es.us.garagesale.Activity.AcceptPurchaseActivity"
             android:screenOrientation="userPortrait" />
+
 
         <provider
             android:name="android.support.v4.content.FileProvider"

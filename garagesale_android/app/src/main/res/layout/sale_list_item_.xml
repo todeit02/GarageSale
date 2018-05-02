@@ -91,7 +91,6 @@
         android:layout_margin="3dp"
         android:layout_weight="0"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="maxima oferta:"
         android:textSize="18sp" />
 
     <TextView
@@ -101,7 +100,9 @@
         android:layout_margin="3dp"
         android:layout_weight="0"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="candidato a comprar"
+        android:text="No hay ofertas para esta publicacion"
+        android:textAlignment="center"
+        android:textColor="@color/oil"
         android:textSize="18sp" />
 
     <android.support.constraint.ConstraintLayout
