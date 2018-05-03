@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-smallcaps"
             android:gravity="center_horizontal"
-            android:text="Crea tu usuario"
+            android:text="@string/signup_prompt_text"
             android:textAllCaps="false"
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />
@@ -36,57 +36,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_name"
+
+            <EditText
+                android:id="@+id/input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Name"
-                android:textColor="@color/monsoon"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <!-- Address Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="Address"
-                android:textColor="@color/monsoon"/>
-        </android.support.design.widget.TextInputLayout>
-
-
-
-        <!--  Email Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Email"
-                android:textColor="@color/monsoon"/>
-        </android.support.design.widget.TextInputLayout>
-
-
-        <!-- mobile number -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Mobile Number"
-                android:textColor="@color/monsoon"/>
+                android:hint="@string/signup_username_hint"
+                android:inputType="textShortMessage"
+                android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -99,9 +56,131 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Password"
+                android:hint="@string/signup_password_hint"
                 android:textColor="@color/monsoon"/>
         </android.support.design.widget.TextInputLayout>
+
+
+        <!-- Real Name Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/input_real_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/signup_real_name_hint"
+                android:inputType="textCapWords|textPersonName"
+                android:textColor="@color/monsoon" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <!--  Birth Date Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/input_birth_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/signup_birth_date_hint"
+                android:inputType="date"
+                android:textColor="@color/monsoon" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <!-- Nationality -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/input_nationality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/signup_nationality_hint"
+                android:inputType="text|textShortMessage"
+                android:textColor="@color/monsoon" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Credit Card Number -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/input_credit_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/signup_credit_card_hint"
+                android:inputType="number"
+                android:textColor="@color/monsoon" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_credit_card_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <!-- Credit Card Validation Code -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <EditText
+                    android:id="@+id/input_cc_validation_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/signup_cc_validation_code_hint"
+                    android:inputType="numberPassword"
+                    android:textColor="@color/monsoon" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Credit Card Validation Code -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_cc_end_month"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/signup_cc_month_hint"
+                    android:inputType="number"
+                    android:textColor="@color/monsoon" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Credit Card Validation Code -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/input_cc_end_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/signup_cc_year_hint"
+                    android:inputType="number"
+                    android:textColor="@color/monsoon" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
 
         <!-- Password Re-enter Label -->
         <android.support.design.widget.TextInputLayout
@@ -113,7 +192,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Re-enter Password"
+                android:hint="@string/signup_password_reenter_hint"
                 android:textColor="@color/monsoon"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -122,11 +201,11 @@
             android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
             android:background="@color/mySalmon"
             android:padding="12dp"
-            android:text="Create Account"
+            android:text="@string/signup_create_account"
             android:textColor="@android:color/background_light" />
 
         <TextView android:id="@+id/link_login"

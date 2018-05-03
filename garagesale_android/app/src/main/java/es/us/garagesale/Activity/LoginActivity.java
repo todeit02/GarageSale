@@ -24,7 +24,7 @@ public class LoginActivity extends Activity {
     private static final int REQUEST_SIGNUP = 0;
     private ProgressDialog progressDialog = null;
 
-    @BindView(es.us.garagesale.R.id.input_username) EditText _usernameText;
+    @BindView(es.us.garagesale.R.id.input_birth_date) EditText _usernameText;
     @BindView(es.us.garagesale.R.id.input_password) EditText _passwordText;
     @BindView(es.us.garagesale.R.id.btn_login) Button _loginButton;
     @BindView(es.us.garagesale.R.id.link_signup) TextView _signupLink;
@@ -58,9 +58,9 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), es.us.garagesale.Activity.SignupActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                intent.putExtra("username", _usernameText.getText().toString());
                 startActivityForResult(intent, REQUEST_SIGNUP);
-                finish();
                 overridePendingTransition(es.us.garagesale.R.anim.push_left_in, es.us.garagesale.R.anim.push_left_out);
             }
         });

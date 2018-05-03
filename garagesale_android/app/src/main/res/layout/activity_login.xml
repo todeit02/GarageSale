@@ -37,7 +37,7 @@
             android:layout_marginBottom="8dp">
 
             <EditText
-                android:id="@+id/input_username"
+                android:id="@+id/input_birth_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Usuario"
@@ -78,7 +78,7 @@
             android:layout_marginBottom="24dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="No tienes una cuenta aún? Crea una aquí."
+            android:text="No tienes una cuenta aún? Pulsa aquí."
             android:textSize="16dip" />
 
     </LinearLayout>

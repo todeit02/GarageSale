@@ -15,6 +15,24 @@
         completions."
     </string>
 
+    <!-- Signup -->
+    <string name="signup_prompt_text">Crea tu usuario</string>
+    <string name="signup_username_hint">Usuario</string>
+    <string name="signup_password_hint">Contraseña</string>
+    <string name="signup_real_name_hint">Nombre y apellidos</string>
+    <string name="signup_birth_date_hint">Fecha de nacimiento</string>
+    <string name="signup_nationality_hint">Nacionalidad</string>
+    <string name="signup_credit_card_hint">Tarjeta de crédito</string>
+    <string name="signup_cc_validation_code_hint">CVC</string>
+    <string name="signup_cc_month_hint">MM</string>
+    <string name="signup_cc_year_hint">YY</string>
+    <string name="signup_password_reenter_hint">Reintroducir contraseña</string>
+    <string name="signup_create_account">Abrir Cuenta</string>
+    <string name="signup_error">Alta ha fallado!</string>
+    <string name="signup_short_username_error">3 caracteres como mínimo</string>
+    <string name="signup_password_length_error">entre 4 y 10 caracteres alfanuméricos</string>
+    <string name="signup_password_mismatch_error">contraseñas no están idénticas</string>
+
 
     <string name="action_settings">Settings</string>
     <string name="remaining_characters_count">(quedan %1$d characteres)</string>

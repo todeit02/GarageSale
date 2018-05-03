@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Erstellungszeit: 18. Apr 2018 um 15:32
--- Server-Version: 10.1.28-MariaDB
--- PHP-Version: 7.1.11
+-- Servidor: localhost
+-- Tiempo de generación: 03-05-2018 a las 12:04:23
+-- Versión del servidor: 10.1.31-MariaDB
+-- Versión de PHP: 5.6.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `garagesale`
+-- Base de datos: `garagesale`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `cards`
+-- Estructura de tabla para la tabla `cards`
 --
 
 CREATE TABLE `cards` (
@@ -37,7 +37,7 @@ CREATE TABLE `cards` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Daten für Tabelle `cards`
+-- Volcado de datos para la tabla `cards`
 --
 
 INSERT INTO `cards` (`id`, `cardNum`, `expDate`, `ccv`, `bank`) VALUES
@@ -46,41 +46,52 @@ INSERT INTO `cards` (`id`, `cardNum`, `expDate`, `ccv`, `bank`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `interests`
+-- Estructura de tabla para la tabla `interests`
 --
 
 CREATE TABLE `interests` (
   `username` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `offer_id` int(11) NOT NULL
+  `offer_id` int(11) NOT NULL,
+  `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `interests`
+--
+
+INSERT INTO `interests` (`username`, `offer_id`, `price`) VALUES
+('majitoven', 24, 1000);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `offers`
+-- Estructura de tabla para la tabla `offers`
 --
 
 CREATE TABLE `offers` (
   `name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `price` float NOT NULL,
-  `publishDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `startTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `sold` tinyint(1) NOT NULL,
   `seller_username` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `state` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `activePeriod` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Daten für Tabelle `offers`
+-- Volcado de datos para la tabla `offers`
 --
 
-INSERT INTO `offers` (`name`, `description`, `price`, `publishDate`, `sold`, `seller_username`, `id`) VALUES
-('Iphone', 'iPhone 4 usado', 120, '2018-03-25 17:51:28', 0, 'majitoven', 24);
+INSERT INTO `offers` (`name`, `description`, `price`, `startTime`, `sold`, `seller_username`, `id`, `state`, `activePeriod`) VALUES
+('MacbookPro1', 'es una macbook que. balboa', 1200, '2018-05-02 17:33:28', 0, 'majitoven', 1, 'usado', 3),
+('Iphone', 'iPhone 4 usado', 120, '2018-04-23 18:47:56', 0, 'majitoven', 24, 'usado', 3);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `offer_tags`
+-- Estructura de tabla para la tabla `offer_tags`
 --
 
 CREATE TABLE `offer_tags` (
@@ -91,13 +102,13 @@ CREATE TABLE `offer_tags` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `persons`
+-- Estructura de tabla para la tabla `persons`
 --
 
 CREATE TABLE `persons` (
   `username` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `password` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `full_name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `birthDate` date NOT NULL,
   `nationality` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -106,16 +117,16 @@ CREATE TABLE `persons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Daten für Tabelle `persons`
+-- Volcado de datos para la tabla `persons`
 --
 
-INSERT INTO `persons` (`username`, `password`, `full_name`, `email`, `birthDate`, `nationality`, `card_id`, `reputation`) VALUES
+INSERT INTO `persons` (`username`, `password`, `name`, `email`, `birthDate`, `nationality`, `card_id`, `reputation`) VALUES
 ('majitoven', 'miley1823', 'maria ventura', 'mariajose_v13@hotmail.com', '2018-03-05', 'uruguaya', 12345, 0);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `purchases`
+-- Estructura de tabla para la tabla `purchases`
 --
 
 CREATE TABLE `purchases` (
@@ -125,78 +136,78 @@ CREATE TABLE `purchases` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Indizes der exportierten Tabellen
+-- Índices para tablas volcadas
 --
 
 --
--- Indizes für die Tabelle `cards`
+-- Indices de la tabla `cards`
 --
 ALTER TABLE `cards`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `interests`
+-- Indices de la tabla `interests`
 --
 ALTER TABLE `interests`
   ADD KEY `username` (`username`),
   ADD KEY `offer_id` (`offer_id`);
 
 --
--- Indizes für die Tabelle `offers`
+-- Indices de la tabla `offers`
 --
 ALTER TABLE `offers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `seller_username` (`seller_username`);
 
 --
--- Indizes für die Tabelle `offer_tags`
+-- Indices de la tabla `offer_tags`
 --
 ALTER TABLE `offer_tags`
   ADD KEY `offer_id` (`offer_id`);
 
 --
--- Indizes für die Tabelle `persons`
+-- Indices de la tabla `persons`
 --
 ALTER TABLE `persons`
   ADD PRIMARY KEY (`username`),
   ADD KEY `card_id` (`card_id`);
 
 --
--- Indizes für die Tabelle `purchases`
+-- Indices de la tabla `purchases`
 --
 ALTER TABLE `purchases`
   ADD KEY `offer_id` (`offer_id`),
   ADD KEY `buyer_username` (`buyer_username`);
 
 --
--- AUTO_INCREMENT für exportierte Tabellen
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT für Tabelle `offers`
+-- AUTO_INCREMENT de la tabla `offers`
 --
 ALTER TABLE `offers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- Constraints der exportierten Tabellen
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints der Tabelle `interests`
+-- Filtros para la tabla `interests`
 --
 ALTER TABLE `interests`
   ADD CONSTRAINT `interests_ibfk_1` FOREIGN KEY (`username`) REFERENCES `persons` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `interests_ibfk_2` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints der Tabelle `offers`
+-- Filtros para la tabla `offers`
 --
 ALTER TABLE `offers`
   ADD CONSTRAINT `offers_ibfk_1` FOREIGN KEY (`seller_username`) REFERENCES `persons` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints der Tabelle `offer_tags`
+-- Filtros para la tabla `offer_tags`
 --
 ALTER TABLE `offer_tags`
   ADD CONSTRAINT `offer_tags_ibfk_1` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
