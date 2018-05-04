@@ -7,9 +7,9 @@
     <color name="myDarkAqua">#70d7bc</color>
     <color name="myLightAqua">#98c3f4e7</color>
     <color name="myLightestAqua">#edfdf9</color>
-    <color name ="mySalmon">#ee997e</color>
-    <color name ="myDarkSalmon">#f1815e</color>
-    <color name ="myLightSalmon">#e4b8aa</color>
+    <color realName ="mySalmon">#ee997e</color>
+    <color realName ="myDarkSalmon">#f1815e</color>
+    <color realName ="myLightSalmon">#e4b8aa</color>
 
 
 

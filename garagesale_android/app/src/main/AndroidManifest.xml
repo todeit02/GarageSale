@@ -3,14 +3,14 @@
     package="es.us.garagesale">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-feature android:name="android.hardware.camera"
+    <uses-permission android:realName="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:realName="android.permission.READ_PROFILE" />
+    <uses-permission android:realName="android.permission.READ_CONTACTS" />
+    <uses-permission android:realName="android.permission.INTERNET" />
+    <uses-permission android:realName="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:realName="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:realName="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-feature android:realName="android.hardware.camera"
         android:required="false" />
 
     <application
@@ -21,68 +21,68 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
         <meta-data
-            android:name="DATABASE"
+            android:realName="DATABASE"
             android:value="sugar_example.db" />
         <meta-data
-            android:name="VERSION"
+            android:realName="VERSION"
             android:value="2" />
         <meta-data
-            android:name="QUERY_LOG"
+            android:realName="QUERY_LOG"
             android:value="true" />
         <meta-data
-            android:name="DOMAIN_PACKAGE_NAME"
+            android:realName="DOMAIN_PACKAGE_NAME"
             android:value="com.example" />
         <!-- Key for Google API (Place Picker) -->
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
+            android:realName="com.google.android.geo.API_KEY"
             android:value="AIzaSyB2LtJBuTFS5jG-EsLi0WjwIMYECVapAlo"/>
 
         <activity
-            android:name="es.us.garagesale.Activity.SplashScreen"
+            android:realName="es.us.garagesale.Activity.SplashScreen"
             android:screenOrientation="userPortrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:realName="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:realName="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="es.us.garagesale.Activity.SignupActivity"
+            android:realName="es.us.garagesale.Activity.SignupActivity"
             android:screenOrientation="userPortrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="es.us.garagesale.Activity.LoginActivity"
+            android:realName="es.us.garagesale.Activity.LoginActivity"
             android:screenOrientation="userPortrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="es.us.garagesale.Activity.OfferListActivity"
+            android:realName="es.us.garagesale.Activity.OfferListActivity"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="es.us.garagesale.Activity.OfferCreationActivity"
+            android:realName="es.us.garagesale.Activity.OfferCreationActivity"
             android:screenOrientation="userPortrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="es.us.garagesale.Activity.OfferDetailActivity"
+            android:realName="es.us.garagesale.Activity.OfferDetailActivity"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="es.us.garagesale.Activity.InterestedCreationActivity"
+            android:realName="es.us.garagesale.Activity.InterestedCreationActivity"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="es.us.garagesale.Activity.ProfileActivity"
+            android:realName="es.us.garagesale.Activity.ProfileActivity"
             android:screenOrientation="userPortrait" />
 
         <activity
-            android:name="es.us.garagesale.Activity.AcceptPurchaseActivity"
+            android:realName="es.us.garagesale.Activity.AcceptPurchaseActivity"
             android:screenOrientation="userPortrait" />
 
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:realName="android.support.v4.content.FileProvider"
             android:authorities="es.us.garagesale.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:realName="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
     </application>

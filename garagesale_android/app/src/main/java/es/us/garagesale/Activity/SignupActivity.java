@@ -15,12 +15,14 @@ import es.us.garagesale.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.us.garagesale.Src.Person;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
     @BindView(R.id.input_username) EditText _usernameText;
     @BindView(R.id.input_password) EditText _passwordText;
+    @BindView(R.id.input_email) EditText _emailText;
     @BindView(R.id.input_real_name) EditText _realNameText;
     @BindView(R.id.input_birth_date) EditText _birthDateText;
     @BindView(R.id.input_nationality) EditText _nationalityText;
@@ -81,6 +83,7 @@ public class SignupActivity extends AppCompatActivity {
 
         String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
+        String email = _emailText.getText().toString();
         String realName = _realNameText.getText().toString();
         String birthDate = _birthDateText.getText().toString();
         String nationality = _nationalityText.getText().toString();
@@ -88,7 +91,8 @@ public class SignupActivity extends AppCompatActivity {
         String ccValidationCode = _ccValidationCodeText.getText().toString();
         String ccEndMonth = _ccEndMonthText.getText().toString();
         String ccEndYear = _ccEndYearText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
+
+        Person registeringPerson = new Person(username, password, realName, email, birthDate, nationality, creditCardNumber);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {

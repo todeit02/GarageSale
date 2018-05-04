@@ -20,6 +20,7 @@
     <string name="signup_prompt_text">Crea tu usuario</string>
     <string name="signup_username_hint">Usuario</string>
     <string name="signup_password_hint">Contraseña</string>
+    <string name="signup_email_hint">Correo electrónico</string>
     <string name="signup_real_name_hint">Nombre y apellidos</string>
     <string name="signup_birth_date_hint">Fecha de nacimiento</string>
     <string name="signup_nationality_hint">Nacionalidad</string>

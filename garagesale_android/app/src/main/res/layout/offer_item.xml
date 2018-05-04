@@ -10,7 +10,7 @@ android:background="@color/myAqua">
 
 <!-- Nombre -->
 <TextView
-    android:id="@+id/name"
+    android:id="@+id/realName"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Nombre"
@@ -55,7 +55,7 @@ android:background="@color/myAqua">
     android:text="Precio"
     android:textAppearance="?android:attr/textAppearanceSmall"
     android:layout_marginTop="8dp"
-    android:layout_below="@+id/name"
+    android:layout_below="@+id/realName"
     android:textStyle="italic" />
 
 <!-- Icono para la fecha -->

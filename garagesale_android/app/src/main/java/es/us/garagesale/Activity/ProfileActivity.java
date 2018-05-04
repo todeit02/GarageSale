@@ -1,14 +1,11 @@
 package es.us.garagesale.Activity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
@@ -18,15 +15,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IInterestedConsumer;
-import es.us.garagesale.DataAccess.IOfferConsumer;
 import es.us.garagesale.DataAccess.IPersonConsumer;
 import es.us.garagesale.DataAccess.IUsernameOffersConsumer;
 import es.us.garagesale.R;
@@ -151,7 +145,7 @@ public class ProfileActivity extends Activity {
         inflatedInfo.setId(R.layout.personal_info_content + idOffset);
 
         TextView name = inflatedInfo.findViewById(R.id.tv_nameFill);
-        name.setText(actualPerson.getName());
+        name.setText(actualPerson.getRealName());
 
         TextView username = inflatedInfo.findViewById(R.id.tv_usernameFill);
         username.setText(actualPerson.getUsername());

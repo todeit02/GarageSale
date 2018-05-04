@@ -12,7 +12,6 @@ class PersonCrud
     {
     }
 
-
     /**
      * Obtiene los campos de un offer con un identificador
      * determinado
@@ -40,7 +39,46 @@ class PersonCrud
             return -1;
         }
     }
+	
+	public static function insert(
+        $username,
+        $password,
+        $name,
+        $email,
+        $birthDate,
+        $nationality,
+        $card_id,
+		$reputation
+    )
+    {
+        // Sentencia INSERT
+        $command = "INSERT INTO persons ( " .
+            "username, " .
+            "password, " .
+            "name, " .
+            "email, " .
+            "birthDate, " .
+            "nationality, " .
+            "card_id, " .
+            "reputation )" .
+            " VALUES( ?,?,?,?,?,?,?,? )";
 
+        // Preparar la sentencia
+        $request = Database::getInstance()->getDb()->prepare($command);
+
+        return $request->execute(
+            array(
+                $username,
+				$password,
+				$name,
+				$email,
+				$birthDate,
+				$nationality,
+				$card_id,
+				$reputation
+            )
+        );
+    }
 }
 
 ?>

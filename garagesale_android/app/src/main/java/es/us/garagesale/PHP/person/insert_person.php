@@ -3,7 +3,7 @@
  * Insertar una nueva oferta en la base de datos
  */
 
-require 'offer_crud.php';
+require 'person_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -11,14 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $body = json_decode(file_get_contents("php://input"), true);
 
     // Insertar oferta
-    $retorno = offer_crud::insert(
+    $retorno = person_crud::insert(
+        $body['username'],
+        $body['password'],
         $body['realName'],
-        $body['desription'],
-        $body['price'],
-        $body['publishDate'],
-        $body['sold']),
-         $body['seller']),
-          $body['id']);
+        $body['email'],
+        $body['birthDate']),
+        $body['nationality']),
+        $body['card_id']),
+        $body['reputation']);
 
     if ($retorno) {
         // Código de éxito

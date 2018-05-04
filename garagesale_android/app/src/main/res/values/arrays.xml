@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="entradas_filtro">
+    <string-array realName="entradas_filtro">
         <item>Ropa mujer</item>
         <item>Ropa hombre</item>
         <item>Instrumentos</item>
