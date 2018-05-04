@@ -19,7 +19,7 @@ public class Person extends SugarRecord<Person> {
     private String email;
     private String birthDate;
     private String nationality;
-    private String card_id;
+    private Card card;
     private int reputation;
     private ArrayList<Purchase> purchases;
 
@@ -38,11 +38,11 @@ public class Person extends SugarRecord<Person> {
         this.reputation = reputation;
     }
 
-    public String getPersonalCard(){
-        return this.card_id;
+    public Card getPersonalCard(){
+        return this.card;
     }
-    public void setPersonalCard(String personalCard){
-        this.card_id = personalCard;
+    public void setPersonalCard(Card personalCard){
+        this.card = personalCard;
     }
 
     public String getRealName(){
@@ -95,16 +95,16 @@ public class Person extends SugarRecord<Person> {
         this.nationality = "";
         this.password ="";
         this.email = "";
-        this.card_id = null;
+        this.card = null;
         this.purchases = null;
     }
 
-    public Person(String user, String password, String realName, String email, String birthDate, String nationality, String personalCard)
+    public Person(String user, String password, String realName, String email, String birthDate, String nationality, Card personalCard)
     {
         this(user, password, realName, email, birthDate, nationality, personalCard, new ArrayList<Purchase>(), 0);
     }
 
-    public Person(String user, String password, String realName, String email, String birthDate, String nationality, String personalCard, ArrayList<Purchase> purchases, int reputation)
+    public Person(String user, String password, String realName, String email, String birthDate, String nationality, Card personalCard, ArrayList<Purchase> purchases, int reputation)
     {
         this.username = user;
         this.password = password;
@@ -112,7 +112,7 @@ public class Person extends SugarRecord<Person> {
         this.email = email;
         this.birthDate = birthDate;
         this.nationality = nationality;
-        this.card_id = personalCard;
+        this.card = personalCard;
         this.purchases = purchases;
         this.reputation = reputation;
     }
@@ -127,7 +127,7 @@ public class Person extends SugarRecord<Person> {
                 ", birthDate='" + birthDate + '\'' +
                 ", nationality='" + nationality + '\'' +
                 ", reputation='" + reputation + '\'' +
-                ", personalCard=" + card_id;
+                ", personalCard=" + card;
 
     }
 
@@ -154,7 +154,7 @@ public class Person extends SugarRecord<Person> {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
         result = 31 * result + (nationality != null ? nationality.hashCode() : 0);
-        result = 31 * result + (card_id != null ? card_id.hashCode() : 0);
+        result = 31 * result + (card != null ? card.hashCode() : 0);
         return result;
     }
 }

@@ -7,26 +7,35 @@ require 'person_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Decodificando formato Json
     $body = json_decode(file_get_contents("php://input"), true);
 
-    // Insertar oferta
-    $retorno = person_crud::insert(
+	$isUsernameAlreadyTaken = (PersonCrud::getById($body['username']) != false);
+	
+	$succeeded = $isUsernameAlreadyTaken && card_crud::insert(
+        $body['cardNum'],
+        $body['expDate'],
+        $body['ccv'],
+        $body['bank']
+	);	
+	
+    $succeeded = $succeeded && person_crud::insert(
         $body['username'],
         $body['password'],
-        $body['realName'],
+        $body['name'],
         $body['email'],
-        $body['birthDate']),
-        $body['nationality']),
-        $body['card_id']),
-        $body['reputation']);
+        $body['birthDate'],
+        $body['nationality'],
+        $body['card_id'],
+        $body['reputation']
+	);
 
-    if ($retorno) {
+    if ($succeeded) {
         // Código de éxito
         print json_encode(
             array(
                 'estado' => '1',
-                'mensaje' => 'Creación exitosa')
+                'mensaje' => 'Creación exitosa',
+				'isUsernameAlreadyTaken' => $isUsernameAlreadyTaken)
         );
     } else {
         // Código de falla

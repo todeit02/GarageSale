@@ -15,6 +15,7 @@ import es.us.garagesale.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.us.garagesale.Src.Card;
 import es.us.garagesale.Src.Person;
 
 public class SignupActivity extends AppCompatActivity {
@@ -87,12 +88,13 @@ public class SignupActivity extends AppCompatActivity {
         String realName = _realNameText.getText().toString();
         String birthDate = _birthDateText.getText().toString();
         String nationality = _nationalityText.getText().toString();
-        String creditCardNumber = _creditCardNumberText.getText().toString();
-        String ccValidationCode = _ccValidationCodeText.getText().toString();
+        int creditCardNumber = Integer.parseInt( _creditCardNumberText.getText().toString() );
+        int ccValidationCode = Integer.parseInt( _ccValidationCodeText.getText().toString() );
         String ccEndMonth = _ccEndMonthText.getText().toString();
         String ccEndYear = _ccEndYearText.getText().toString();
 
-        Person registeringPerson = new Person(username, password, realName, email, birthDate, nationality, creditCardNumber);
+        Card registeringCard = new Card(creditCardNumber, String.format("%s/%s", ccEndMonth, ccEndYear), ccValidationCode, "");
+        Person registeringPerson = new Person(username, password, realName, email, birthDate, nationality, registeringCard);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {

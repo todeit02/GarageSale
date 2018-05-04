@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Actualizar meta
     $retorno = offer_crud::update(
-        $body['realName'],
+        $body['name'],
         $body['description'],
         $body['price'],
         $body['publishDate'],

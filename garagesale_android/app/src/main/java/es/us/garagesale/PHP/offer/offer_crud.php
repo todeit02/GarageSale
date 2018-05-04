@@ -104,7 +104,7 @@ class OfferCrud
      * Actualiza un registro de la bases de datos basado
      * en los nuevos valores relacionados con un identificador
      *
-   * @param $realName      nombre del nuevo registro
+   * @param $name      nombre del nuevo registro
         * @param $description descripción del nuevo registro
          * @param $price   precio del nuevo registro
         * @param $publishDate    fecha de publicacion del nuevo registro
@@ -113,7 +113,7 @@ class OfferCrud
          * @param $id    codigo  del nuevo registro
      */
     public static function update(
-        $realName,
+        $name,
         $description,
         $price,
         $publishDate,
@@ -124,14 +124,14 @@ class OfferCrud
     {
         // Creando consulta UPDATE
         $consulta = "UPDATE offer" .
-            " SET realName=?, description=?, price=?, publishDate=?,sold=?,seller=?, id=? " .
+            " SET name=?, description=?, price=?, publishDate=?,sold=?,seller=?, id=? " .
             "WHERE id=?";
 
         // Preparar la sentencia
         $cmd = Database::getInstance()->getDb()->prepare($consulta);
 
         // Relacionar y ejecutar la sentencia
-        $cmd->execute(array($realName, $description, $price, $publishDate, $sold, $seller, $id));
+        $cmd->execute(array($name, $description, $price, $publishDate, $sold, $seller, $id));
 
         return $cmd;
     }
@@ -140,7 +140,7 @@ class OfferCrud
     /**
      * Insertar una nueva meta
      *
-     * @param $realName      nombre del nuevo registro
+     * @param $name      nombre del nuevo registro
      * @param $description descripción del nuevo registro
       * @param $price   precio del nuevo registro
      * @param $publishDate    fecha de publicacion del nuevo registro
@@ -150,7 +150,7 @@ class OfferCrud
      * @return PDOStatement
      */
     public static function insert(
-        $realName,
+        $name,
         $description,
         $price,
         $publishDate,
@@ -161,7 +161,7 @@ class OfferCrud
     {
         // Sentencia INSERT
         $comando = "INSERT INTO offer ( " .
-            "realName," .
+            "name," .
             " description," .
             " price," .
             " publishDate," .
@@ -174,7 +174,7 @@ class OfferCrud
 
         return $sentencia->execute(
             array(
-                $realName,
+                $name,
                 $description,
                 $price,
                 $publishDate,

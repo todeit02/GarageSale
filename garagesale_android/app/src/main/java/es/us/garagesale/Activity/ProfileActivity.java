@@ -163,7 +163,7 @@ public class ProfileActivity extends Activity {
         nationality.setText(actualPerson.getNationality());
 
         TextView card= inflatedInfo.findViewById(R.id.tv_cardFill);
-        card.setText(actualPerson.getPersonalCard().toString());
+        card.setText(actualPerson.getPersonalCard().getCardNum());
 
         linearLayout.addView(inflatedInfo);
     }
