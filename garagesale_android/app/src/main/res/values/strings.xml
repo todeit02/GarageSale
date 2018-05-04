@@ -11,9 +11,10 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="login_username_missing_error">falta el usuario</string>
+    <string name="login_password_missing_error">falta la contraseña</string>
+    <string name="login_error">Login ha fallado.</string>
 
     <!-- Signup -->
     <string name="signup_prompt_text">Crea tu usuario</string>
