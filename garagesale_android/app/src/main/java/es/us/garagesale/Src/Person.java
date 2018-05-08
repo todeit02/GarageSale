@@ -2,7 +2,10 @@ package es.us.garagesale.Src;
 
 import com.orm.SugarRecord;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by mariaventura on 7/3/18.
@@ -17,7 +20,7 @@ public class Person extends SugarRecord<Person> {
     private String password;
     private String realName;
     private String email;
-    private String birthDate;
+    private Date birthDate;
     private String nationality;
     private Card card;
     private int reputation;
@@ -66,10 +69,16 @@ public class Person extends SugarRecord<Person> {
         this.password = password;
     }
 
-    public String getBirthDate(){
+    public Date getBirthDate(){
         return this.birthDate;
     }
-    public void setBirthDate(String birthDate){
+    public String getBirthDate(String formatPattern)
+    {
+        SimpleDateFormat birthDateFormat = new SimpleDateFormat(formatPattern, Locale.US);
+        String birthDate = birthDateFormat.format(this.getBirthDate());
+        return birthDate;
+    }
+    public void setBirthDate(Date birthDate){
         this.birthDate = birthDate;
     }
 
@@ -89,22 +98,22 @@ public class Person extends SugarRecord<Person> {
 
     public Person()
     {
-        this.realName = "";
-        this.birthDate = "";
-        this.username = "";
+        this.realName   = "";
+        this.birthDate  = null;
+        this.username   = "";
         this.nationality = "";
-        this.password ="";
-        this.email = "";
-        this.card = null;
-        this.purchases = null;
+        this.password   = "";
+        this.email      = "";
+        this.card       = null;
+        this.purchases  = null;
     }
 
-    public Person(String user, String password, String realName, String email, String birthDate, String nationality, Card personalCard)
+    public Person(String user, String password, String realName, String email, Date birthDate, String nationality, Card personalCard)
     {
         this(user, password, realName, email, birthDate, nationality, personalCard, new ArrayList<Purchase>(), 0);
     }
 
-    public Person(String user, String password, String realName, String email, String birthDate, String nationality, Card personalCard, ArrayList<Purchase> purchases, int reputation)
+    public Person(String user, String password, String realName, String email, Date birthDate, String nationality, Card personalCard, ArrayList<Purchase> purchases, int reputation)
     {
         this.username = user;
         this.password = password;

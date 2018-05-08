@@ -4,8 +4,6 @@
  * Representa el la estructura de las metas
  * almacenadas en la base de datos
  */
-require '../Database.php';
-
 class CardCrud
 {
     function __construct()

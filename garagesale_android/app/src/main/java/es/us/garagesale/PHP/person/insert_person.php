@@ -4,6 +4,7 @@
  */
 
 require 'person_crud.php';
+require '../card/card_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -11,14 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$isUsernameAlreadyTaken = (PersonCrud::getById($body['username']) != false);
 	
-	$succeeded = $isUsernameAlreadyTaken && card_crud::insert(
+	$succeeded = ($isUsernameAlreadyTaken == false) && CardCrud::insert(
         $body['cardNum'],
         $body['expDate'],
         $body['ccv'],
         $body['bank']
 	);	
 	
-    $succeeded = $succeeded && person_crud::insert(
+    $succeeded = $succeeded && PersonCrud::insert(
         $body['username'],
         $body['password'],
         $body['name'],
@@ -42,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         print json_encode(
             array(
                 'estado' => '2',
-                'mensaje' => 'Creación fallida')
+                'mensaje' => 'Creación fallida',
+				'isUsernameAlreadyTaken' => $isUsernameAlreadyTaken)
         );
     }
 }

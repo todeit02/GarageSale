@@ -15,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
@@ -151,7 +153,7 @@ public class ProfileActivity extends Activity {
         username.setText(actualPerson.getUsername());
 
         TextView birthDate = inflatedInfo.findViewById(R.id.tv_birthDateFill);
-        birthDate.setText(actualPerson.getBirthDate());
+        birthDate.setText(actualPerson.getBirthDate("dd/MM/yyyy"));
 
         TextView email = inflatedInfo.findViewById(R.id.tv_emailFill);
         email.setText(actualPerson.getEmail());

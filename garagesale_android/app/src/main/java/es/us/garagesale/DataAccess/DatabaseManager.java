@@ -21,7 +21,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -431,13 +433,13 @@ Activity aux;
         map.put("password", creatingPerson.getPassword());
         map.put("realName", creatingPerson.getRealName());
         map.put("email", creatingPerson.getEmail());
-        map.put("birthDate", creatingPerson.getBirthDate();
+        map.put("birthDate", creatingPerson.getBirthDate("yyyy-MM-dd"));
         map.put("nationality", creatingPerson.getNationality());
         map.put( "reputation", String.valueOf(creatingPerson.getReputation()) );
 
         Card creatingCard = creatingPerson.getPersonalCard();
         map.put( "cardNum", String.valueOf(creatingCard.getCardNum()) );
-        map.put("expDate", creatingCard.getExpDate());
+        map.put("expDate", creatingCard.getExpDate("yyyy-MM-dd"));
         map.put( "ccv", String.valueOf(creatingCard.getCcv()) );
         map.put("bank", creatingCard.getBank());
 
@@ -463,6 +465,7 @@ Activity aux;
                                     public void onErrorResponse(VolleyError error) {
                                         String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
                                         Log.d(methodName, "Error Volley: " + error.getMessage());
+                                        processSignupResponse(null, callback);
                                     }
                                 }
 
@@ -483,28 +486,36 @@ Activity aux;
                 );
     }
 
-    private static void processSignupResponse(JSONObject response, final ISignupResponseConsumer callback) {
-        try {
+    private static void processSignupResponse(JSONObject response, final ISignupResponseConsumer callback)
+    {
+        if(response == null)
+        {
+            callback.consume(false, false);
+        }
+
+        try
+        {
             String state = response.getString("estado");
             System.out.println("State: " + state);
+            boolean isUsernameAlreadyTaken = false;
 
-            switch (state) {
+            switch (state)
+            {
                 case successResponse:
-                    boolean isUsernameAlreadyTaken = response.getBoolean("isUsernameAlreadyTaken");
-                    System.out.println("Message: " + isUsernameAlreadyTaken);
+                    isUsernameAlreadyTaken = response.getBoolean("isUsernameAlreadyTaken");
                     callback.consume(true, isUsernameAlreadyTaken);
                     break;
                 case failResponse:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
-                    callback.consume(false, false);
+                    isUsernameAlreadyTaken = response.getBoolean("isUsernameAlreadyTaken");
+                    callback.consume(false, isUsernameAlreadyTaken);
                     break;
             }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+            System.out.println("Message: " + isUsernameAlreadyTaken);
         }
+        catch (JSONException e) { e.printStackTrace(); }
     }
 
-    private DatabaseManager(){};
+    private DatabaseManager(){}
 }

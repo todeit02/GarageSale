@@ -114,20 +114,13 @@
 
 
         <!-- Nationality -->
-        <android.support.design.widget.TextInputLayout
+        <Spinner
+            android:id="@+id/spn_nationality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-
-            <EditText
-                android:id="@+id/input_nationality"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/signup_nationality_hint"
-                android:inputType="text|textShortMessage"
-                android:textColor="@color/monsoon" />
-        </android.support.design.widget.TextInputLayout>
+            android:layout_marginBottom="8dp"
+            android:entries="@array/countries_es" />
 
         <!-- Credit Card Number -->
         <android.support.design.widget.TextInputLayout
@@ -178,7 +171,7 @@
                     android:id="@+id/input_cc_end_month"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/signup_cc_month_hint"
+                    android:hint="@string/signup_cc_month_format"
                     android:inputType="number"
                     android:textColor="@color/monsoon" />
             </android.support.design.widget.TextInputLayout>
@@ -193,7 +186,7 @@
                     android:id="@+id/input_cc_end_year"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/signup_cc_year_hint"
+                    android:hint="@string/signup_cc_year_format"
                     android:inputType="number"
                     android:textColor="@color/monsoon" />
             </android.support.design.widget.TextInputLayout>
