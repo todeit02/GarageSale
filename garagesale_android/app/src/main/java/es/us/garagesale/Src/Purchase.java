@@ -9,74 +9,51 @@ import com.orm.SugarRecord;
 /*cambiar String a date*/
 
 public class Purchase extends SugarRecord<Purchase>{
-    private Offer offer;
-    private String date;
-    private Person buyer;
-    private int totalPrice;
-    private int code;
+    private int state;
+    private int offer_id;
+    private String buyer_username;
 
-    public Offer getOffer() {
-        return offer;
+
+    public int getState() {
+        return state;
     }
 
-    public void setOffer(Offer offer) {
-        this.offer = offer;
+    public void setState(int state) {
+        this.state = state;
     }
 
-    public String getDate() {
-        return date;
+    public int getOffer_id() {
+        return offer_id;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setOffer_id(int offer_id) {
+        this.offer_id = offer_id;
     }
 
-    public Person getBuyer() {
-        return buyer;
+    public String getBuyer_username() {
+        return buyer_username;
     }
 
-    public void setBuyer(Person buyer) {
-        this.buyer = buyer;
+    public void setBuyer_username(String buyer_username) {
+        this.buyer_username = buyer_username;
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public Purchase(Offer offer, String date, Person buyer, int totalPrice, int code) {
-        this.offer = offer;
-        this.date = date;
-        this.buyer = buyer;
-        this.totalPrice = totalPrice;
-        this.code = code;
-    }
-
-    public Purchase(){
-        this.offer = null;
-        this.date = "";
-        this.buyer = null;
-        this.totalPrice = 0;
-        this.code=0;
+    public Purchase(int state, int offer_id, String buyer_username) {
+        this.state = state;
+        this.offer_id = offer_id;
+        this.buyer_username = buyer_username;
     }
 
     @Override
     public String toString() {
-        return "Purchase: " +
-                "offer=" + offer +
-                ", date='" + date + '\'' +
-                ", buyer=" + buyer +
-                ", totalPrice=" + totalPrice + "price" + totalPrice;
+        return "Purchase{" +
+                "state=" + state +
+                ", offer_id=" + offer_id +
+                ", buyer_username='" + buyer_username + '\'' +
+                '}';
+    }
+
+    public Purchase(){
+
     }
 }

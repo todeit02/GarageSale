@@ -48,6 +48,7 @@ public class ProfileActivity extends Activity {
     int idOffset;
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;
+    private String maxUser;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,7 +226,9 @@ public class ProfileActivity extends Activity {
 
                     if (interested.length > 0) {
                         actualPrice.setText(getMaxPriceAndUser(interested).get("maxPrice") + getString(R.string.currency) + " es la oferta mas alta");
-                        buyerCandidate.setText(getMaxPriceAndUser(interested).get("maxUser") + " ha hecho la oferta mas alta");
+                        maxUser = getMaxPriceAndUser(interested).get("maxUser");
+                        buyerCandidate.setText(maxUser + " ha hecho la oferta mas alta");
+
                     } else {
                         actualPrice.setText("Nadie ha ofertado aun");
                     }
