@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Insertar oferta
     $retorno = offer_crud::insert(
-        $body['name'],
+        $body['realName'],
         $body['desription'],
         $body['price'],
         $body['publishDate'],

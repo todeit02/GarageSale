@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import es.us.garagesale.R;
+import es.us.garagesale.Src.Card;
 import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
 import es.us.garagesale.Src.Person;
@@ -20,7 +21,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -476,7 +479,6 @@ Activity aux;
                         }
                     }
             );
-
     }
 
     public static void processInsertInterested(JSONObject response){
@@ -504,5 +506,97 @@ Activity aux;
         }
     }
 
-    private DatabaseManager(){};
+    public static void createPerson(Person creatingPerson, Activity callingActivity, final ISignupResponseConsumer callback)
+    {
+        HashMap<String, String> map = new HashMap<>();
+
+        map.put("username", creatingPerson.getUsername());
+        map.put("password", creatingPerson.getPassword());
+        map.put("realName", creatingPerson.getRealName());
+        map.put("email", creatingPerson.getEmail());
+        map.put("birthDate", creatingPerson.getBirthDate("yyyy-MM-dd"));
+        map.put("nationality", creatingPerson.getNationality());
+        map.put( "reputation", String.valueOf(creatingPerson.getReputation()) );
+
+        Card creatingCard = creatingPerson.getPersonalCard();
+        map.put( "cardNum", String.valueOf(creatingCard.getCardNum()) );
+        map.put("expDate", creatingCard.getExpDate("yyyy-MM-dd"));
+        map.put( "ccv", String.valueOf(creatingCard.getCcv()) );
+        map.put("bank", creatingCard.getBank());
+
+        // Crear nuevo objeto Json basado en el mapa
+        JSONObject jobject = new JSONObject(map);
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.POST,
+                                Constantes.INSERT_PERSON,
+                                jobject,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        // Procesar la respuesta del servidor
+                                        processSignupResponse(response, callback);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                        processSignupResponse(null, callback);
+                                    }
+                                }
+
+                        ) {
+                            @Override
+                            public Map<String, String> getHeaders() {
+                                Map<String, String> headers = new HashMap<String, String>();
+                                headers.put("Content-Type", "application/json; charset=utf-8");
+                                headers.put("Accept", "application/json");
+                                return headers;
+                            }
+
+                            @Override
+                            public String getBodyContentType() {
+                                return "application/json; charset=utf-8" + getParamsEncoding();
+                            }
+                        }
+                );
+    }
+
+    private static void processSignupResponse(JSONObject response, final ISignupResponseConsumer callback)
+    {
+        if(response == null)
+        {
+            callback.consume(false, false);
+        }
+
+        try
+        {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+            boolean isUsernameAlreadyTaken = false;
+
+            switch (state)
+            {
+                case successResponse:
+                    isUsernameAlreadyTaken = response.getBoolean("isUsernameAlreadyTaken");
+                    callback.consume(true, isUsernameAlreadyTaken);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    isUsernameAlreadyTaken = response.getBoolean("isUsernameAlreadyTaken");
+                    callback.consume(false, isUsernameAlreadyTaken);
+                    break;
+            }
+            System.out.println("Message: " + isUsernameAlreadyTaken);
+        }
+        catch (JSONException e) { e.printStackTrace(); }
+    }
+
+    private DatabaseManager(){}
 }

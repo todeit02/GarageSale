@@ -41,6 +41,7 @@ public class Constantes {
     public static final String INSERT_OFFER = PROTOCOL + IP + "/offer/insert_offer.php";
     public static final String GET_LOGIN_VALID = PROTOCOL + IP + "/person/get_login_valid.php";
     public static final String INSERT_OFFER_INTERESTED = PROTOCOL + IP + "/offer/offer_interested.php";
+    public static final String INSERT_PERSON = PROTOCOL + IP + "/person/insert_person.php";
 
     /**
      * Clave para el valor extra que representa al identificador de una oferta

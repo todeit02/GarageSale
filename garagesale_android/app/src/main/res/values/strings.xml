@@ -11,27 +11,39 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="login_username_missing_error">falta el usuario</string>
+    <string name="login_password_missing_error">falta la contraseña</string>
+    <string name="login_error">Login ha fallado.</string>
 
     <!-- Signup -->
     <string name="signup_prompt_text">Crea tu usuario</string>
     <string name="signup_username_hint">Usuario</string>
     <string name="signup_password_hint">Contraseña</string>
+    <string name="signup_email_hint">Correo electrónico</string>
     <string name="signup_real_name_hint">Nombre y apellidos</string>
     <string name="signup_birth_date_hint">Fecha de nacimiento</string>
-    <string name="signup_nationality_hint">Nacionalidad</string>
+    <string name="signup_birth_date_format">dd.MM.yyyy</string>
+    <string name="signup_nationality_default">Selecciona nacionalidad</string>
     <string name="signup_credit_card_hint">Tarjeta de crédito</string>
     <string name="signup_cc_validation_code_hint">CVC</string>
-    <string name="signup_cc_month_hint">MM</string>
-    <string name="signup_cc_year_hint">YY</string>
+    <string name="signup_cc_month_format">MM</string>
+    <string name="signup_cc_year_format">yy</string>
     <string name="signup_password_reenter_hint">Reintroducir contraseña</string>
     <string name="signup_create_account">Abrir Cuenta</string>
     <string name="signup_error">Alta ha fallado!</string>
-    <string name="signup_short_username_error">3 caracteres como mínimo</string>
+    <string name="signup_short_username_error">3 caracteres como mínimo, letras, números y espacios</string>
+    <string name="signup_username_taken_error">usuario ya existe</string>
     <string name="signup_password_length_error">entre 4 y 10 caracteres alfanuméricos</string>
     <string name="signup_password_mismatch_error">contraseñas no están idénticas</string>
+    <string name="signup_invalid_entry">inválido</string>
+
+    <string name="signup_username_validation_regex">[A-Za-z0-9 ]{3,}</string>
+    <string name="signup_password_validation_regex">[0-9A-Za-z\u0080-\uffff]{4,10}</string>
+    <string name="signup_mail_validation_regex">[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+\.[a-zA-Z]{2,4}</string>
+    <string name="signup_real_name_validation_regex">([A-Za-z\u0080-\uffff]+)( [A-Za-z\u0080-\uffff]+)+</string>
+    <string name="signup_credit_card_number_validation_regex">[0-9]{13,19}</string>
+    <string name="signup_credit_card_cvc_regex">[0-9]{3,4}</string>
 
 
     <string name="action_settings">Settings</string>

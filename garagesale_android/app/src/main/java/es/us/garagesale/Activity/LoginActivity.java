@@ -18,6 +18,7 @@ import es.us.garagesale.DataAccess.ILoginResponseConsumer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.us.garagesale.R;
 
 public class LoginActivity extends Activity {
     private static final String TAG = "LoginActivity";
@@ -42,7 +43,7 @@ public class LoginActivity extends Activity {
             return;
         }
 
-        setContentView(es.us.garagesale.R.layout.activity_login);
+        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
@@ -60,14 +61,16 @@ public class LoginActivity extends Activity {
                 // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 intent.putExtra("username", _usernameText.getText().toString());
-                startActivityForResult(intent, REQUEST_SIGNUP);
-                overridePendingTransition(es.us.garagesale.R.anim.push_left_in, es.us.garagesale.R.anim.push_left_out);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
     }
 
     public void login() {
         Log.d(TAG, "Login");
+
+        if(!validate()) return;
 
         _loginButton.setEnabled(false);
 
@@ -80,7 +83,6 @@ public class LoginActivity extends Activity {
         String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
         DatabaseManager.checkLoginCredentials(this, username, password, new ILoginResponseConsumer() {
             @Override
             public void consume(boolean areCredentialsValid, String username, String password) {
@@ -122,14 +124,11 @@ public class LoginActivity extends Activity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                this.finish();
-            }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == REQUEST_SIGNUP && resultCode == RESULT_OK)
+        {
+            //this.finish();
         }
     }
 
@@ -145,7 +144,7 @@ public class LoginActivity extends Activity {
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), getString(R.string.login_error), Toast.LENGTH_LONG).show();
 
         _loginButton.setEnabled(true);
     }
@@ -158,15 +157,15 @@ public class LoginActivity extends Activity {
 
         if (username.isEmpty())
         {
-            _usernameText.setError("enter a user name");
+            _usernameText.setError(getString(R.string.login_username_missing_error));
             valid = false;
         }
         else {
             _usernameText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty()) {
+            _passwordText.setError(getString(R.string.login_password_missing_error));
             valid = false;
         } else {
             _passwordText.setError(null);
@@ -177,7 +176,7 @@ public class LoginActivity extends Activity {
 
     private void continueToMainActivity()
     {
-        Intent intent = new Intent(LoginActivity.this, es.us.garagesale.Activity.OfferListActivity.class);
+        Intent intent = new Intent(LoginActivity.this, OfferListActivity.class);
         startActivity(intent);
         finish();
     }

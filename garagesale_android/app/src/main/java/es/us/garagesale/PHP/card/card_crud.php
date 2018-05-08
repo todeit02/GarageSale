@@ -4,9 +4,7 @@
  * Representa el la estructura de las metas
  * almacenadas en la base de datos
  */
-require '../Database.php';
-
-class PersonCrud
+class CardCrud
 {
     function __construct()
     {
@@ -19,16 +17,16 @@ class PersonCrud
      * @param $id Identificador del offer
      * @return mixed
      */
-    public static function getById($username)
+    public static function getById($id)
     {
         // Consulta de la meta
-        $consulta = "SELECT * FROM persons WHERE username = ?";
+        $consulta = "SELECT * FROM cards WHERE id = ?";
 
         try {
             // Preparar sentencia
             $comando = Database::getInstance()->getDb()->prepare($consulta);
             // Ejecutar sentencia preparada
-            $comando->execute(array($username));
+            $comando->execute(array($id));
             // Capturar primera fila del resultado
             $row = $comando->fetch(PDO::FETCH_ASSOC);
             return $row;
@@ -40,42 +38,50 @@ class PersonCrud
         }
     }
 	
+	public static function getByCardNum($cardNum)
+	{
+		$consulta = "SELECT * FROM cards WHERE cardNum = ?";
+
+        try {
+            // Preparar sentencia
+            $comando = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando->execute(array($cardNum));
+            // Capturar primera fila del resultado
+            $row = $comando->fetch(PDO::FETCH_ASSOC);
+            return $row;
+
+        } catch (PDOException $e) {
+            // Aquí puedes clasificar el error dependiendo de la excepción
+            // para presentarlo en la respuesta Json
+            return -1;
+        }
+	}
+	
 	public static function insert(
-        $username,
-        $password,
-        $name,
-        $email,
-        $birthDate,
-        $nationality,
-        $card_id,
-		$reputation
+        $cardNum,
+        $expDate,
+        $ccv,
+        $bank
     )
     {
         // Sentencia INSERT
-        $command = "INSERT INTO persons ( " .
-            "username, " .
-            "password, " .
-            "name, " .
-            "email, " .
-            "birthDate, " .
-            "nationality, " .
-            "card_id, " .
-            "reputation )" .
-            " VALUES( ?,?,?,?,?,?,?,? )";
+        $command = "INSERT INTO cards ( " .
+            "cardNum, " .
+            "expDate, " .
+            "ccv, " .
+            "bank )" .
+            " VALUES( ?,?,?,? )";
 
         // Preparar la sentencia
         $request = Database::getInstance()->getDb()->prepare($command);
 
         return $request->execute(
             array(
-                $username,
-				$password,
-				$name,
-				$email,
-				$birthDate,
-				$nationality,
-				$card_id,
-				$reputation
+                $cardNum,
+				$expDate,
+				$ccv,
+				$bank
             )
         );
     }

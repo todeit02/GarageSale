@@ -48,10 +48,12 @@
         </activity>
         <activity
             android:name="es.us.garagesale.Activity.SignupActivity"
-            android:screenOrientation="userPortrait" />
+            android:screenOrientation="userPortrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="es.us.garagesale.Activity.LoginActivity"
-            android:screenOrientation="userPortrait" />
+            android:screenOrientation="userPortrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="es.us.garagesale.Activity.OfferListActivity"
             android:screenOrientation="userPortrait" />

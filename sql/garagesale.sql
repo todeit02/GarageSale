@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 03-05-2018 a las 12:04:23
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 5.6.34
+-- Host: 127.0.0.1
+-- Erstellungszeit: 08. Mai 2018 um 16:18
+-- Server-Version: 10.1.31-MariaDB
+-- PHP-Version: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,34 +19,34 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `garagesale`
+-- Datenbank: `garagesale`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cards`
+-- Tabellenstruktur für Tabelle `cards`
 --
 
 CREATE TABLE `cards` (
   `id` int(11) NOT NULL,
-  `cardNum` int(11) NOT NULL,
+  `cardNum` varchar(19) COLLATE utf8_spanish_ci NOT NULL,
   `expDate` date NOT NULL,
   `ccv` smallint(6) NOT NULL,
   `bank` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `cards`
+-- Daten für Tabelle `cards`
 --
 
 INSERT INTO `cards` (`id`, `cardNum`, `expDate`, `ccv`, `bank`) VALUES
-(0, 12345, '2018-03-05', 112, 'Santander');
+(0, '12345', '2018-03-05', 112, 'Santander');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `interests`
+-- Tabellenstruktur für Tabelle `interests`
 --
 
 CREATE TABLE `interests` (
@@ -56,7 +56,7 @@ CREATE TABLE `interests` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `interests`
+-- Daten für Tabelle `interests`
 --
 
 INSERT INTO `interests` (`username`, `offer_id`, `price`) VALUES
@@ -65,7 +65,7 @@ INSERT INTO `interests` (`username`, `offer_id`, `price`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `offers`
+-- Tabellenstruktur für Tabelle `offers`
 --
 
 CREATE TABLE `offers` (
@@ -81,7 +81,7 @@ CREATE TABLE `offers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `offers`
+-- Daten für Tabelle `offers`
 --
 
 INSERT INTO `offers` (`name`, `description`, `price`, `startTime`, `sold`, `seller_username`, `id`, `state`, `activePeriod`) VALUES
@@ -91,7 +91,7 @@ INSERT INTO `offers` (`name`, `description`, `price`, `startTime`, `sold`, `sell
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `offer_tags`
+-- Tabellenstruktur für Tabelle `offer_tags`
 --
 
 CREATE TABLE `offer_tags` (
@@ -102,7 +102,7 @@ CREATE TABLE `offer_tags` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `persons`
+-- Tabellenstruktur für Tabelle `persons`
 --
 
 CREATE TABLE `persons` (
@@ -117,7 +117,7 @@ CREATE TABLE `persons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `persons`
+-- Daten für Tabelle `persons`
 --
 
 INSERT INTO `persons` (`username`, `password`, `name`, `email`, `birthDate`, `nationality`, `card_id`, `reputation`) VALUES
@@ -126,7 +126,7 @@ INSERT INTO `persons` (`username`, `password`, `name`, `email`, `birthDate`, `na
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `purchases`
+-- Tabellenstruktur für Tabelle `purchases`
 --
 
 CREATE TABLE `purchases` (
@@ -136,78 +136,78 @@ CREATE TABLE `purchases` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Índices para tablas volcadas
+-- Indizes der exportierten Tabellen
 --
 
 --
--- Indices de la tabla `cards`
+-- Indizes für die Tabelle `cards`
 --
 ALTER TABLE `cards`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `interests`
+-- Indizes für die Tabelle `interests`
 --
 ALTER TABLE `interests`
   ADD KEY `username` (`username`),
   ADD KEY `offer_id` (`offer_id`);
 
 --
--- Indices de la tabla `offers`
+-- Indizes für die Tabelle `offers`
 --
 ALTER TABLE `offers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `seller_username` (`seller_username`);
 
 --
--- Indices de la tabla `offer_tags`
+-- Indizes für die Tabelle `offer_tags`
 --
 ALTER TABLE `offer_tags`
   ADD KEY `offer_id` (`offer_id`);
 
 --
--- Indices de la tabla `persons`
+-- Indizes für die Tabelle `persons`
 --
 ALTER TABLE `persons`
   ADD PRIMARY KEY (`username`),
   ADD KEY `card_id` (`card_id`);
 
 --
--- Indices de la tabla `purchases`
+-- Indizes für die Tabelle `purchases`
 --
 ALTER TABLE `purchases`
   ADD KEY `offer_id` (`offer_id`),
   ADD KEY `buyer_username` (`buyer_username`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
--- AUTO_INCREMENT de la tabla `offers`
+-- AUTO_INCREMENT für Tabelle `offers`
 --
 ALTER TABLE `offers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints der exportierten Tabellen
 --
 
 --
--- Filtros para la tabla `interests`
+-- Constraints der Tabelle `interests`
 --
 ALTER TABLE `interests`
   ADD CONSTRAINT `interests_ibfk_1` FOREIGN KEY (`username`) REFERENCES `persons` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `interests_ibfk_2` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `offers`
+-- Constraints der Tabelle `offers`
 --
 ALTER TABLE `offers`
   ADD CONSTRAINT `offers_ibfk_1` FOREIGN KEY (`seller_username`) REFERENCES `persons` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `offer_tags`
+-- Constraints der Tabelle `offer_tags`
 --
 ALTER TABLE `offer_tags`
   ADD CONSTRAINT `offer_tags_ibfk_1` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
