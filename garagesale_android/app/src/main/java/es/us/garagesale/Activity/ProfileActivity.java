@@ -241,11 +241,19 @@ public class ProfileActivity extends Activity {
 
             TextView lblAccept = inflatedOffer.findViewById(R.id.tv_btn_bid_label);
             ImageView img= inflatedOffer.findViewById(R.id.imgv_btn_title_offer);
-            if(!valid.contains(offer)) {// O SI NADIE HA OFERTADO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            if(offer.isSold()==1){
+                btnAccept.setBackgroundResource(R.drawable.border_rounded_background);
+                img.setImageResource(R.mipmap.moneybag);
+                lblAccept.setText("Has vendido este producto");
+                remainingTime.setText("Quedan 0 horas");
+            }
+            else if(!valid.contains(offer)) {// O SI NADIE HA OFERTADO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 btnAccept.setBackgroundResource(R.drawable.border_rounded_background_error);
                 img.setImageResource(R.mipmap.cancel);
                 lblAccept.setText("Esta oferta no esta más disponible.");
-            }else {
+            }
+            else {
                 lblAccept.setText("Aceptar precio");
                 btnAccept.setBackgroundResource(R.drawable.border_rounded_background);
                 img.setImageResource(R.mipmap.success);

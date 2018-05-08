@@ -1,8 +1,11 @@
 package es.us.garagesale.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,11 +15,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IInterestedConsumer;
+import es.us.garagesale.DataAccess.IOfferConsumer;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Interested;
+import es.us.garagesale.Src.Offer;
 
 /**
  * Created by mariaventura on 2/5/18.
@@ -25,6 +32,7 @@ import es.us.garagesale.Src.Interested;
 public class AcceptPurchaseActivity extends Activity {
 
     private int selectedOfferId;
+    private Offer toPurchase;
     private String maxUsername;
 
 
@@ -50,21 +58,70 @@ public class AcceptPurchaseActivity extends Activity {
             }
         });
 
+
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendMessageToBuyer(selectedOfferId); //DO STH
+                DatabaseManager.loadOffer(selectedOfferId, AcceptPurchaseActivity.this, new IOfferConsumer() {
+                    @Override
+                    public void consume(Offer receivedOffer) {
+                        changeOfferToSold(receivedOffer);
+                    }
+                });
 
-                Intent profileActivity = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivity(profileActivity);
+                final AlertDialog alertDialog = new AlertDialog.Builder(AcceptPurchaseActivity.this).create();
+                alertDialog.setTitle("Venta exitosa");
+                alertDialog.setMessage("El comprador sera notificado.");
+                alertDialog.show();
+
+
+                // Hide after some seconds
+                final Handler handler  = new Handler();
+                final Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (alertDialog.isShowing()) {
+                            alertDialog.dismiss();
+                        }
+                    }
+                };
+
+                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        handler.removeCallbacks(runnable);
+                    }
+                });
+
+                handler.postDelayed(runnable, 2000);
+
+                TimerTask task = new TimerTask() {
+
+                    @Override
+                    public void run() {
+                        Intent profileActivity = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(profileActivity);
+                        finishscreen();
+                    }
+                };
+                Timer t = new Timer();
+                t.schedule(task, 3000);
             }
         });
 
+    }
 
+    private void finishscreen() {
+        this.finish();
+    }
+
+    private void changeOfferToSold(Offer toEdit){
+        DatabaseManager.editOffer(toEdit, AcceptPurchaseActivity.this);
     }
 
 
-    private void sendMessageToBuyer(int id){
+    private void sendMessageToBuyer(int offerId){
 
     }
 

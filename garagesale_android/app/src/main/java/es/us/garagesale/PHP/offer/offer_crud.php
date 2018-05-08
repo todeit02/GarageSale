@@ -113,28 +113,29 @@ class OfferCrud
          * @param $id    codigo  del nuevo registro
      */
     public static function update(
-        $name,
-        $description,
-        $price,
-        $publishDate,
-        $sold,
-        $seller,
-        $id
-    )
-    {
-        // Creando consulta UPDATE
-        $consulta = "UPDATE offer" .
-            " SET name=?, description=?, price=?, publishDate=?,sold=?,seller=?, id=? " .
-            "WHERE id=?";
+            $name,
+            $description,
+            $price,
+            $sold,
+            $seller_username,
+            $id,
+            $state,
+            $activePeriod
+        )
+        {
+            // Creando consulta UPDATE
+            $consulta = "UPDATE oferrs" .
+                " SET name=?, description=?, price=?, sold=?, seller_username=?, state=?, activePeriod=? " .
+                "WHERE id=?";
 
-        // Preparar la sentencia
-        $cmd = Database::getInstance()->getDb()->prepare($consulta);
+            // Preparar la sentencia
+            $cmd = Database::getInstance()->getDb()->prepare($consulta);
 
-        // Relacionar y ejecutar la sentencia
-        $cmd->execute(array($name, $description, $price, $publishDate, $sold, $seller, $id));
+            // Relacionar y ejecutar la sentencia
+            $cmd->execute(array($name, $description, $price, $sold, $seller_username, $id, $state, $activePeriod));
+            return $cmd;
+        }
 
-        return $cmd;
-    }
 
 
     /**

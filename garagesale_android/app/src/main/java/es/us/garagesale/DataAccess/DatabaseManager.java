@@ -346,6 +346,87 @@ Activity aux;
 
     }
 
+    public static void editOffer(Offer toEdit, final Activity callingActivity){
+
+        HashMap<String, String> map = new HashMap<>();
+
+        map.put("name", toEdit.getName());
+        map.put("description", toEdit.getDescription());
+        map.put("price", String.valueOf(toEdit.getPrice()));
+        map.put("sold", "1");
+        map.put("seller_username", toEdit.getSellerUsername());
+        map.put("id", String.valueOf(toEdit.getId()));
+        map.put("state", toEdit.getState());
+        map.put("activePeriod", String.valueOf(toEdit.getActivePeriod()));
+
+        // Crear nuevo objeto Json basado en el mapa
+        JSONObject jobject = new JSONObject(map);
+
+
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(callingActivity).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        Constantes.UPDATE_OFFER,
+                        jobject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                processEditOffer(response, callingActivity);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                Log.d(methodName, "Error Volley: " + error.getMessage());
+                            }
+                        }
+
+                )
+        );
+
+    }
+
+    private static void processEditOffer(JSONObject response, Activity callingActivity){
+        try {
+            // Obtener estado
+            String estado = response.getString("estado");
+            // Obtener mensaje
+            String mensaje = response.getString("mensaje");
+
+            switch (estado) {
+                case "1":
+                    // Mostrar mensaje
+                    Toast.makeText(
+                            callingActivity,
+                            mensaje,
+                            Toast.LENGTH_LONG).show();
+                    // Enviar código de éxito
+                    callingActivity.setResult(Activity.RESULT_OK);
+                    // Terminar actividad
+                    callingActivity.finish();
+                    break;
+
+                case "2":
+                    // Mostrar mensaje
+                    Toast.makeText(
+                            callingActivity,
+                            mensaje,
+                            Toast.LENGTH_LONG).show();
+                    // Enviar código de falla
+                    callingActivity.setResult(Activity.RESULT_CANCELED);
+                    // Terminar actividad
+                    callingActivity.finish();
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static void saveInterested(Interested newInterested, Activity callingActivity){
 
 

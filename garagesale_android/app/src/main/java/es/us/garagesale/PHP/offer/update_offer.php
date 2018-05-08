@@ -1,6 +1,6 @@
 <?php
 /**
- * Actualiza una oferta especificada por su identificador
+ * Actualiza una meta especificada por su identificador
  */
 
 require 'offer_crud.php';
@@ -8,17 +8,18 @@ require 'offer_crud.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Decodificando formato Json
-    $body = json_decode(file_get_contents("php://input"), true);
+    $body = json_decode(file_get_contents("php://input"));
 
     // Actualizar meta
-    $retorno = offer_crud::update(
+    $retorno = OfferCrud::update(
         $body['name'],
         $body['description'],
         $body['price'],
-        $body['publishDate'],
         $body['sold'],
-        $body['seller'],
-        $body['id']);
+        $body['seller_username'],
+        $body['id'],
+        $body['state'],
+        $body['activePeriod']);
 
     if ($retorno) {
         // Código de éxito
@@ -36,3 +37,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         );
     }
 }
+
+?>

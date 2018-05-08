@@ -52,7 +52,7 @@ public class Offer
     private ArrayList<String> tags;
     private String startTime;
     private int durationDays;
-    private boolean sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
+    private int sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
     private Seller seller;
     private ArrayList<Person> interested;
     private int id;
@@ -131,15 +131,16 @@ public class Offer
     public int getDurationDays() { return durationDays; }
     public void setDurationDays(int durationDays) { this.durationDays = durationDays; }
 
-    public boolean isSold() {
+    public int isSold() {
         return sold;
     }
-    public void setSold(boolean sold) {
+    public void setSold(int sold) {
         this.sold = sold;
     }
 
     public Seller getSeller() { return seller; }
     public void setSeller(Seller seller) { this.seller = seller; }
+
 
     public ArrayList<Person> getInterested() {
         return interested;
@@ -183,7 +184,7 @@ public class Offer
         return id;
     }
 
-    public Offer(String name, String description, float price, ArrayList<String> tags, String startTime, boolean sold, Seller seller, ArrayList<Person> interested) {
+    public Offer(String name, String description, float price, ArrayList<String> tags, String startTime, int sold, Seller seller, ArrayList<Person> interested) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -201,7 +202,7 @@ public class Offer
         this.price = 0;
         this.tags = new ArrayList<String>();
         this.startTime = null;
-        this.sold = false;
+        this.sold = 0;
         this.seller = null;
         this.interested = new ArrayList<Person>();
         this.photos = new ArrayList<>();
