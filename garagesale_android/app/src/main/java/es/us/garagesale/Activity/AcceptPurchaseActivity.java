@@ -63,12 +63,7 @@ public class AcceptPurchaseActivity extends Activity {
             @Override
             public void onClick(View v) {
                 sendMessageToBuyer(selectedOfferId); //DO STH
-                DatabaseManager.loadOffer(selectedOfferId, AcceptPurchaseActivity.this, new IOfferConsumer() {
-                    @Override
-                    public void consume(Offer receivedOffer) {
-                        changeOfferToSold(receivedOffer);
-                    }
-                });
+                changeOfferToSold(selectedOfferId);
 
                 final AlertDialog alertDialog = new AlertDialog.Builder(AcceptPurchaseActivity.this).create();
                 alertDialog.setTitle("Venta exitosa");
@@ -116,8 +111,8 @@ public class AcceptPurchaseActivity extends Activity {
         this.finish();
     }
 
-    private void changeOfferToSold(Offer toEdit){
-        DatabaseManager.editOffer(toEdit, AcceptPurchaseActivity.this);
+    private void changeOfferToSold(int id){
+        DatabaseManager.editOffer(id, AcceptPurchaseActivity.this);
     }
 
 

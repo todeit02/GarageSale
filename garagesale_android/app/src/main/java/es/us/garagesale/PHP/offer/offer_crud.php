@@ -112,31 +112,25 @@ class OfferCrud
         * @param seller   vendedor del nuevo registro
          * @param $id    codigo  del nuevo registro
      */
-    public static function update(
-            $name,
-            $description,
-            $price,
-            $sold,
-            $seller_username,
-            $id,
-            $state,
-            $activePeriod
-        )
-        {
-            // Creando consulta UPDATE
-            $consulta = "UPDATE oferrs" .
-                " SET name=?, description=?, price=?, sold=?, seller_username=?, state=?, activePeriod=? " .
-                "WHERE id=?";
 
-            // Preparar la sentencia
-            $cmd = Database::getInstance()->getDb()->prepare($consulta);
+   public static function update(
+          $sold,
+          $id
+     )
+     {
+         // Creando consulta UPDATE
+         $consulta = "UPDATE offers" .
+             " SET sold=? " .
+             "WHERE id=?";
 
-            // Relacionar y ejecutar la sentencia
-            $cmd->execute(array($name, $description, $price, $sold, $seller_username, $id, $state, $activePeriod));
-            return $cmd;
-        }
+         // Preparar la sentencia
+         $cmd = Database::getInstance()->getDb()->prepare($consulta);
 
+         // Relacionar y ejecutar la sentencia
+         $cmd->execute(array($sold, $id));
 
+         return $cmd;
+     }
 
     /**
      * Insertar una nueva meta

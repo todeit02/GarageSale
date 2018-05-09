@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Card;
+import es.us.garagesale.Src.CustomRequest;
 import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
 import es.us.garagesale.Src.Person;
@@ -138,6 +139,8 @@ Activity aux;
             e.printStackTrace();
         }
     }
+
+
 
     public static void loadOffer(int id, Activity callingActivity, final IOfferConsumer callback) {
         VolleySingleton.
@@ -349,18 +352,39 @@ Activity aux;
 
     }
 
-    public static void editOffer(Offer toEdit, final Activity callingActivity){
+    public static void editOffer(int id, final Activity callingActivity){
+        String url = Constantes.UPDATE_OFFER;
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("sold", String.valueOf(1));
+        params.put("id", String.valueOf(id));
+
+        CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                    Log.d("Response: ", response.toString());
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        VolleySingleton.getInstance(callingActivity).addToRequestQueue(jsObjRequest);
+    }
+
+
+
+    public static void editOfferViejo(int id, final Activity callingActivity){
 
         HashMap<String, String> map = new HashMap<>();
 
-        map.put("name", toEdit.getName());
-        map.put("description", toEdit.getDescription());
-        map.put("price", String.valueOf(toEdit.getPrice()));
-        map.put("sold", "1");
-        map.put("seller_username", toEdit.getSellerUsername());
-        map.put("id", String.valueOf(toEdit.getId()));
-        map.put("state", toEdit.getState());
-        map.put("activePeriod", String.valueOf(toEdit.getActivePeriod()));
+        map.put("sold", String.valueOf(1));
+        map.put("id", String.valueOf(id));
 
         // Crear nuevo objeto Json basado en el mapa
         JSONObject jobject = new JSONObject(map);

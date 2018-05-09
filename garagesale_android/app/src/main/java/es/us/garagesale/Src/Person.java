@@ -17,6 +17,7 @@ import java.util.Locale;
 public class Person extends SugarRecord<Person> {
 
     private String username;
+    private String card_id;
     private String password;
     private String realName;
     private String email;
@@ -26,6 +27,14 @@ public class Person extends SugarRecord<Person> {
     private int reputation;
     private ArrayList<Purchase> purchases;
 
+
+    public String getCardId() {
+        return card_id;
+    }
+
+    public void setCardId(String card_id) {
+        this.card_id = card_id;
+    }
 
     public String getUsername() {
         return username;
@@ -128,16 +137,18 @@ public class Person extends SugarRecord<Person> {
 
     @Override
     public String toString() {
-        return "Person: " +
-                "username=" + username + '\'' +
-                ", password=" + password + '\'' +
+        return "Person{" +
+                "username='" + username + '\'' +
+                ", card_id='" + card_id + '\'' +
+                ", password='" + password + '\'' +
                 ", realName='" + realName + '\'' +
                 ", email='" + email + '\'' +
-                ", birthDate='" + birthDate + '\'' +
+                ", birthDate=" + birthDate +
                 ", nationality='" + nationality + '\'' +
-                ", reputation='" + reputation + '\'' +
-                ", personalCard=" + card;
-
+                ", card=" + card +
+                ", reputation=" + reputation +
+                ", purchases=" + purchases +
+                '}';
     }
 
     //Redefinir el equals

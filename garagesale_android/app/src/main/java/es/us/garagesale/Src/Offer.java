@@ -51,11 +51,9 @@ public class Offer
     private float price;
     private ArrayList<String> tags;
     private String startTime;
-    private int durationDays;
     private int sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
-    private Seller seller;
-    private ArrayList<Person> interested;
     private int id;
+    private int durationDays;
     private String state;
     private int activePeriod;
     private ArrayList<Bitmap> photos;
@@ -102,6 +100,34 @@ public class Offer
         this.price = price;
     }
 
+    public static Map<Duration, Integer> getDurationsDays() {
+        return durationsDays;
+    }
+
+    public String getSeller_username() {
+        return seller_username;
+    }
+
+    public void setSeller_username(String seller_username) {
+        this.seller_username = seller_username;
+    }
+
+    public int getSold() {
+        return sold;
+    }
+
+    public int getDurationDays() {
+        return durationDays;
+    }
+
+    public void setDurationDays(int durationDays) {
+        this.durationDays = durationDays;
+    }
+
+    public void setPhotos(ArrayList<Bitmap> photos) {
+        this.photos = photos;
+    }
+
     public ArrayList<String> getTags() {
         return tags;
     }
@@ -128,8 +154,6 @@ public class Offer
     }
     public void setStartTime(String startTime) { this.startTime = startTime; }
 
-    public int getDurationDays() { return durationDays; }
-    public void setDurationDays(int durationDays) { this.durationDays = durationDays; }
 
     public int isSold() {
         return sold;
@@ -138,16 +162,6 @@ public class Offer
         this.sold = sold;
     }
 
-    public Seller getSeller() { return seller; }
-    public void setSeller(Seller seller) { this.seller = seller; }
-
-
-    public ArrayList<Person> getInterested() {
-        return interested;
-    }
-    public void setInterested(ArrayList<Person> interested) {
-        this.interested = interested;
-    }
 
     public ArrayList<Bitmap> getPhotos() { return photos; }
 
@@ -184,45 +198,43 @@ public class Offer
         return id;
     }
 
-    public Offer(String name, String description, float price, ArrayList<String> tags, String startTime, int sold, Seller seller, ArrayList<Person> interested) {
+    public Offer(String name, String seller_username, Condition condition, String description, float price, ArrayList<String> tags, String startTime, int sold, int id, int durationDays, String state, int activePeriod, ArrayList<Bitmap> photos, Place location) {
         this.name = name;
+        this.seller_username = seller_username;
+        this.condition = condition;
         this.description = description;
         this.price = price;
-        this.tags = tags;this.startTime = startTime;
+        this.tags = tags;
+        this.startTime = startTime;
         this.sold = sold;
-        this.seller = seller;
-        this.interested = interested;
-        this.photos = new ArrayList<>();
-        // ID is set by database
+        this.id = id;
+        this.durationDays = durationDays;
+        this.state = state;
+        this.activePeriod = activePeriod;
+        this.photos = photos;
+        this.location = location;
     }
 
     public Offer() {
-        this.name = "";
-        this.description = "";
-        this.price = 0;
-        this.tags = new ArrayList<String>();
-        this.startTime = null;
-        this.sold = 0;
-        this.seller = null;
-        this.interested = new ArrayList<Person>();
-        this.photos = new ArrayList<>();
-        this.location = null;
-        // ID is set by database
     }
 
     @Override
     public String toString() {
-        return "Offer: " +
-                "name=" + name + '\'' +
-                ", description=" + description + '\'' +
+        return "Offer{" +
+                "name='" + name + '\'' +
+                ", seller_username='" + seller_username + '\'' +
+                ", condition=" + condition +
+                ", description='" + description + '\'' +
                 ", price=" + price +
                 ", tags=" + tags +
                 ", startTime='" + startTime + '\'' +
                 ", sold=" + sold +
-                ", seller=" + seller +
-                ", seller_username=" + seller_username +
-                ", interested=" + interested;
-
+                ", id=" + id +
+                ", state='" + state + '\'' +
+                ", activePeriod=" + activePeriod +
+                ", photos=" + photos +
+                ", location=" + location +
+                '}';
     }
 
     @Override
