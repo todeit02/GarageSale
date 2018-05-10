@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 08. Mai 2018 um 16:18
+-- Erstellungszeit: 10. Mai 2018 um 16:46
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.4
 
@@ -32,16 +32,15 @@ CREATE TABLE `cards` (
   `id` int(11) NOT NULL,
   `cardNum` varchar(19) COLLATE utf8_spanish_ci NOT NULL,
   `expDate` date NOT NULL,
-  `ccv` smallint(6) NOT NULL,
-  `bank` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+  `ccv` varchar(4) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Daten für Tabelle `cards`
 --
 
-INSERT INTO `cards` (`id`, `cardNum`, `expDate`, `ccv`, `bank`) VALUES
-(0, '12345', '2018-03-05', 112, 'Santander');
+INSERT INTO `cards` (`id`, `cardNum`, `expDate`, `ccv`) VALUES
+(1, '12345', '2018-03-05', '112');
 
 -- --------------------------------------------------------
 
@@ -182,6 +181,12 @@ ALTER TABLE `purchases`
 --
 -- AUTO_INCREMENT für exportierte Tabellen
 --
+
+--
+-- AUTO_INCREMENT für Tabelle `cards`
+--
+ALTER TABLE `cards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT für Tabelle `offers`

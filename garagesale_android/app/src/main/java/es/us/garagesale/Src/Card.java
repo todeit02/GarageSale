@@ -15,7 +15,7 @@ public class Card
 {
     private String cardNum = "";
     private Date expDate;
-    private int ccv;
+    private String ccv;
     private String bank;
 
     public String getCardNum(){
@@ -36,10 +36,10 @@ public class Card
         this.expDate = expDate;
     }
 
-    public int getCcv(){
+    public String getCcv(){
         return ccv;
     }
-    public void setCcv(int ccv){
+    public void setCcv(String ccv){
         this.ccv = ccv;
     }
 
@@ -50,7 +50,7 @@ public class Card
         this.bank = bank;
     }
 
-    public Card(String cardNum, Date expDate, int ccv, String bank)
+    public Card(String cardNum, Date expDate, String ccv, String bank)
     {
         this.cardNum = cardNum;
         this.expDate = expDate;
@@ -62,7 +62,7 @@ public class Card
     {
         this.cardNum = "";
         this.expDate = null;
-        this.ccv = 000;
+        this.ccv = "";
         this.bank = "";
     }
 
@@ -85,7 +85,7 @@ public class Card
         Card card = (Card) o;
 
         if (!cardNum.equals(card.cardNum)) return false;
-        if (ccv != card.ccv) return false;
+        if (!ccv.equals(card.ccv)) return false;
         if (expDate != null ? !expDate.equals(card.expDate) : card.expDate != null) return false;
         return bank != null ? bank.equals(card.bank) : card.bank == null;
     }

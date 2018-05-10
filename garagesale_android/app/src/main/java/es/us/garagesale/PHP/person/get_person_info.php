@@ -1,8 +1,4 @@
 <?php
-/**
- * Obtiene el detalle de una oferta especificado por
- * su identificador "id"
- */
 
 require_once ('person_crud.php');
 

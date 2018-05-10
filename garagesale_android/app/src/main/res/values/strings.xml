@@ -31,6 +31,7 @@
     <string name="signup_cc_year_format">yy</string>
     <string name="signup_password_reenter_hint">Reintroducir contraseña</string>
     <string name="signup_create_account">Abrir Cuenta</string>
+    <string name="signup_creating_account_progress_message">Creando cuenta ...</string>
     <string name="signup_error">Alta ha fallado!</string>
     <string name="signup_short_username_error">3 caracteres como mínimo, letras, números y espacios</string>
     <string name="signup_username_taken_error">usuario ya existe</string>
@@ -40,7 +41,7 @@
 
     <string name="signup_username_validation_regex">[A-Za-z0-9 ]{3,}</string>
     <string name="signup_password_validation_regex">[0-9A-Za-z\u0080-\uffff]{4,10}</string>
-    <string name="signup_mail_validation_regex">[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+\.[a-zA-Z]{2,4}</string>
+    <string name="signup_mail_validation_regex">[a-zA-Z0-9._-]+@[a-zA-Z0-9_-]+\.[a-zA-Z]{2,4}</string>
     <string name="signup_real_name_validation_regex">([A-Za-z\u0080-\uffff]+)( [A-Za-z\u0080-\uffff]+)+</string>
     <string name="signup_credit_card_number_validation_regex">[0-9]{13,19}</string>
     <string name="signup_credit_card_cvc_regex">[0-9]{3,4}</string>

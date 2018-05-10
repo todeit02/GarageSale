@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/signup_username_hint"
                 android:inputType="textShortMessage"
+                android:maxLength="100"
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
@@ -52,12 +53,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_password"
+
+            <EditText
+                android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
                 android:hint="@string/signup_password_hint"
-                android:textColor="@color/monsoon"/>
+                android:inputType="textPassword"
+                android:maxLength="100"
+                android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -74,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/signup_email_hint"
                 android:inputType="textEmailAddress"
+                android:maxLength="100"
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
@@ -91,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/signup_real_name_hint"
                 android:inputType="textCapWords|textPersonName"
+                android:maxLength="200"
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
@@ -109,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/signup_birth_date_hint"
                 android:inputType="date"
+                android:maxLength="10"
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
@@ -135,6 +142,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/signup_credit_card_hint"
                 android:inputType="number"
+                android:maxLength="19"
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
@@ -152,12 +160,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+
                 <EditText
                     android:id="@+id/input_cc_validation_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/signup_cc_validation_code_hint"
                     android:inputType="numberPassword"
+                    android:maxLength="4"
                     android:textColor="@color/monsoon" />
             </android.support.design.widget.TextInputLayout>
 
@@ -173,6 +183,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/signup_cc_month_format"
                     android:inputType="number"
+                    android:maxLength="2"
                     android:textColor="@color/monsoon" />
             </android.support.design.widget.TextInputLayout>
 
@@ -188,6 +199,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/signup_cc_year_format"
                     android:inputType="number"
+                    android:maxLength="2"
                     android:textColor="@color/monsoon" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -198,12 +210,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_reEnterPassword"
+
+            <EditText
+                android:id="@+id/input_reEnterPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
                 android:hint="@string/signup_password_reenter_hint"
-                android:textColor="@color/monsoon"/>
+                android:inputType="textPassword"
+                android:maxLength="100"
+                android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->

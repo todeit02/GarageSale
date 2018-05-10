@@ -1,9 +1,7 @@
 <?php
 
-/**
- * Representa el la estructura de las metas
- * almacenadas en la base de datos
- */
+require_once '../Database.php';
+ 
 class CardCrud
 {
     function __construct()
@@ -61,17 +59,15 @@ class CardCrud
 	public static function insert(
         $cardNum,
         $expDate,
-        $ccv,
-        $bank
+        $ccv
     )
     {
         // Sentencia INSERT
         $command = "INSERT INTO cards ( " .
             "cardNum, " .
             "expDate, " .
-            "ccv, " .
-            "bank )" .
-            " VALUES( ?,?,?,? )";
+            "ccv )" .
+            " VALUES( ?,?,? )";
 
         // Preparar la sentencia
         $request = Database::getInstance()->getDb()->prepare($command);
@@ -80,8 +76,7 @@ class CardCrud
             array(
                 $cardNum,
 				$expDate,
-				$ccv,
-				$bank
+				$ccv
             )
         );
     }
