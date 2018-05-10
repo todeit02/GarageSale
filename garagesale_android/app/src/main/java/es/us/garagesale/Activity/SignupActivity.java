@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -95,7 +94,9 @@ public class SignupActivity extends AppCompatActivity {
         );
     }
 
-    public void signup() {
+
+    public void signup()
+    {
         Log.d(TAG, "Signup");
 
         if (!validator.validate()) {
@@ -104,43 +105,16 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         _signupButton.setEnabled(false);
+        final ProgressDialog progressDialog = showSignupProgressDialog();
 
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
-        progressDialog.show();
-
-        String username = _usernameText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String email = _emailText.getText().toString();
-        String realName = _realNameText.getText().toString();
-        String birthDateString = _birthDateText.getText().toString();
-        Date birthDate = new Date();
-        try
-        {
-            SimpleDateFormat birthDateFormat = new SimpleDateFormat(getString(R.string.signup_birth_date_format), Locale.US);
-            birthDate = birthDateFormat.parse(birthDateString);
-        }
-        catch (Exception e) {}
-
-        String nationality = _nationalitySelector.getSelectedItem().toString();
-        String creditCardNumber = _creditCardNumberText.getText().toString();
-        int ccValidationCode = Integer.parseInt( _ccValidationCodeText.getText().toString() );
-        int ccEndMonth = Integer.parseInt( _ccEndMonthText.getText().toString() );
-        int ccEndYear = Integer.parseInt( _ccEndYearText.getText().toString() );
-
-        final int ccEndDay = 1;
-        GregorianCalendar ccEndDateCalendar = new GregorianCalendar(2000 + ccEndYear, (ccEndMonth-1), ccEndDay);
-        Date ccEndDate = ccEndDateCalendar.getTime();
-
-        Card registeringCard = new Card(creditCardNumber, ccEndDate, ccValidationCode, "");
-        Person registeringPerson = new Person(username, password, realName, email, birthDate, nationality, registeringCard);
+        Person registeringPerson = getPersonFromUI();
 
         DatabaseManager.createPerson(registeringPerson, this, new ISignupResponseConsumer() {
             @Override
             public void consume(boolean wasSignupSuccessful, boolean isUsernameAlreadyTaken) {
                 onSignupResponse(wasSignupSuccessful, isUsernameAlreadyTaken);
+                progressDialog.dismiss();
+                _signupButton.setEnabled(true);
             }
         });
     }
@@ -158,15 +132,73 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-    public void onSignupSuccess() {
-        _signupButton.setEnabled(true);
+    public void onSignupSuccess()
+    {
         setResult(RESULT_OK, null);
         finish();
     }
 
-    public void onSignupFailed() {
+    public void onSignupFailed()
+    {
         Toast.makeText(getBaseContext(), getString(R.string.signup_error), Toast.LENGTH_LONG).show();
+    }
 
-        _signupButton.setEnabled(true);
+
+    private Person getPersonFromUI()
+    {
+        String username = _usernameText.getText().toString();
+        String password = _passwordText.getText().toString();
+        String email = _emailText.getText().toString();
+        String realName = _realNameText.getText().toString();
+        String birthDateString = _birthDateText.getText().toString();
+        Date birthDate = new Date();
+        try
+        {
+            SimpleDateFormat birthDateFormat = new SimpleDateFormat(getString(R.string.signup_birth_date_format), Locale.US);
+            birthDate = birthDateFormat.parse(birthDateString);
+        }
+        catch (Exception e) {}
+
+        String nationality = _nationalitySelector.getSelectedItem().toString();
+        String creditCardNumber = _creditCardNumberText.getText().toString();
+        String ccValidationCode = _ccValidationCodeText.getText().toString();
+        int ccEndMonth = Integer.parseInt( _ccEndMonthText.getText().toString() );
+        int ccEndYear = Integer.parseInt( _ccEndYearText.getText().toString() );
+
+        final int ccEndDay = 1;
+        GregorianCalendar ccEndDateCalendar = new GregorianCalendar(2000 + ccEndYear, (ccEndMonth-1), ccEndDay);
+        Date ccEndDate = ccEndDateCalendar.getTime();
+
+        Card enteredCard = new Card(creditCardNumber, ccEndDate, ccValidationCode, "");
+        Person enteredPerson = new Person(username, password, realName, email, birthDate, nationality, enteredCard);
+        return enteredPerson;
+    }
+
+
+    private ProgressDialog showSignupProgressDialog()
+    {
+        ProgressDialog progressDialog =  new ProgressDialog(SignupActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage(getString(R.string.signup_creating_account_progress_message));
+        progressDialog.show();
+        return progressDialog;
+    }
+
+
+    private Person createMockPerson()
+    {
+        SimpleDateFormat birthDateFormat = new SimpleDateFormat(getString(R.string.signup_birth_date_format), Locale.US);
+        Date birthDate = new Date();
+        try {
+            birthDate = birthDateFormat.parse("09.10.1995");
+        }
+        catch (Exception e) {}
+
+        GregorianCalendar ccEndDateCalendar = new GregorianCalendar(2021, 3, 1);
+        Date ccEndDate = ccEndDateCalendar.getTime();
+
+        Card registeringCard = new Card("1234123412341234", ccEndDate, "456", "");
+        return new Person("Peter", "abc123", "Peter Paúl Peterson", "peter@planet.pl", birthDate, "Polish", registeringCard);
     }
 }

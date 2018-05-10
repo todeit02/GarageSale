@@ -491,6 +491,7 @@ Activity aux;
         if(response == null)
         {
             callback.consume(false, false);
+            return;
         }
 
         try

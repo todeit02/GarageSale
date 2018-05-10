@@ -1,10 +1,6 @@
 <?php
 
-/**
- * Representa el la estructura de las metas
- * almacenadas en la base de datos
- */
-require '../Database.php';
+require_once '../Database.php';
 
 class PersonCrud
 {
@@ -12,13 +8,6 @@ class PersonCrud
     {
     }
 
-    /**
-     * Obtiene los campos de un offer con un identificador
-     * determinado
-     *
-     * @param $id Identificador del offer
-     * @return mixed
-     */
     public static function getById($username)
     {
         // Consulta de la meta

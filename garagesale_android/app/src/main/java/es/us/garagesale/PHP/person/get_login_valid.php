@@ -3,7 +3,7 @@
  * Obtiene todas las metas de la base de datos
  */
 
-require '../Database.php';
+require_once '../Database.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
