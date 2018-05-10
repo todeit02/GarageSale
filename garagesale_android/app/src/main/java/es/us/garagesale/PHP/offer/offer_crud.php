@@ -98,6 +98,28 @@ class OfferCrud
             return -1;
         }
     }
+	
+	
+	public static function getByAttributes($name, $seller_username)
+    {
+        // Consulta de la meta
+        $consulta = "SELECT * FROM offers WHERE name = ? AND seller_username = ?";
+
+        try {
+            // Preparar sentencia
+            $comando = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando->execute(array($name, $seller_username));
+            // Capturar primera fila del resultado
+            $row = $comando->fetch(PDO::FETCH_ASSOC);
+            return $row;
+
+        } catch (PDOException $e) {
+            // Aquí puedes clasificar el error dependiendo de la excepción
+            // para presentarlo en la respuesta Json
+            return NULL;
+        }
+    }
 
 
     /**
@@ -107,9 +129,9 @@ class OfferCrud
    * @param $name      nombre del nuevo registro
         * @param $description descripción del nuevo registro
          * @param $price   precio del nuevo registro
-        * @param $publishDate    fecha de publicacion del nuevo registro
+        * @param $startTime    fecha de publicacion del nuevo registro
          * @param $sold    estado del nuevo registro
-        * @param seller   vendedor del nuevo registro
+        * @param seller_username   vendedor del nuevo registro
          * @param $id    codigo  del nuevo registro
      */
 
@@ -132,37 +154,29 @@ class OfferCrud
          return $cmd;
      }
 
-    /**
-     * Insertar una nueva meta
-     *
-     * @param $name      nombre del nuevo registro
-     * @param $description descripción del nuevo registro
-      * @param $price   precio del nuevo registro
-     * @param $publishDate    fecha de publicacion del nuevo registro
-      * @param $sold    estado del nuevo registro
-     * @param seller   vendedor del nuevo registro
-      * @param $id    codigo  del nuevo registro
-     * @return PDOStatement
-     */
+	/**
+	* insert new offer
+	*
+	* @return boolean success
+	*/
     public static function insert(
         $name,
         $description,
         $price,
-        $publishDate,
-         $sold,
-         $seller,
-        $id
+        $seller_username,
+		$state,
+		$activePeriod
     )
     {
         // Sentencia INSERT
-        $comando = "INSERT INTO offer ( " .
+        $comando = "INSERT INTO offers ( " .
             "name," .
             " description," .
             " price," .
-            " publishDate," .
-             " sold," .
-            " seller)" .
-            " VALUES( ?,?,?,?,?,?)";
+            " seller_username," .
+            " state," .
+            " activePeriod)" .
+            " VALUES(?,?,?,?,?,?)";
 
         // Preparar la sentencia
         $sentencia = Database::getInstance()->getDb()->prepare($comando);
@@ -172,10 +186,9 @@ class OfferCrud
                 $name,
                 $description,
                 $price,
-                $publishDate,
-                $sold,
-                $seller,
-                $id
+                $seller_username,
+				$state,
+				$activePeriod
             )
         );
 

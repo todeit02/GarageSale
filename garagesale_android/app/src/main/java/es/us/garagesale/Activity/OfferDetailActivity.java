@@ -13,7 +13,7 @@ import es.us.garagesale.DataAccess.IOfferConsumer;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
-
+import es.us.garagesale.Src.OfferTool;
 
 
 public class OfferDetailActivity extends Activity {
@@ -57,7 +57,8 @@ public class OfferDetailActivity extends Activity {
     private void displayOffer(final Offer received){
         title.setText(received.getName());
         detail.setText(received.getDescription()+" \n"+ "Precio original: "+ getString(R.string.currency) +received.getPrice());
-        state.setText(received.getState());
+        CharSequence condition = OfferTool.getCharSequenceFromCondition(received.getCondition(), this);
+        state.setText(condition);
         remainingTime.setText(received.calculateRemainingTime()+" horas");
         getMaxOffer(received);
         createInterested.setOnClickListener(new View.OnClickListener() {

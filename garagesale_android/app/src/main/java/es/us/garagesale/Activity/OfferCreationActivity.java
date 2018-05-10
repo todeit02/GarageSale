@@ -2,15 +2,18 @@ package es.us.garagesale.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,9 +38,12 @@ import com.google.android.gms.maps.model.LatLng;
 import org.w3c.dom.Text;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
+import es.us.garagesale.DataAccess.IIdConsumer;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.ButtonGroupAppearanceManager;
 import es.us.garagesale.Src.Offer;
+import es.us.garagesale.Src.OfferCondition;
+import es.us.garagesale.Src.OfferTool;
 import es.us.garagesale.Src.TextLengthLimiter;
 
 import static android.util.TypedValue.COMPLEX_UNIT_SP;
@@ -87,6 +94,10 @@ public class OfferCreationActivity extends Activity
         prepareAddLocationButton(addLocationButton);
         prepareDurationButtons();
         preparePublishButton();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
+        String loginUsername = sharedPreferences.getString("username", "");
+        workingOffer.setSellerUsername(loginUsername);
     }
 
     @Override
@@ -154,7 +165,7 @@ public class OfferCreationActivity extends Activity
                 conditionButtonsAppearanceManager.onClick(v);
 
                 CharSequence selectedConditionText = ((Button) v).getText();
-                Offer.Condition selectedCondition = getConditionFromCharSequence(selectedConditionText);
+                OfferCondition selectedCondition = OfferTool.getConditionFromCharSequence(selectedConditionText, OfferCreationActivity.this);
 
                 workingOffer.setCondition(selectedCondition);
             }
@@ -227,7 +238,7 @@ public class OfferCreationActivity extends Activity
                 durationButtonsAppearanceManager.onClick(v);
 
                 CharSequence selectedDurationText = ((Button) v).getText();
-                Offer.Duration selectedDuration = getDurationFromCharSequence(selectedDurationText);
+                Offer.Duration selectedDuration = OfferTool.getDurationFromCharSequence(selectedDurationText, OfferCreationActivity.this);
                 int durationDays = Offer.durationsDays.get(selectedDuration);
 
                 workingOffer.setDurationDays(durationDays);
@@ -486,13 +497,44 @@ public class OfferCreationActivity extends Activity
 
         if(invalidUserInputViews.size() == 0)
         {
-            DatabaseManager.createOffer(workingOffer);
-            finish();
+            workingOffer.setName(titleEdit.getText().toString());
+            ArrayList<String> tags = getTagsFromUI();
+            workingOffer.setTags(tags);
+            workingOffer.setDescription(descriptionEdit.getText().toString());
+            workingOffer.setPrice( Integer.parseInt(priceEdit.getText().toString()) );
+
+            DatabaseManager.createOffer(this, workingOffer, new IIdConsumer() {
+                @Override
+                public void consume(boolean wasCreationSuccessful, int id)
+                {
+                    if(wasCreationSuccessful)
+                    {
+                        uploadPhotos(id);
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(getBaseContext(), getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
         }
         else
         {
             highlightInvalidInputViews(invalidUserInputViews);
         }
+    }
+
+
+    private ArrayList<String> getTagsFromUI()
+    {
+        return new ArrayList<String>(); // dummy
+    }
+
+
+    private void uploadPhotos(int id)
+    {
+        Log.d("uploadPhotos()", "uploading photos for id " + id);
     }
 
 
@@ -528,37 +570,5 @@ public class OfferCreationActivity extends Activity
             Drawable invalidInputFrame = getResources().getDrawable(R.drawable.invalid_input_view_frame);
             invalidHighlightingView.setBackgroundDrawable(invalidInputFrame);
         }
-    }
-
-
-    private Offer.Duration getDurationFromCharSequence(CharSequence productDurationText)
-    {
-        if(productDurationText.equals( getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.SHORT)) )) return Offer.Duration.SHORT;
-        if(productDurationText.equals( getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.MEDIUM)) )) return Offer.Duration.MEDIUM;
-        if(productDurationText.equals( getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.LONG)) )) return Offer.Duration.LONG;
-        return Offer.Duration.INVALID;
-    }
-
-
-    private CharSequence getCharSequenceFromCondition(Offer.Condition productCondition)
-    {
-        switch(productCondition)
-        {
-            case NEW:           return getResources().getText(R.string.offer_condition_new);
-            case NEARLY_NEW:    return getResources().getText(R.string.offer_condition_nearly_new);
-            case USED:          return getResources().getText(R.string.offer_condition_used);
-            case DEFECTIVE:     return getResources().getText(R.string.offer_condition_defective);
-            default:            return "";
-        }
-    }
-
-
-    private Offer.Condition getConditionFromCharSequence(CharSequence productConditionText)
-    {
-        if(productConditionText.equals( getResources().getText(R.string.offer_condition_new) )) return Offer.Condition.NEW;
-        if(productConditionText.equals( getResources().getText(R.string.offer_condition_nearly_new) )) return Offer.Condition.NEARLY_NEW;
-        if(productConditionText.equals( getResources().getText(R.string.offer_condition_used) )) return Offer.Condition.USED;
-        if(productConditionText.equals( getResources().getText(R.string.offer_condition_defective) )) return Offer.Condition.DEFECTIVE;
-        return Offer.Condition.INVALID;
     }
 }

@@ -1,34 +1,34 @@
 <?php
 /**
- * Insertar una nueva oferta en la base de datos
+ * Insert new offer into the database
  */
 
-require 'offer_crud.php';
+require_once 'offer_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Decodificando formato Json
     $body = json_decode(file_get_contents("php://input"), true);
 
-    // Insertar oferta
-    $retorno = offer_crud::insert(
-        $body['realName'],
-        $body['desription'],
+    $succeeded = OfferCrud::insert(
+        $body['name'],
+        $body['description'],
         $body['price'],
-        $body['publishDate'],
-        $body['sold']),
-         $body['seller']),
-          $body['id']);
+        $body['seller_username'],
+        $body['state'],
+        $body['activePeriod']);
+		
+		$offer = OfferCrud::getByAttributes($body['name'], $body['seller_username']);
+		if($offer != NULL) $offerId = $offer['id'];
+		else $succeeded = false;
 
-    if ($retorno) {
-        // Código de éxito
+    if ($succeeded) {
         print json_encode(
             array(
                 'estado' => '1',
+				'offerId' => $offerId,
                 'mensaje' => 'Creación exitosa')
         );
     } else {
-        // Código de falla
         print json_encode(
             array(
                 'estado' => '2',

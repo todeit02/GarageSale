@@ -89,6 +89,9 @@
     <string name="dialog_discard_msg">¿Descartar Cambios?</string>
     <string name="dialog_cancel">Cancelar</string>
     <string name="dialog_delete_msg">Se eliminará la meta</string>
+
+    <!-- Interacción con la BDD -->
+    <string name="connection_problem">problema con la conexión</string>
 </resources>
 
 

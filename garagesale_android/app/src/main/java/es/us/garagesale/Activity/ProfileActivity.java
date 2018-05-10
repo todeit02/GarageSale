@@ -15,10 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
@@ -238,7 +236,7 @@ public class ProfileActivity extends Activity {
             TextView lblAccept = inflatedOffer.findViewById(R.id.tv_btn_bid_label);
             ImageView img= inflatedOffer.findViewById(R.id.imgv_btn_title_offer);
 
-            if(offer.isSold()==1){
+            if(offer.getSold()==1){
                 btnAccept.setBackgroundResource(R.drawable.border_rounded_background);
                 img.setImageResource(R.mipmap.moneybag);
                 lblAccept.setText("Has vendido este producto");

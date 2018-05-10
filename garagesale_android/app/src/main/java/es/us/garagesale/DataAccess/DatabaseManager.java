@@ -347,9 +347,92 @@ Activity aux;
         }
     }
 
-    public static void createOffer(Offer creatingOffer)
+    public static void createOffer(Activity callingActivity, Offer creatingOffer, final IIdConsumer callback)
     {
+        HashMap<String, String> map = new HashMap<>();
+        
+        map.put("name", creatingOffer.getName());
+        map.put("description", creatingOffer.getDescription());
+        map.put("price", Float.toString(creatingOffer.getPrice()) );
+        map.put("seller_username", creatingOffer.getSellerUsername());
+        String conditionNumberString = Integer.toString(creatingOffer.getCondition().getNumericValue());
+        map.put("state", conditionNumberString);
+        map.put("activePeriod", Integer.toString(creatingOffer.getDurationDays()) );
 
+        // Crear nuevo objeto Json basado en el mapa
+        JSONObject jobject = new JSONObject(map);
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.POST,
+                                Constantes.INSERT_OFFER,
+                                jobject,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        // Procesar la respuesta del servidor
+                                        processCreateOfferResponse(response, callback);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                        processCreateOfferResponse(null, callback);
+                                    }
+                                }
+
+                        ) {
+                            @Override
+                            public Map<String, String> getHeaders() {
+                                Map<String, String> headers = new HashMap<String, String>();
+                                headers.put("Content-Type", "application/json; charset=utf-8");
+                                headers.put("Accept", "application/json");
+                                return headers;
+                            }
+
+                            @Override
+                            public String getBodyContentType() {
+                                return "application/json; charset=utf-8" + getParamsEncoding();
+                            }
+                        }
+                );
+    }
+
+    private static void processCreateOfferResponse(JSONObject response, final IIdConsumer callback)
+    {
+        final int errorId = -1;
+
+        if(response == null)
+        {
+            callback.consume(false, errorId);
+            return;
+        }
+
+        try
+        {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+            boolean isUsernameAlreadyTaken = false;
+
+            switch (state)
+            {
+                case successResponse:
+                    int offerId = response.getInt("offerId");
+                    callback.consume(true, offerId);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    callback.consume(false, errorId);
+                    break;
+            }
+            System.out.println("Message: " + isUsernameAlreadyTaken);
+        }
+        catch (JSONException e) { e.printStackTrace(); }
     }
 
     public static void editOffer(int id, final Activity callingActivity){

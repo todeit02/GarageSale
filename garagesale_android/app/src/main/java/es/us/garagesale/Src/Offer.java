@@ -23,16 +23,6 @@ import java.util.Map;
 /*cambiar String a startTime*/
 public class Offer
 {
-    public enum Condition
-    {
-        NEW,
-        NEARLY_NEW,
-        USED,
-        DEFECTIVE,
-
-        INVALID
-    }
-
     public enum Duration
     {
         SHORT,
@@ -46,7 +36,7 @@ public class Offer
 
     private String name;
     private String seller_username;
-    private Condition condition;
+    private OfferCondition condition;
     private String description;
     private float price;
     private ArrayList<String> tags;
@@ -54,7 +44,6 @@ public class Offer
     private int sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
     private int id;
     private int durationDays;
-    private String state;
     private int activePeriod;
     private ArrayList<Bitmap> photos;
     private Place location;
@@ -64,10 +53,13 @@ public class Offer
         initializeDurationMap();
     }
 
+    public static Map<Duration, Integer> getDurationsDays() {
+        return durationsDays;
+    }
+
     public String getSellerUsername() {
         return seller_username;
     }
-
     public void setSellerUsername(String sellerUsername) {
         this.seller_username = sellerUsername;
     }
@@ -79,10 +71,10 @@ public class Offer
         this.name = name;
     }
 
-    public Condition getCondition() {
+    public OfferCondition getCondition() {
         return condition;
     }
-    public void setCondition(Condition condition) {
+    public void setCondition(OfferCondition condition) {
         this.condition = condition;
     }
 
@@ -100,22 +92,6 @@ public class Offer
         this.price = price;
     }
 
-    public static Map<Duration, Integer> getDurationsDays() {
-        return durationsDays;
-    }
-
-    public String getSeller_username() {
-        return seller_username;
-    }
-
-    public void setSeller_username(String seller_username) {
-        this.seller_username = seller_username;
-    }
-
-    public int getSold() {
-        return sold;
-    }
-
     public int getDurationDays() {
         return durationDays;
     }
@@ -124,22 +100,11 @@ public class Offer
         this.durationDays = durationDays;
     }
 
-    public void setPhotos(ArrayList<Bitmap> photos) {
-        this.photos = photos;
-    }
-
     public ArrayList<String> getTags() {
         return tags;
     }
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
-    }
-
-    public String getState() {
-        return state;
-    }
-    public void setState(String state) {
-        this.state = state;
     }
 
     public int getActivePeriod() {
@@ -154,8 +119,7 @@ public class Offer
     }
     public void setStartTime(String startTime) { this.startTime = startTime; }
 
-
-    public int isSold() {
+    public int getSold() {
         return sold;
     }
     public void setSold(int sold) {
@@ -164,6 +128,10 @@ public class Offer
 
 
     public ArrayList<Bitmap> getPhotos() { return photos; }
+
+    public void setPhotos(ArrayList<Bitmap> photos) {
+        this.photos = photos;
+    }
 
     public void addPhoto(Bitmap addingPhoto)
     {
@@ -198,7 +166,8 @@ public class Offer
         return id;
     }
 
-    public Offer(String name, String seller_username, Condition condition, String description, float price, ArrayList<String> tags, String startTime, int sold, int id, int durationDays, String state, int activePeriod, ArrayList<Bitmap> photos, Place location) {
+    public Offer(String name, String seller_username, OfferCondition condition, String description, float price, ArrayList<String> tags, String startTime, int sold, int id, int durationDays, int activePeriod, ArrayList<Bitmap> photos, Place location)
+    {
         this.name = name;
         this.seller_username = seller_username;
         this.condition = condition;
@@ -209,7 +178,6 @@ public class Offer
         this.sold = sold;
         this.id = id;
         this.durationDays = durationDays;
-        this.state = state;
         this.activePeriod = activePeriod;
         this.photos = photos;
         this.location = location;
@@ -223,14 +191,13 @@ public class Offer
         return "Offer{" +
                 "name='" + name + '\'' +
                 ", seller_username='" + seller_username + '\'' +
-                ", condition=" + condition +
+                ", condition=" + condition.getNumericValue() +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", tags=" + tags +
                 ", startTime='" + startTime + '\'' +
                 ", sold=" + sold +
                 ", id=" + id +
-                ", state='" + state + '\'' +
                 ", activePeriod=" + activePeriod +
                 ", photos=" + photos +
                 ", location=" + location +
