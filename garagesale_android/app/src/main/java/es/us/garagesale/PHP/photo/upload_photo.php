@@ -5,6 +5,8 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+	$succeeded = false;
+	
     $body = json_decode(file_get_contents("php://input"), true);
 	$offerId = $body['offerId'];
 	$image = $body['image'];
@@ -28,5 +30,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		fwrite($photoFile, $body['image']);
 		fclose($photoFile);
+		$succeeded = true;
 	}
+	
+	if ($succeeded) {
+        print json_encode(
+            array(
+                'estado' => '1',
+                'mensaje' => 'Creación exitosa')
+        );
+    } else {
+        print json_encode(
+            array(
+                'estado' => '2',
+                'mensaje' => 'Creación fallida')
+        );
+    }
 }

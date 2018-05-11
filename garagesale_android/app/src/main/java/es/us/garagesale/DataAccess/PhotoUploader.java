@@ -84,7 +84,12 @@ public class PhotoUploader
         HashMap<String, String> map = new HashMap<>();
 
         map.put("offerId", Integer.toString(offerId));
-        map.put("image", photoDataStream.toString());
+        String imageData = "";
+        try{
+            imageData = photoDataStream.toString("US-ASCII");
+        }
+        catch (Exception e){}
+        map.put("image", imageData);
 
         JSONObject json = new JSONObject(map);
 
@@ -99,18 +104,18 @@ public class PhotoUploader
 
                                     @Override
                                     public void onResponse(JSONObject response) {
-                                        System.out.println("Photo uploaded.");
                                         onPhotoUploadConsumer.consume(true);
                                     }
                                 },
                                 new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        System.out.println("Error on upload.");
                                         onPhotoUploadConsumer.consume(false);
                                     }
                                 }
                         )
                 );
+
+        uploadingIndex++;
     }
 }
