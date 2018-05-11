@@ -15,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $body['price'],
         $body['seller_username'],
         $body['state'],
-        $body['activePeriod']);
+        $body['activePeriod'],
+        $body['latitude'],
+        $body['longitude']);
 		
 		$offer = OfferCrud::getByAttributes($body['name'], $body['seller_username']);
 		if($offer != NULL) $offerId = $offer['id'];

@@ -8,12 +8,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +33,10 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
-import org.w3c.dom.Text;
-
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IIdConsumer;
+import es.us.garagesale.DataAccess.ISuccessConsumer;
+import es.us.garagesale.DataAccess.PhotoUploader;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.ButtonGroupAppearanceManager;
 import es.us.garagesale.Src.Offer;
@@ -501,27 +499,38 @@ public class OfferCreationActivity extends Activity
             ArrayList<String> tags = getTagsFromUI();
             workingOffer.setTags(tags);
             workingOffer.setDescription(descriptionEdit.getText().toString());
-            workingOffer.setPrice( Integer.parseInt(priceEdit.getText().toString()) );
+            workingOffer.setPrice( Float.parseFloat(priceEdit.getText().toString()) );
 
             DatabaseManager.createOffer(this, workingOffer, new IIdConsumer() {
                 @Override
                 public void consume(boolean wasCreationSuccessful, int id)
                 {
-                    if(wasCreationSuccessful)
-                    {
-                        uploadPhotos(id);
-                        finish();
-                    }
-                    else
-                    {
-                        Toast.makeText(getBaseContext(), getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
-                    }
+                    onOfferUploadResponse(wasCreationSuccessful, id);
                 }
             });
         }
         else
         {
             highlightInvalidInputViews(invalidUserInputViews);
+        }
+    }
+
+    private void onOfferUploadResponse(boolean wasOfferUploadSuccessful, int id)
+    {
+        if (wasOfferUploadSuccessful)
+        {
+            PhotoUploader photoUploader = new PhotoUploader();
+            photoUploader.upload(this, workingOffer.getPhotos(), id, new ISuccessConsumer() {
+                @Override
+                public void consume(boolean wasPhotosUploadSuccessful)
+                {
+                    onPhotosUploadResponse(wasPhotosUploadSuccessful);
+                }
+            });
+        }
+        else
+        {
+            Toast.makeText(getBaseContext(), getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -532,9 +541,10 @@ public class OfferCreationActivity extends Activity
     }
 
 
-    private void uploadPhotos(int id)
+    private void onPhotosUploadResponse(boolean wasSuccessful)
     {
-        Log.d("uploadPhotos()", "uploading photos for id " + id);
+        if(wasSuccessful) finish();
+        else Toast.makeText(getBaseContext(), getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
     }
 
 

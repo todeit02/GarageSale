@@ -165,7 +165,9 @@ class OfferCrud
         $price,
         $seller_username,
 		$state,
-		$activePeriod
+		$activePeriod,
+		$latitude,
+		$longitude
     )
     {
         // Sentencia INSERT
@@ -175,8 +177,10 @@ class OfferCrud
             " price," .
             " seller_username," .
             " state," .
-            " activePeriod)" .
-            " VALUES(?,?,?,?,?,?)";
+            " activePeriod," .
+            " latitude," .
+            " longitude)" .
+            " VALUES(?,?,?,?,?,?,?,?)";
 
         // Preparar la sentencia
         $sentencia = Database::getInstance()->getDb()->prepare($comando);
@@ -188,7 +192,9 @@ class OfferCrud
                 $price,
                 $seller_username,
 				$state,
-				$activePeriod
+				$activePeriod,
+				$latitude,
+				$longitude
             )
         );
 
