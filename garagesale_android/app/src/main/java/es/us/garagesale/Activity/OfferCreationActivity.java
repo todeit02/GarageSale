@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -537,7 +539,18 @@ public class OfferCreationActivity extends Activity
 
     private ArrayList<String> getTagsFromUI()
     {
-        return new ArrayList<String>(); // dummy
+        ArrayList<String> tags = new ArrayList<>();
+
+        String userTagsInput = tagsEdit.getText().toString();
+        Pattern hashtagRegex = Pattern.compile(getString(R.string.hashtag_regex));
+        Matcher matcher = hashtagRegex.matcher(userTagsInput);
+
+        while(matcher.find())
+        {
+            tags.add(matcher.group(1));
+        }
+
+        return tags;
     }
 
 

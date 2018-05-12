@@ -394,27 +394,39 @@ Activity aux;
 
     private static JSONObject createOfferJson(Offer creatingOffer)
     {
-        HashMap<String, String> map = new HashMap<>();
+        JSONObject jsonObject = new JSONObject();
 
-        map.put("name", creatingOffer.getName());
-        map.put("description", creatingOffer.getDescription());
-        map.put("price", Float.toString(creatingOffer.getPrice()) );
-        map.put("seller_username", creatingOffer.getSellerUsername());
-        String conditionNumberString = Integer.toString(creatingOffer.getCondition().getNumericValue());
-        map.put("state", conditionNumberString);
-        map.put("activePeriod", Integer.toString(creatingOffer.getDurationDays()) );
-
-        String latitudeString = null;
-        String longitudeString = null;
-        if(creatingOffer.getLocationLatLng() != null)
+        try
         {
-            latitudeString = Double.toString(creatingOffer.getLocationLatLng().latitude);
-            longitudeString = Double.toString(creatingOffer.getLocationLatLng().longitude);
-        }
-        map.put("latitude", latitudeString);
-        map.put("longitude", longitudeString);
+            jsonObject.put("name", creatingOffer.getName());
+            jsonObject.put("description", creatingOffer.getDescription());
+            JSONArray tagsArray = new JSONArray();
+            for(String addingTag : creatingOffer.getTags())
+            {
+                tagsArray.put(addingTag);
+            }
+            jsonObject.put("tags", tagsArray);
+            jsonObject.put("price", Float.toString(creatingOffer.getPrice()) );
+            jsonObject.put("seller_username", creatingOffer.getSellerUsername());
 
-        return new JSONObject(map);
+            String conditionNumberString = Integer.toString(creatingOffer.getCondition().getNumericValue());
+            jsonObject.put("state", conditionNumberString);
+
+            jsonObject.put("activePeriod", Integer.toString(creatingOffer.getDurationDays()) );
+
+            String latitudeString = "";
+            String longitudeString = "";
+            if(creatingOffer.getLocationLatLng() != null)
+            {
+                latitudeString = Double.toString(creatingOffer.getLocationLatLng().latitude);
+                longitudeString = Double.toString(creatingOffer.getLocationLatLng().longitude);
+            }
+            jsonObject.put("latitude", latitudeString);
+            jsonObject.put("longitude", longitudeString);
+
+        } catch (Exception e) {}
+
+        return jsonObject;
     }
 
 

@@ -60,6 +60,7 @@
     <string name="offer_condition_defective">defecto</string>
     <string name="offer_location">%1$s, %2$s</string>
     <string name="offer_duration">%1$d días</string>
+    <string name="hashtag_regex">#([\u0021-\u0022\u0024-\u007e\u00a1-\u02af]+)</string>
 
     <!-- Nombre de la actividad -->
     <string name="title_activity_login">Sign in</string>

@@ -4,9 +4,11 @@
  */
 
 require_once 'offer_crud.php';
+require_once '../tags/tags_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+	error_log(file_get_contents("php://input"));
     $body = json_decode(file_get_contents("php://input"), true);
 
     $succeeded = OfferCrud::insert(
@@ -19,9 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $body['latitude'],
         $body['longitude']);
 		
-		$offer = OfferCrud::getByAttributes($body['name'], $body['seller_username']);
-		if($offer != NULL) $offerId = $offer['id'];
-		else $succeeded = false;
+	$offer = OfferCrud::getByAttributes($body['name'], $body['seller_username']);
+	if($offer != NULL) $offerId = $offer['id'];
+	else $succeeded = false;
+	
+	foreach($body['tags'] as $insertingTag)
+	{
+		error_log("Inserting " . $insertingTag);
+		$succeeded = $succeeded && TagsCrud::insert($offerId, $insertingTag);
+	}
+	error_log("Inserting tags complete. Success: " . $succeeded);
 
     if ($succeeded) {
         print json_encode(

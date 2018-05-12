@@ -4,7 +4,7 @@
  * Representa el la estructura de las metas
  * almacenadas en la base de datos
  */
-require '../Database.php';
+require_once '../Database.php';
 
 class OfferCrud
 {
