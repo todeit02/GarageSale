@@ -721,6 +721,64 @@ Activity aux;
         }
     }
 
+    public static void insertRanking(String sellerUsername, String buyerUsername, float rate, Activity callingActivity){
+        HashMap<String, String> map = new HashMap<>();// Mapeo previo
+
+        map.put("seller_username",sellerUsername);
+        map.put("buyer_username",buyerUsername);
+        map.put("value", String.valueOf(rate));
+
+        // Crear nuevo objeto Json basado en el mapa
+        JSONObject jobject = new JSONObject(map);
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.POST,
+                                Constantes.INSERT_RANKING,
+                                jobject,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        // Procesar la respuesta del servidor
+                                        processInsertRanking(response);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                    }
+                                }
+                        )
+                );
+    }
+
+    public static void processInsertRanking(JSONObject response){
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    JSONObject interestedResponse = response.getJSONObject("ranking");
+
+                    System.out.println("Message: " + interestedResponse.toString());
+
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void deleteOffer(int offerId, final Activity callingActivity){
 
 

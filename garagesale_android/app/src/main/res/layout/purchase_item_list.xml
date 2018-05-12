@@ -135,6 +135,23 @@
                     android:padding="2dp"
                     android:text="TextView"
                     android:textSize="18sp" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize="1.0" />
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/border_rounded_background_report"
+                    android:text="Valorar" />
             </LinearLayout>
 
             <android.support.constraint.ConstraintLayout

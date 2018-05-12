@@ -6,16 +6,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.media.Rating;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -164,7 +170,7 @@ public class ProfileActivity extends Activity {
 
             DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
                 @Override
-                public void consume(Offer receivedOffer) {
+                public void consume(final Offer receivedOffer) {
                     TextView title = inflatedOffer.findViewById(R.id.tv_title);
                     title.setId(R.id.tv_title + idOffset * (100 + 1));
                     title.setText(receivedOffer.getName());
@@ -172,6 +178,21 @@ public class ProfileActivity extends Activity {
                     TextView seller = inflatedOffer.findViewById(R.id.tv_seller);
                     seller.setId(R.id.tv_seller + idOffset * (100 + 1));
                     seller.setText("Vendedor:" +receivedOffer.getSellerUsername());
+
+                    final Button submit = inflatedOffer.findViewById(R.id.btnSubmit);
+
+                    submit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            RatingBar ratingBar = inflatedOffer.findViewById(R.id.ratingBar);
+                            ratingBar.setEnabled(false);
+                            submit.setVisibility(View.GONE);
+                            //Inserta el ranking del vendedor:
+                            float rate = ratingBar.getRating();
+                            DatabaseManager.insertRanking(receivedOffer.getSellerUsername(), actualUser, rate, ProfileActivity.this);
+
+                        }
+                    });
                 }
             });
 
@@ -179,7 +200,32 @@ public class ProfileActivity extends Activity {
             btnReport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//CREAR REPORTE
+                    //generar reporte
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                    builder.setTitle("Escribe tu reporte de defectos. Nos pondremos en contacto.");
+
+                    // Set up the input
+                    final EditText input = new EditText(ProfileActivity.this);
+                    // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setView(input);
+
+                    // Set up the buttons
+                    builder.setPositiveButton("Enviar reporte", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String m_Text = input.getText().toString();
+                            //se simula que le llega a alguien el reporte y hacen algo al respecto.
+                        }
+                    });
+                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    builder.show();
                 }
             });
 
@@ -190,6 +236,7 @@ public class ProfileActivity extends Activity {
             actualPrice.setId(R.id.tv_original_price + idOffset * (1000 + 1));
             actualPrice.setText(String.valueOf(purchase.getPrice()) + getString(R.string.currency));
 
+
             linearLayout.addView(inflatedOffer);
             idOffset++;
 
@@ -197,6 +244,7 @@ public class ProfileActivity extends Activity {
     }
 
     public void displayPersonalInfo(Person actualPerson){
+        linearLayout.removeAllViews();
 
         primaryTitle.setText("Información personal:");
         primaryTitle.setPaintFlags(primaryTitle.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);

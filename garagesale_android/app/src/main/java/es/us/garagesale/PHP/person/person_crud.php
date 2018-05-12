@@ -28,6 +28,35 @@ class PersonCrud
             return -1;
         }
     }
+
+    public static function insertRanking(
+                $seller_username,
+                $buyer_username,
+                $value
+            )
+    {
+           // Sentencia INSERT
+                       $comando = "INSERT INTO ranking ( " .
+                           "seller_username," .
+                           " buyer_username," .
+                           " value)" .
+                           " VALUES( ?,?,?)";
+
+                       // Preparar la sentencia
+                       $sentencia = Database::getInstance()->getDb()->prepare($comando);
+
+                       return $sentencia->execute(
+                           array(
+                               $seller_username,
+                               $buyer_username,
+                               $value
+                           )
+                       );
+
+    }
+
+
+
 	
 	public static function insert(
         $username,
