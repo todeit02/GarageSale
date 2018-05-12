@@ -349,18 +349,7 @@ Activity aux;
 
     public static void createOffer(Activity callingActivity, Offer creatingOffer, final IIdConsumer callback)
     {
-        HashMap<String, String> map = new HashMap<>();
-        
-        map.put("name", creatingOffer.getName());
-        map.put("description", creatingOffer.getDescription());
-        map.put("price", Float.toString(creatingOffer.getPrice()) );
-        map.put("seller_username", creatingOffer.getSellerUsername());
-        String conditionNumberString = Integer.toString(creatingOffer.getCondition().getNumericValue());
-        map.put("state", conditionNumberString);
-        map.put("activePeriod", Integer.toString(creatingOffer.getDurationDays()) );
-
-        // Crear nuevo objeto Json basado en el mapa
-        JSONObject jobject = new JSONObject(map);
+        JSONObject offerJson = createOfferJson(creatingOffer);
 
         // Actualizar datos en el servidor
         VolleySingleton.getInstance(callingActivity).
@@ -368,7 +357,7 @@ Activity aux;
                         new JsonObjectRequest(
                                 Request.Method.POST,
                                 Constantes.INSERT_OFFER,
-                                jobject,
+                                offerJson,
                                 new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -401,6 +390,45 @@ Activity aux;
                         }
                 );
     }
+
+
+    private static JSONObject createOfferJson(Offer creatingOffer)
+    {
+        JSONObject jsonObject = new JSONObject();
+
+        try
+        {
+            jsonObject.put("name", creatingOffer.getName());
+            jsonObject.put("description", creatingOffer.getDescription());
+            JSONArray tagsArray = new JSONArray();
+            for(String addingTag : creatingOffer.getTags())
+            {
+                tagsArray.put(addingTag);
+            }
+            jsonObject.put("tags", tagsArray);
+            jsonObject.put("price", Float.toString(creatingOffer.getPrice()) );
+            jsonObject.put("seller_username", creatingOffer.getSellerUsername());
+
+            String conditionNumberString = Integer.toString(creatingOffer.getCondition().getNumericValue());
+            jsonObject.put("state", conditionNumberString);
+
+            jsonObject.put("activePeriod", Integer.toString(creatingOffer.getDurationDays()) );
+
+            String latitudeString = "";
+            String longitudeString = "";
+            if(creatingOffer.getLocationLatLng() != null)
+            {
+                latitudeString = Double.toString(creatingOffer.getLocationLatLng().latitude);
+                longitudeString = Double.toString(creatingOffer.getLocationLatLng().longitude);
+            }
+            jsonObject.put("latitude", latitudeString);
+            jsonObject.put("longitude", longitudeString);
+
+        } catch (Exception e) {}
+
+        return jsonObject;
+    }
+
 
     private static void processCreateOfferResponse(JSONObject response, final IIdConsumer callback)
     {

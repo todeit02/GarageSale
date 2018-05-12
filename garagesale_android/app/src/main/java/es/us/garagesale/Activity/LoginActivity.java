@@ -3,7 +3,12 @@ package es.us.garagesale.Activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Debug;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import android.content.Intent;
@@ -13,12 +18,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import es.us.garagesale.DataAccess.DatabaseManager;
+import es.us.garagesale.DataAccess.IIdConsumer;
 import es.us.garagesale.DataAccess.ILoginResponseConsumer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.us.garagesale.DataAccess.ISuccessConsumer;
+import es.us.garagesale.DataAccess.PhotoUploader;
 import es.us.garagesale.R;
+import es.us.garagesale.Src.Offer;
+import es.us.garagesale.Src.OfferCondition;
 
 public class LoginActivity extends Activity {
     private static final String TAG = "LoginActivity";
@@ -65,7 +80,42 @@ public class LoginActivity extends Activity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
+        offerUploadTest();
     }
+
+
+    private void offerUploadTest()
+    {
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        tags.add("tag2");
+        tags.add("tag3");
+
+        Offer testOffer = new Offer(
+                "prueba prueba 123",
+                "testuser",
+                OfferCondition.USED,
+                "Esta es una descripción.",
+                1.23f,
+                tags,
+                "",
+                0,
+                0,
+                3,
+                3,
+                new ArrayList<Bitmap>(),
+                null);
+
+        DatabaseManager.createOffer(this, testOffer, new IIdConsumer(){
+
+            @Override
+            public void consume(boolean wasCreationSuccessful, int id) {
+                System.out.println("Was offer upload successful: " + wasCreationSuccessful + ", id: " + id);
+            }
+        });
+    }
+
 
     public void login() {
         Log.d(TAG, "Login");
