@@ -434,7 +434,6 @@ Activity aux;
         }
         catch (JSONException e) { e.printStackTrace(); }
     }
-
     public static void editOffer(int id, final Activity callingActivity){
         String url = Constantes.UPDATE_OFFER;
         Map<String, String> params = new HashMap<String, String>();
@@ -459,8 +458,6 @@ Activity aux;
         });
         VolleySingleton.getInstance(callingActivity).addToRequestQueue(jsObjRequest);
     }
-
-
 
     public static void editOfferViejo(int id, final Activity callingActivity){
 
@@ -588,7 +585,6 @@ Activity aux;
             );
     }
 
-
     public static void processInsertInterested(JSONObject response){
         try {
             String state = response.getString("estado");
@@ -602,6 +598,65 @@ Activity aux;
 
                     Gson gson = new Gson();
                     Interested interested = gson.fromJson(interestedResponse.toString(), Interested.class);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void insertPurchase(int offerId, int price, String buyer, Activity callingActivity){
+
+        HashMap<String, String> map = new HashMap<>();// Mapeo previo
+
+        map.put("offer_id", String.valueOf(offerId));
+        map.put("price", String.valueOf(price));
+        map.put("buyer_username", buyer);
+
+        // Crear nuevo objeto Json basado en el mapa
+        JSONObject jobject = new JSONObject(map);
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.POST,
+                                Constantes.INSERT_PURCHASE,
+                                jobject,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        // Procesar la respuesta del servidor
+                                        processInsertPurchase(response);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                    }
+                                }
+                        )
+                );
+    }
+
+    public static void processInsertPurchase(JSONObject response){
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    JSONObject interestedResponse = response.getJSONObject("purchase");
+
+                    System.out.println("Message: " + interestedResponse.toString());
+
                     break;
                 case failResponse:
                     String failMessage = response.getString("mensaje");

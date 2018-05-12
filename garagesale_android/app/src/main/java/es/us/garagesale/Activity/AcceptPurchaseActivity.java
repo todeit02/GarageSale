@@ -34,6 +34,7 @@ public class AcceptPurchaseActivity extends Activity {
     private int selectedOfferId;
     private Offer toPurchase;
     private String maxUsername;
+    private int maxPrice;
 
 
     @Override
@@ -52,8 +53,10 @@ public class AcceptPurchaseActivity extends Activity {
 
                 TextView confirmationMssg = findViewById(R.id.tv_confirmation_message);
                 TextView actualPrice = findViewById(R.id.tv_price);
-                actualPrice.setText(getMaxPriceAndUser(interested).get("maxPrice") + getString(R.string.currency));
-                confirmationMssg.setText("La oferta mas alta ha sido la de "+ getMaxPriceAndUser(interested).get("maxUser"));
+                maxPrice = Integer.valueOf(getMaxPriceAndUser(interested).get("maxPrice"));
+                actualPrice.setText(maxPrice + getString(R.string.currency));
+                maxUsername = getMaxPriceAndUser(interested).get("maxUser");
+                confirmationMssg.setText("La oferta mas alta ha sido la de "+ maxUsername);
 
             }
         });
@@ -62,6 +65,7 @@ public class AcceptPurchaseActivity extends Activity {
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                insertPurchase();
                 sendMessageToBuyer(selectedOfferId); //DO STH
                 changeOfferToSold(selectedOfferId);
 
@@ -115,6 +119,9 @@ public class AcceptPurchaseActivity extends Activity {
         DatabaseManager.editOffer(id, AcceptPurchaseActivity.this);
     }
 
+    private void insertPurchase(){
+        DatabaseManager.insertPurchase(selectedOfferId, maxPrice, maxUsername, AcceptPurchaseActivity.this);
+    }
 
     private void sendMessageToBuyer(int offerId){
 

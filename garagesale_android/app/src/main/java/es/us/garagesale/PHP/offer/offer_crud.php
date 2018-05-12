@@ -246,6 +246,33 @@ class OfferCrud
             );
 
         }
+
+        public static function insertOfferPurchase(
+            $offer_id,
+            $price,
+            $buyer_username
+        )
+       {
+       // Sentencia INSERT
+                   $comando = "INSERT INTO purchases ( " .
+                       "offer_id," .
+                       " price," .
+                       " buyer_username)" .
+                       " VALUES( ?,?,?)";
+
+                   // Preparar la sentencia
+                   $sentencia = Database::getInstance()->getDb()->prepare($comando);
+
+                   return $sentencia->execute(
+                       array(
+                           $offer_id,
+                           $price,
+                           $buyer_username
+                       )
+                   );
+
+       }
+
 }
 
 ?>

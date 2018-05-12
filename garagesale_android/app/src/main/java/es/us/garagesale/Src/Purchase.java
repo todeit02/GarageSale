@@ -9,18 +9,10 @@ import com.orm.SugarRecord;
 /*cambiar String a date*/
 
 public class Purchase extends SugarRecord<Purchase>{
-    private int state;
+    private String buy_time;
     private int offer_id;
     private String buyer_username;
-
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
+    private int price;
 
     public int getOffer_id() {
         return offer_id;
@@ -38,22 +30,40 @@ public class Purchase extends SugarRecord<Purchase>{
         this.buyer_username = buyer_username;
     }
 
-    public Purchase(int state, int offer_id, String buyer_username) {
-        this.state = state;
+    public String getBuy_time() {
+        return buy_time;
+    }
+
+    public void setBuy_time(String buy_time) {
+        this.buy_time = buy_time;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Purchase(){
+
+    }
+
+    public Purchase(String buy_time, int offer_id, String buyer_username, int price) {
+        this.buy_time = buy_time;
         this.offer_id = offer_id;
         this.buyer_username = buyer_username;
+        this.price = price;
     }
 
     @Override
     public String toString() {
         return "Purchase{" +
-                "state=" + state +
+                "buy_time='" + buy_time + '\'' +
                 ", offer_id=" + offer_id +
                 ", buyer_username='" + buyer_username + '\'' +
+                ", price=" + price +
                 '}';
-    }
-
-    public Purchase(){
-
     }
 }
