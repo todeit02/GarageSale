@@ -80,40 +80,6 @@ public class LoginActivity extends Activity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
-
-        offerUploadTest();
-    }
-
-
-    private void offerUploadTest()
-    {
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("tag1");
-        tags.add("tag2");
-        tags.add("tag3");
-
-        Offer testOffer = new Offer(
-                "prueba prueba 123",
-                "testuser",
-                OfferCondition.USED,
-                "Esta es una descripción.",
-                1.23f,
-                tags,
-                "",
-                0,
-                0,
-                3,
-                3,
-                new ArrayList<Bitmap>(),
-                null);
-
-        DatabaseManager.createOffer(this, testOffer, new IIdConsumer(){
-
-            @Override
-            public void consume(boolean wasCreationSuccessful, int id) {
-                System.out.println("Was offer upload successful: " + wasCreationSuccessful + ", id: " + id);
-            }
-        });
     }
 
 
