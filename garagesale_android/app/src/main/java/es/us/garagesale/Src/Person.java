@@ -19,7 +19,7 @@ public class Person extends SugarRecord<Person> {
     private String username;
     private String card_id;
     private String password;
-    private String realName;
+    private String name;
     private String email;
     private Date birthDate;
     private String nationality;
@@ -58,10 +58,10 @@ public class Person extends SugarRecord<Person> {
     }
 
     public String getRealName(){
-        return this.realName;
+        return this.name;
     }
     public void setRealName(String realName) {
-        this.realName = realName;
+        this.name = realName;
     }
 
     public String getEmail() {
@@ -107,7 +107,7 @@ public class Person extends SugarRecord<Person> {
 
     public Person()
     {
-        this.realName   = "";
+        this.name   = "";
         this.birthDate  = null;
         this.username   = "";
         this.nationality = "";
@@ -126,7 +126,7 @@ public class Person extends SugarRecord<Person> {
     {
         this.username = user;
         this.password = password;
-        this.realName = realName;
+        this.name = realName;
         this.email = email;
         this.birthDate = birthDate;
         this.nationality = nationality;
@@ -141,7 +141,7 @@ public class Person extends SugarRecord<Person> {
                 "username='" + username + '\'' +
                 ", card_id='" + card_id + '\'' +
                 ", password='" + password + '\'' +
-                ", realName='" + realName + '\'' +
+                ", realName='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birthDate=" + birthDate +
                 ", nationality='" + nationality + '\'' +
@@ -170,7 +170,7 @@ public class Person extends SugarRecord<Person> {
     public int hashCode() {
         int result = username != null ? username.hashCode() : 0;
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (realName != null ? realName.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
         result = 31 * result + (nationality != null ? nationality.hashCode() : 0);

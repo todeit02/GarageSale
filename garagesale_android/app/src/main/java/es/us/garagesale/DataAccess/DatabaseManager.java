@@ -588,6 +588,7 @@ Activity aux;
             );
     }
 
+
     public static void processInsertInterested(JSONObject response){
         try {
             String state = response.getString("estado");
@@ -601,6 +602,64 @@ Activity aux;
 
                     Gson gson = new Gson();
                     Interested interested = gson.fromJson(interestedResponse.toString(), Interested.class);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteOffer(int offerId, final Activity callingActivity){
+
+
+        HashMap<String, String> map = new HashMap<>();// MAPEO
+
+        map.put("id", String.valueOf(offerId));// Identificador
+
+        JSONObject jobject = new JSONObject(map);// Objeto Json
+
+        // Eliminar datos en el servidor
+        VolleySingleton.getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.POST,
+                                Constantes.DELETE_OFFER,
+                                jobject,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        // Procesar la respuesta
+                                        processDeleteOffer(response);
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                    }
+                                }
+                        )
+                );
+    }
+
+    public static void processDeleteOffer(JSONObject response) {
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    JSONObject interestedResponse = response.getJSONObject("offer");
+
+                    System.out.println("Message: " + interestedResponse.toString());
+
                     break;
                 case failResponse:
                     String failMessage = response.getString("mensaje");

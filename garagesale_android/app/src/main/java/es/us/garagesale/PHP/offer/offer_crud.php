@@ -201,15 +201,15 @@ class OfferCrud
      * @return bool Respuesta de la eliminación
      */
     public static function delete($id)
-    {
-        // Sentencia DELETE
-        $comando = "DELETE FROM offer WHERE id=?";
+      {
+          // Sentencia DELETE
+          $comando = "DELETE FROM offers WHERE id=?";
 
-        // Preparar la sentencia
-        $sentencia = Database::getInstance()->getDb()->prepare($comando);
+          // Preparar la sentencia
+          $sentencia = Database::getInstance()->getDb()->prepare($comando);
 
-        return $sentencia->execute(array($id));
-    }
+          return $sentencia->execute(array($id));
+      }
 
      /**
          * Insertar una nueva meta

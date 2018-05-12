@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,7 @@ public class ProfileActivity extends Activity {
     ImageButton sales, purchases, messages, personalArea;
     TextView primaryTitle;
     String actualUser;
+    String maxPrice;
     Person fromDB;
     int length;
     int idOffset;
@@ -219,7 +222,8 @@ public class ProfileActivity extends Activity {
                     buyerCandidate.setId(R.id.tv_candidate_buyer + idOffset * (1000000 + 1));
 
                     if (interested.length > 0) {
-                        actualPrice.setText(getMaxPriceAndUser(interested).get("maxPrice") + getString(R.string.currency) + " es la oferta mas alta");
+                        maxPrice = getMaxPriceAndUser(interested).get("maxPrice");
+                        actualPrice.setText(maxPrice + getString(R.string.currency) + " es la oferta mas alta");
                         maxUser = getMaxPriceAndUser(interested).get("maxUser");
                         buyerCandidate.setText(maxUser + " ha hecho la oferta mas alta");
 
@@ -235,6 +239,8 @@ public class ProfileActivity extends Activity {
 
             TextView lblAccept = inflatedOffer.findViewById(R.id.tv_btn_bid_label);
             ImageView img= inflatedOffer.findViewById(R.id.imgv_btn_title_offer);
+            ImageView delete = inflatedOffer.findViewById(R.id.imgv_btn_delete);
+            delete.setImageResource(android.R.color.transparent);
 
             if(offer.getSold()==1){
                 btnAccept.setBackgroundResource(R.drawable.border_rounded_background);
@@ -246,6 +252,15 @@ public class ProfileActivity extends Activity {
                 btnAccept.setBackgroundResource(R.drawable.border_rounded_background_error);
                 img.setImageResource(R.mipmap.cancel);
                 lblAccept.setText("Esta oferta no esta más disponible.");
+                delete.setImageResource(R.mipmap.delete);
+                delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseManager.deleteOffer(offer.getId(), ProfileActivity.this);
+                        showDeleteMessage();
+
+                    }
+                });
             }
             else {
                 lblAccept.setText("Aceptar precio");
@@ -289,6 +304,57 @@ public class ProfileActivity extends Activity {
                 .show();
     }
 
+    public void showDeleteMessage(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder
+                .setMessage("Estas seguro que quieres borrar este anuncio?")
+                .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        showResultMessage();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
+
+}
+
+    private void showResultMessage(){
+        final AlertDialog alertDialog = new AlertDialog.Builder(ProfileActivity.this).create();
+        alertDialog.setTitle("Anuncio borrado");
+        alertDialog.setMessage("Has borrado este anuncio");
+        alertDialog.show();
+
+
+        // Hide after some seconds
+        final Handler handler  = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (alertDialog.isShowing()) {
+                    alertDialog.dismiss();
+                }
+            }
+        };
+
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                handler.removeCallbacks(runnable);
+            }
+        });
+
+        handler.postDelayed(runnable, 2000);
+        sales.performClick();
+
+    }
 
     private ArrayList<Offer> getValidOffers(Offer[] offersToFilter)
     {
