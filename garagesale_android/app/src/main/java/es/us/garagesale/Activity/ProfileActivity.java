@@ -23,12 +23,15 @@ import java.util.Map;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IInterestedConsumer;
+import es.us.garagesale.DataAccess.IOfferConsumer;
 import es.us.garagesale.DataAccess.IPersonConsumer;
 import es.us.garagesale.DataAccess.IUsernameOffersConsumer;
+import es.us.garagesale.DataAccess.IUsernamePurchasesConsumer;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
 import es.us.garagesale.Src.Person;
+import es.us.garagesale.Src.Purchase;
 
 /**
  * Created by mariaventura on 29/4/18.
@@ -91,6 +94,12 @@ public class ProfileActivity extends Activity {
                 v.setBackgroundResource(R.drawable.button_group_middle_selected_background);
                 unSet(2);
                 linearLayout.removeAllViews();
+                DatabaseManager.loadUsernamePurchases(actualUser, new ProfileActivity(), new IUsernamePurchasesConsumer() {
+                    @Override
+                    public void consume(Purchase[] purchases) {
+                        displayUserPurchases(purchases);
+                    }
+                });
             }
         });
 
@@ -136,6 +145,54 @@ public class ProfileActivity extends Activity {
                 sales.setBackgroundResource(R.drawable.button_group_left_unselected_background);
                 personalArea.setBackgroundResource(R.drawable.button_group_middle_unselected_background);
                 break;
+        }
+    }
+
+    private void displayUserPurchases(Purchase[] purchases) {
+        primaryTitle.setText("Mis compras:");
+        primaryTitle.setPaintFlags(primaryTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        idOffset = 1;
+
+        for (final Purchase purchase : purchases) {
+            length++;
+
+            final View inflatedOffer = linearLayoutInflater.inflate(R.layout.purchase_item_list, null);
+            inflatedOffer.setId(R.layout.purchase_item_list + idOffset);
+
+            TextView generalTitle = inflatedOffer.findViewById(R.id.tv_purchase_title);
+            generalTitle.setText("Compra nro. " + purchase.getOffer_id());
+
+            DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
+                @Override
+                public void consume(Offer receivedOffer) {
+                    TextView title = inflatedOffer.findViewById(R.id.tv_title);
+                    title.setId(R.id.tv_title + idOffset * (100 + 1));
+                    title.setText(receivedOffer.getName());
+
+                    TextView seller = inflatedOffer.findViewById(R.id.tv_seller);
+                    seller.setId(R.id.tv_seller + idOffset * (100 + 1));
+                    seller.setText("Vendedor:" +receivedOffer.getSellerUsername());
+                }
+            });
+
+            ConstraintLayout btnReport = inflatedOffer.findViewById(R.id.cl_btn_bid);
+            btnReport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//CREAR REPORTE
+                }
+            });
+
+            TextView purchaseTime = inflatedOffer.findViewById(R.id.tv_time);
+            purchaseTime.setText("Fecha: " +purchase.getBuy_time());
+
+            TextView actualPrice = inflatedOffer.findViewById(R.id.tv_actual_price);
+            actualPrice.setId(R.id.tv_original_price + idOffset * (1000 + 1));
+            actualPrice.setText(String.valueOf(purchase.getPrice()) + getString(R.string.currency));
+
+            linearLayout.addView(inflatedOffer);
+            idOffset++;
+
         }
     }
 

@@ -44,7 +44,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_offer_title"
+                    android:id="@+id/tv_purchase_title"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
@@ -87,15 +87,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="2dp">
 
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="0"
                     android:fontFamily="sans-serif-smallcaps"
+                    android:padding="2dp"
                     android:text="title"
                     android:textSize="18sp" />
 
@@ -103,11 +105,12 @@
                     android:id="@+id/tv_seller"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="0"
                     android:fontFamily="sans-serif-smallcaps"
+                    android:padding="2dp"
                     android:text="ofertador"
-                    android:textColor="@color/oil"
+                    android:textColor="@color/monsoon"
                     android:textSize="18sp"
                     android:textStyle="normal|bold" />
 
@@ -115,10 +118,22 @@
                     android:id="@+id/tv_actual_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="0"
                     android:fontFamily="sans-serif-smallcaps"
+                    android:padding="2dp"
                     android:text="precio actual $$"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="0"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:padding="2dp"
+                    android:text="TextView"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -126,7 +141,7 @@
                 android:id="@+id/cl_btn_bid"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:layout_margin="2dp"
+                android:layout_margin="10dp"
                 android:layout_marginBottom="0dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
