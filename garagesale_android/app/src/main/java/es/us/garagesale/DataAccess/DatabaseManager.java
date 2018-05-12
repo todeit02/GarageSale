@@ -16,6 +16,7 @@ import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
 import es.us.garagesale.Src.Person;
 import es.us.garagesale.Src.Purchase;
+import es.us.garagesale.Src.Ranking;
 
 import com.google.gson.Gson;
 
@@ -193,7 +194,6 @@ Activity aux;
     }
 
 
-
     public static void loadOffer(int id, Activity callingActivity, final IOfferConsumer callback) {
         VolleySingleton.
                 getInstance(callingActivity).
@@ -207,6 +207,32 @@ Activity aux;
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         processOfferResponse(response, callback);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                    }
+                                }
+                        )
+                );
+    }
+
+    public static void getRanking(String sellerUsername, String buyerUsername, Activity callingActivity, final IRankingConsumer callback){
+        VolleySingleton.
+                getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.GET,
+                                Constantes.GET_RANKING_BY_ID+"?seller_username="+sellerUsername+"&buyer_username="+buyerUsername,
+                                (String)null,
+                                new Response.Listener<JSONObject>() {
+
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        processRankingResponse(response, callback);
                                     }
                                 },
                                 new Response.ErrorListener() {
@@ -311,6 +337,32 @@ Activity aux;
                     Gson gson = new Gson();
                     Offer offer = gson.fromJson(offerResponse.toString(), Offer.class);
                     callback.consume(offer);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void processRankingResponse(JSONObject response, final IRankingConsumer callback) {
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    JSONObject offerResponse = response.getJSONObject("ranking");
+
+                    System.out.println("Message: " + offerResponse.toString());
+
+                    Gson gson = new Gson();
+                    Ranking ranking = gson.fromJson(offerResponse.toString(), Ranking.class);
+                    callback.consume(ranking);
                     break;
                 case failResponse:
                     String failMessage = response.getString("mensaje");

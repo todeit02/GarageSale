@@ -191,13 +191,14 @@ public class Offer
         return "Offer{" +
                 "name='" + name + '\'' +
                 ", seller_username='" + seller_username + '\'' +
-                ", condition=" + condition.getNumericValue() +
+                ", condition=" + condition +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", tags=" + tags +
                 ", startTime='" + startTime + '\'' +
                 ", sold=" + sold +
                 ", id=" + id +
+                ", durationDays=" + durationDays +
                 ", activePeriod=" + activePeriod +
                 ", photos=" + photos +
                 ", location=" + location +

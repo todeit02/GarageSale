@@ -31,6 +31,7 @@ import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IInterestedConsumer;
 import es.us.garagesale.DataAccess.IOfferConsumer;
 import es.us.garagesale.DataAccess.IPersonConsumer;
+import es.us.garagesale.DataAccess.IRankingConsumer;
 import es.us.garagesale.DataAccess.IUsernameOffersConsumer;
 import es.us.garagesale.DataAccess.IUsernamePurchasesConsumer;
 import es.us.garagesale.R;
@@ -38,6 +39,7 @@ import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
 import es.us.garagesale.Src.Person;
 import es.us.garagesale.Src.Purchase;
+import es.us.garagesale.Src.Ranking;
 
 /**
  * Created by mariaventura on 29/4/18.
@@ -55,10 +57,14 @@ public class ProfileActivity extends Activity {
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;
     private String maxUser;
+    private boolean isRanked;
+    private float ranking;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_area);
+
+        isRanked=false;
 
         linearLayout = (LinearLayout)findViewById(R.id.ll_content_scroll_customizable);
         linearLayoutInflater = LayoutInflater.from(this);
@@ -180,19 +186,28 @@ public class ProfileActivity extends Activity {
                     seller.setText("Vendedor:" +receivedOffer.getSellerUsername());
 
                     final Button submit = inflatedOffer.findViewById(R.id.btnSubmit);
+                    final RatingBar ratingBar = inflatedOffer.findViewById(R.id.ratingBar);
 
-                    submit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            RatingBar ratingBar = inflatedOffer.findViewById(R.id.ratingBar);
-                            ratingBar.setEnabled(false);
-                            submit.setVisibility(View.GONE);
-                            //Inserta el ranking del vendedor:
-                            float rate = ratingBar.getRating();
-                            DatabaseManager.insertRanking(receivedOffer.getSellerUsername(), actualUser, rate, ProfileActivity.this);
+                    getRanking(receivedOffer);
+                    if(isRanked){
+                        ratingBar.setRating(ranking);
+                        ratingBar.setEnabled(false);
+                        submit.setVisibility(View.GONE);
+                    }
+                    else{
+                        submit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ratingBar.setEnabled(false);
+                                submit.setVisibility(View.GONE);
+                                //Inserta el ranking del vendedor:
+                                float rate = ratingBar.getRating();
+                                DatabaseManager.insertRanking(receivedOffer.getSellerUsername(), actualUser, rate, ProfileActivity.this);
 
-                        }
-                    });
+                            }
+                        });
+                    }
+
                 }
             });
 
@@ -488,5 +503,16 @@ public class ProfileActivity extends Activity {
         ret.put("maxUser", user);
         return ret;
     }
+
+    private void getRanking(Offer receivedOffer){
+        DatabaseManager.getRanking(receivedOffer.getSellerUsername(), actualUser, ProfileActivity.this, new IRankingConsumer() {
+            @Override
+            public void consume(final Ranking receivedRanking) {
+                ranking = receivedRanking.getValue();
+                isRanked = true;
+            }
+        });
+    }
+
 
 }
