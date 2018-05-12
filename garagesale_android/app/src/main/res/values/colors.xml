@@ -8,8 +8,8 @@
     <color name="myLightAqua">#98c3f4e7</color>
     <color name="myLightestAqua">#edfdf9</color>
     <color name ="mySalmon">#ee997e</color>
-    <color name ="myDarkSalmon">#f1815e</color>
-    <color name ="myLightSalmon">#e4b8aa</color>
+    <color name ="myDarkSalmon">#adf1815e</color>
+    <color name ="myLightSalmon">#eccbc0</color>
 
 
 
@@ -28,7 +28,7 @@
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="button_background">#FFFFFF</color>
+    <color name="button_background">#ffffff</color>
     <color name="button_background_group_selected">#70d7bc</color>
     <color name="button_background_group_unselected">#A0A0A0</color>
 
