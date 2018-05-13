@@ -4,24 +4,30 @@
  * su identificador "id"
  */
 
-require_once ('offer_crud.php');
+require_once 'offer_crud.php';
+require_once '../tags/tags_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if (isset($_GET['id'])) {
+    if (isset($_GET['id']))
+	{
+        $offerId = $_GET['id'];
+        $offer = OfferCrud::getById($offerId);
+		
+		if($offer)
+		{
+			$addingTagRows = TagsCrud::getByOfferId($offerId);
+			if($addingTagRows)
+			{
+				$addingTags = array_column($addingTagRows, "tag");
+				$offer['tags'] = $addingTags;
+			}	
+		}
 
-        // Obtener parámetro id
-        $parametro = $_GET['id'];
-
-
-        // Tratar retorno
-        $retorno = OfferCrud::getById($parametro);
-
-
-        if ($retorno) {
+        if ($offer) {
 
             $datos["estado"] = "1";
-            $datos["offer"] = $retorno;
+            $datos["offer"] = $offer;
             // Enviar objeto json de la oferta
             print json_encode($datos);
         } else {

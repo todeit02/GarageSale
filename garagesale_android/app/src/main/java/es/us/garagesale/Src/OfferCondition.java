@@ -18,7 +18,16 @@ public enum OfferCondition
         return numericValue;
     }
 
-    private OfferCondition(int numericValue)
+    public static OfferCondition fromNumericValue(int numericValue)
+    {
+        for(OfferCondition possibleCondition : OfferCondition.values())
+        {
+            if(possibleCondition.numericValue == numericValue) return possibleCondition;
+        }
+        return null;
+    }
+
+    OfferCondition(int numericValue)
     {
         this.numericValue = numericValue;
     }

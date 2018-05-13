@@ -20,7 +20,6 @@ import java.util.Map;
  * Created by mariaventura on 7/3/18.
  */
 
-/*cambiar String a startTime*/
 public class Offer
 {
     public enum Duration
@@ -41,12 +40,12 @@ public class Offer
     private float price;
     private ArrayList<String> tags;
     private String startTime;
-    private int sold; //pensarlo, porque si esta en la ArrayLista de purchases esta vendida
+    private boolean isSold;
     private int id;
     private int durationDays;
-    private int activePeriod;
     private ArrayList<Bitmap> photos = new ArrayList<>();
-    private Place location;
+    private LatLng coordinates;
+    private String cityName;
 
     static
     {
@@ -92,14 +91,6 @@ public class Offer
         this.price = price;
     }
 
-    public int getDurationDays() {
-        return durationDays;
-    }
-
-    public void setDurationDays(int durationDays) {
-        this.durationDays = durationDays;
-    }
-
     public ArrayList<String> getTags() {
         return tags;
     }
@@ -107,42 +98,38 @@ public class Offer
         this.tags = tags;
     }
 
-    public int getActivePeriod() {
-        return activePeriod;
-    }
-    public void setActivePeriod(int activePeriod) {
-        this.activePeriod = activePeriod;
-    }
-
     public String getStartTime() {
         return startTime;
     }
     public void setStartTime(String startTime) { this.startTime = startTime; }
 
-    public int getSold() {
-        return sold;
+    public int getDurationDays() {
+        return durationDays;
     }
-    public void setSold(int sold) {
-        this.sold = sold;
+    public void setDurationDays(int durationDays) {
+        this.durationDays = durationDays;
+    }
+
+    public boolean getSold() {
+        return isSold;
+    }
+    public void setSold(boolean isSold) {
+        this.isSold = isSold;
     }
 
 
     public ArrayList<Bitmap> getPhotos() { return photos; }
-
     public void setPhotos(ArrayList<Bitmap> photos) {
         this.photos = photos;
     }
-
     public void addPhoto(Bitmap addingPhoto)
     {
         photos.add(addingPhoto);
     }
-
     public void deletePhoto(Bitmap deletingPhoto)
     {
         photos.remove(deletingPhoto);
     }
-
     public void deletePhotoLast()
     {
         int lastPhotoIndex = photos.size() - 1;
@@ -156,13 +143,11 @@ public class Offer
         return (photos.size() > 0);
     }
 
-    public Place getLocation() { return location; }
-    public LatLng getLocationLatLng()
-    {
-        if(location == null) return null;
-        return location.getLatLng();
-    }
-    public void setLocation(Place location) { this.location = location; }
+    public LatLng getCoordinates() { return coordinates; }
+    public void setCoordinates(LatLng coordinates) { this.coordinates = coordinates; }
+
+    public String getCityName() { return cityName; }
+    public void setCityName(String cityName) { this.cityName = cityName; }
 
     public void setId(int id) {
         this.id = id;
@@ -171,7 +156,19 @@ public class Offer
         return id;
     }
 
-    public Offer(String name, String seller_username, OfferCondition condition, String description, float price, ArrayList<String> tags, String startTime, int sold, int id, int durationDays, int activePeriod, ArrayList<Bitmap> photos, Place location)
+    public Offer(String name,
+                 String seller_username,
+                 OfferCondition condition,
+                 String description,
+                 float price,
+                 ArrayList<String> tags,
+                 String startTime,
+                 boolean isSold,
+                 int id,
+                 int durationDays,
+                 ArrayList<Bitmap> photos,
+                 LatLng coordinates,
+                 String cityName)
     {
         this.name = name;
         this.seller_username = seller_username;
@@ -180,12 +177,12 @@ public class Offer
         this.price = price;
         this.tags = tags;
         this.startTime = startTime;
-        this.sold = sold;
+        this.isSold = isSold;
         this.id = id;
         this.durationDays = durationDays;
-        this.activePeriod = activePeriod;
         this.photos = photos;
-        this.location = location;
+        this.coordinates = coordinates;
+        this.cityName = cityName;
     }
 
     public Offer() {
@@ -201,12 +198,12 @@ public class Offer
                 ", price=" + price +
                 ", tags=" + tags +
                 ", startTime='" + startTime + '\'' +
-                ", sold=" + sold +
+                ", isSold=" + isSold +
                 ", id=" + id +
                 ", durationDays=" + durationDays +
-                ", activePeriod=" + activePeriod +
                 ", photos=" + photos +
-                ", location=" + location +
+                ", location=" + coordinates.latitude + ' ' + coordinates.longitude +
+                ", cityName=" + cityName +
                 '}';
     }
 
@@ -237,7 +234,7 @@ public class Offer
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(offerDate);
-        cal.add(Calendar.DATE, received.getActivePeriod());
+        cal.add(Calendar.DATE, received.getDurationDays());
         Date updatedDate = cal.getTime();
         Date today = new Date();
         long secs = (updatedDate.getTime() - today.getTime()) / 1000;
