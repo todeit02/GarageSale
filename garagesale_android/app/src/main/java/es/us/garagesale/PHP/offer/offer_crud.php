@@ -116,7 +116,9 @@ class OfferCrud
             return -1;
         }
     }
-	
+
+
+
 	
 	public static function getByAttributes($name, $seller_username)
     {

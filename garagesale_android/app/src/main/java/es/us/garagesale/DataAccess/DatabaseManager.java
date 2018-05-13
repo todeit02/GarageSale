@@ -226,7 +226,7 @@ Activity aux;
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                Constantes.GET_RANKING_BY_ID+"?seller_username="+sellerUsername+"&buyer_username="+buyerUsername,
+                                Constantes.GET_RANKING_BY_ID+"?seller_username='"+sellerUsername+"'"+"&"+"buyer_username='"+buyerUsername+"'",
                                 (String)null,
                                 new Response.Listener<JSONObject>() {
 
@@ -242,7 +242,7 @@ Activity aux;
                                         Log.d(methodName, "Error Volley: " + error.getMessage());
                                     }
                                 }
-                        )
+                        )//+"&"+"buyer_username="+buyerUsername
                 );
     }
 
@@ -356,12 +356,12 @@ Activity aux;
 
             switch (state) {
                 case successResponse:
-                    JSONObject offerResponse = response.getJSONObject("ranking");
+                    JSONObject rankingResponse = response.getJSONObject("ranking");
 
-                    System.out.println("Message: " + offerResponse.toString());
+                    System.out.println("Message: " + rankingResponse.toString());
 
                     Gson gson = new Gson();
-                    Ranking ranking = gson.fromJson(offerResponse.toString(), Ranking.class);
+                    Ranking ranking = gson.fromJson(rankingResponse.toString(), Ranking.class);
                     callback.consume(ranking);
                     break;
                 case failResponse:

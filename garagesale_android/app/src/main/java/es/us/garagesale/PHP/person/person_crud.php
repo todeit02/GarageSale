@@ -55,10 +55,14 @@ class PersonCrud
 
     }
 
+
+
     public static function getRankingById($seller_username, $buyer_username)
     {
 
-            $consulta = "SELECT * FROM ranking WHERE seller_username = ? AND buyer_username = ?";
+           $consulta = "SELECT * FROM ranking WHERE seller_username = " . $seller_username. " AND buyer_username = " . $buyer_username;
+
+       //    . " AND buyer_username = " . $buyer_username
 
             try {
                 // Preparar sentencia
@@ -66,20 +70,17 @@ class PersonCrud
                 // Ejecutar sentencia preparada
                 $comando->execute(array($seller_username, $buyer_username));
                 // Capturar primera fila del resultado
-                $row = $comando->fetch(PDO::FETCH_ASSOC);
-                return $row;
+                 $row = $comando->fetch(PDO::FETCH_ASSOC);
+                 return $row;
 
             } catch (PDOException $e) {
                 // Aquí puedes clasificar el error dependiendo de la excepción
                 // para presentarlo en la respuesta Json
-                return -1;
+                return false;
             }
 
     }
 
-
-
-	
 	public static function insert(
         $username,
         $password,

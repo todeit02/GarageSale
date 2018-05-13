@@ -64,7 +64,6 @@ public class ProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_area);
 
-        isRanked=false;
 
         linearLayout = (LinearLayout)findViewById(R.id.ll_content_scroll_customizable);
         linearLayoutInflater = LayoutInflater.from(this);
@@ -118,6 +117,7 @@ public class ProfileActivity extends Activity {
         personalArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isRanked=false;
                 v.setBackgroundResource(R.drawable.button_group_middle_selected_background);
                 unSet(3);
                 linearLayout.removeAllViews();
@@ -174,42 +174,54 @@ public class ProfileActivity extends Activity {
             TextView generalTitle = inflatedOffer.findViewById(R.id.tv_purchase_title);
             generalTitle.setText("Compra nro. " + purchase.getOffer_id());
 
+
             DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
                 @Override
                 public void consume(final Offer receivedOffer) {
+
                     TextView title = inflatedOffer.findViewById(R.id.tv_title);
                     title.setId(R.id.tv_title + idOffset * (100 + 1));
                     title.setText(receivedOffer.getName());
 
                     TextView seller = inflatedOffer.findViewById(R.id.tv_seller);
                     seller.setId(R.id.tv_seller + idOffset * (100 + 1));
-                    seller.setText("Vendedor:" +receivedOffer.getSellerUsername());
+                    seller.setText("Vendedor: " +receivedOffer.getSellerUsername());
 
                     final Button submit = inflatedOffer.findViewById(R.id.btnSubmit);
                     final RatingBar ratingBar = inflatedOffer.findViewById(R.id.ratingBar);
 
-                    getRanking(receivedOffer);
-                    if(isRanked){
-                        ratingBar.setRating(ranking);
-                        ratingBar.setEnabled(false);
-                        submit.setVisibility(View.GONE);
-                    }
-                    else{
-                        submit.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ratingBar.setEnabled(false);
-                                submit.setVisibility(View.GONE);
-                                //Inserta el ranking del vendedor:
-                                float rate = ratingBar.getRating();
-                                DatabaseManager.insertRanking(receivedOffer.getSellerUsername(), actualUser, rate, ProfileActivity.this);
+                    final String sellerUsn = receivedOffer.getSellerUsername();
 
-                            }
-                        });
-                    }
+
+                    submit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ratingBar.setEnabled(false);
+                            submit.setVisibility(View.GONE);
+                            //Inserta el ranking del vendedor:
+                            float rate = ratingBar.getRating();
+                            DatabaseManager.insertRanking(sellerUsn, actualUser, rate, ProfileActivity.this);
+
+                        }
+                    });
+
+                    DatabaseManager.getRanking(sellerUsn, actualUser, ProfileActivity.this, new IRankingConsumer() {
+                        @Override
+                        public void consume(Ranking receivedRanking) {
+                            ranking = receivedRanking.getValue();
+                            isRanked = true;
+                            ratingBar.setRating(ranking);
+                            ratingBar.setEnabled(false);
+                            submit.setVisibility(View.GONE);
+                        }
+                    });
 
                 }
             });
+
+
+
+
 
             ConstraintLayout btnReport = inflatedOffer.findViewById(R.id.cl_btn_bid);
             btnReport.setOnClickListener(new View.OnClickListener() {
@@ -259,6 +271,8 @@ public class ProfileActivity extends Activity {
     }
 
     public void displayPersonalInfo(Person actualPerson){
+
+
         linearLayout.removeAllViews();
 
         primaryTitle.setText("Información personal:");
@@ -507,7 +521,7 @@ public class ProfileActivity extends Activity {
     private void getRanking(Offer receivedOffer){
         DatabaseManager.getRanking(receivedOffer.getSellerUsername(), actualUser, ProfileActivity.this, new IRankingConsumer() {
             @Override
-            public void consume(final Ranking receivedRanking) {
+            public void consume(Ranking receivedRanking) {
                 ranking = receivedRanking.getValue();
                 isRanked = true;
             }

@@ -8,12 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['seller_username'])) {
 
         // Obtener parámetro id
-        $parametro1 = $_GET['seller_username'];
-        $parametro2 = $_GET['buyer_username'];
+        $seller_username = $_GET['seller_username'];
+        $buyer_username = $_GET['buyer_username'];
 
 
         // Tratar retorno
-        $retorno = PersonCrud::getRankingById($parametro1, $parametro2);
+        $retorno = PersonCrud::getRankingById($seller_username,$buyer_username);
 
         if ($retorno) {
 
