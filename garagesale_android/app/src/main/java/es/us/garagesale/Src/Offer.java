@@ -45,7 +45,7 @@ public class Offer
     private int id;
     private int durationDays;
     private int activePeriod;
-    private ArrayList<Bitmap> photos;
+    private ArrayList<Bitmap> photos = new ArrayList<>();
     private Place location;
 
     static
@@ -157,6 +157,11 @@ public class Offer
     }
 
     public Place getLocation() { return location; }
+    public LatLng getLocationLatLng()
+    {
+        if(location == null) return null;
+        return location.getLatLng();
+    }
     public void setLocation(Place location) { this.location = location; }
 
     public void setId(int id) {

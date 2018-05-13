@@ -47,6 +47,7 @@ public class Constantes {
     public static final String INSERT_PURCHASE = PROTOCOL + IP + "/offer/insert_purchase.php";
     public static final String INSERT_RANKING = PROTOCOL + IP + "/person/insert_ranking.php";
     public static final String GET_ALL_USERNAME_PURCHASES =  PROTOCOL + IP + "/offer/get_username_purchases.php";
+    public static final String UPLOAD_PHOTO = PROTOCOL + IP + "/photo/upload_photo.php";
 
     /**
      * Clave para el valor extra que representa al identificador de una oferta
