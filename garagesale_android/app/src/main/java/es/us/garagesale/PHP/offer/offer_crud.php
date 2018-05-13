@@ -93,8 +93,6 @@ class OfferCrud
             return $row;
 
         } catch (PDOException $e) {
-            // Aquí puedes clasificar el error dependiendo de la excepción
-            // para presentarlo en la respuesta Json
             return -1;
         }
     }
@@ -115,8 +113,6 @@ class OfferCrud
             return $row;
 
         } catch (PDOException $e) {
-            // Aquí puedes clasificar el error dependiendo de la excepción
-            // para presentarlo en la respuesta Json
             return NULL;
         }
     }
