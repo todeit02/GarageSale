@@ -9,17 +9,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         // Obtener parámetro id
         $seller_username = $_GET['seller_username'];
-        $buyer_username = $_GET['buyer_username'];
-        $offer_id = $_GET['offer_id'];
 
 
         // Tratar retorno
-        $retorno = PersonCrud::getRankingById($seller_username,$buyer_username,$offer_id);
+        $retorno = PersonCrud::getUserRanking($seller_username);
 
         if ($retorno) {
 
             $datos["estado"] = "1";
-            $datos["ranking"] = $retorno;
+            $datos["ranking"] = $retorno["sum"];
             // Enviar objeto json de la oferta
             print json_encode($datos);
         } else {

@@ -32,15 +32,17 @@ class PersonCrud
     public static function insertRanking(
                 $seller_username,
                 $buyer_username,
-                $value
+                $value,
+                $offer_id
             )
     {
            // Sentencia INSERT
                        $comando = "INSERT INTO ranking ( " .
                            "seller_username," .
                            " buyer_username," .
-                           " value)" .
-                           " VALUES( ?,?,?)";
+                           " value," .
+                           " offer_id)" .
+                           " VALUES( ?,?,?,?)";
 
                        // Preparar la sentencia
                        $sentencia = Database::getInstance()->getDb()->prepare($comando);
@@ -49,7 +51,8 @@ class PersonCrud
                            array(
                                $seller_username,
                                $buyer_username,
-                               $value
+                               $value,
+                               $offer_id
                            )
                        );
 
@@ -57,10 +60,10 @@ class PersonCrud
 
 
 
-    public static function getRankingById($seller_username, $buyer_username)
+    public static function getRankingById($seller_username, $buyer_username, $offer_id)
     {
 
-           $consulta = "SELECT * FROM ranking WHERE seller_username = " . $seller_username. " AND buyer_username = " . $buyer_username;
+           $consulta = "SELECT * FROM ranking WHERE seller_username = " . $seller_username. " AND buyer_username = " . $buyer_username. "AND offer_id = " . $offer_id;
 
        //    . " AND buyer_username = " . $buyer_username
 
@@ -68,7 +71,7 @@ class PersonCrud
                 // Preparar sentencia
                 $comando = Database::getInstance()->getDb()->prepare($consulta);
                 // Ejecutar sentencia preparada
-                $comando->execute(array($seller_username, $buyer_username));
+                $comando->execute(array($seller_username, $buyer_username, $offer_id));
                 // Capturar primera fila del resultado
                  $row = $comando->fetch(PDO::FETCH_ASSOC);
                  return $row;
@@ -80,6 +83,28 @@ class PersonCrud
             }
 
     }
+
+        public static function getUserRanking($seller_username)
+        {
+               $consulta = "SELECT AVG(value) as sum FROM ranking WHERE seller_username = " . $seller_username;
+
+                try {
+                    // Preparar sentencia
+                    $comando = Database::getInstance()->getDb()->prepare($consulta);
+                    // Ejecutar sentencia preparada
+                    $comando->execute(array($seller_username));
+                    // Capturar primera fila del resultado
+                     $row = $comando->fetch(PDO::FETCH_ASSOC);
+                     return $row;
+
+                } catch (PDOException $e) {
+                    // Aquí puedes clasificar el error dependiendo de la excepción
+                    // para presentarlo en la respuesta Json
+                    return false;
+                }
+
+        }
+
 
 	public static function insert(
         $username,

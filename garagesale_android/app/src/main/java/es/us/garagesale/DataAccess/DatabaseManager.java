@@ -220,13 +220,13 @@ Activity aux;
                 );
     }
 
-    public static void getRanking(String sellerUsername, String buyerUsername, Activity callingActivity, final IRankingConsumer callback){
+    public static void getRankingById(String sellerUsername, String buyerUsername, int idOffer, Activity callingActivity, final IRankingConsumer callback){
         VolleySingleton.
                 getInstance(callingActivity).
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                Constantes.GET_RANKING_BY_ID+"?seller_username='"+sellerUsername+"'"+"&"+"buyer_username='"+buyerUsername+"'",
+                                Constantes.GET_RANKING_BY_ID+"?seller_username='"+sellerUsername+"'"+"&"+"buyer_username='"+buyerUsername+"'"+"&offer_id="+idOffer,
                                 (String)null,
                                 new Response.Listener<JSONObject>() {
 
@@ -242,7 +242,33 @@ Activity aux;
                                         Log.d(methodName, "Error Volley: " + error.getMessage());
                                     }
                                 }
-                        )//+"&"+"buyer_username="+buyerUsername
+                        )
+                );
+    }
+
+    public static void getUserRanking(String sellerUsername, Activity callingActivity, final IUserRankingConsumer callback){
+        VolleySingleton.
+                getInstance(callingActivity).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.GET,
+                                Constantes.GET_USER_RANKING+"?seller_username='"+sellerUsername+"'",
+                                (String)null,
+                                new Response.Listener<JSONObject>() {
+
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        processUserRankingResponse(response, callback);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                                        Log.d(methodName, "Error Volley: " + error.getMessage());
+                                    }
+                                }
+                        )
                 );
     }
 
@@ -362,6 +388,27 @@ Activity aux;
 
                     Gson gson = new Gson();
                     Ranking ranking = gson.fromJson(rankingResponse.toString(), Ranking.class);
+                    callback.consume(ranking);
+                    break;
+                case failResponse:
+                    String failMessage = response.getString("mensaje");
+                    System.out.println(failMessage);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void processUserRankingResponse(JSONObject response, final IUserRankingConsumer callback){
+        try {
+            String state = response.getString("estado");
+            System.out.println("State: " + state);
+
+            switch (state) {
+                case successResponse:
+                    int ranking= response.getInt("ranking");
                     callback.consume(ranking);
                     break;
                 case failResponse:
@@ -773,12 +820,13 @@ Activity aux;
         }
     }
 
-    public static void insertRanking(String sellerUsername, String buyerUsername, float rate, Activity callingActivity){
+    public static void insertRanking(String sellerUsername, String buyerUsername,  float rate, int idOffer, Activity callingActivity){
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
         map.put("seller_username",sellerUsername);
         map.put("buyer_username",buyerUsername);
         map.put("value", String.valueOf(rate));
+        map.put("offer_id", String.valueOf(idOffer));
 
         // Crear nuevo objeto Json basado en el mapa
         JSONObject jobject = new JSONObject(map);

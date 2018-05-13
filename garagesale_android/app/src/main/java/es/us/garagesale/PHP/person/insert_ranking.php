@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $retorno = PersonCrud::insertRanking(
         $body['seller_username'],
         $body['buyer_username'],
-        $body['value']);
+        $body['value'],
+        $body['offer_id']);
 
     if ($retorno) {
         // Código de éxito

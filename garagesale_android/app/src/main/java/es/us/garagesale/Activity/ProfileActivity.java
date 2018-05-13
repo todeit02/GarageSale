@@ -32,6 +32,7 @@ import es.us.garagesale.DataAccess.IInterestedConsumer;
 import es.us.garagesale.DataAccess.IOfferConsumer;
 import es.us.garagesale.DataAccess.IPersonConsumer;
 import es.us.garagesale.DataAccess.IRankingConsumer;
+import es.us.garagesale.DataAccess.IUserRankingConsumer;
 import es.us.garagesale.DataAccess.IUsernameOffersConsumer;
 import es.us.garagesale.DataAccess.IUsernamePurchasesConsumer;
 import es.us.garagesale.R;
@@ -57,7 +58,6 @@ public class ProfileActivity extends Activity {
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;
     private String maxUser;
-    private boolean isRanked;
     private float ranking;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +117,6 @@ public class ProfileActivity extends Activity {
         personalArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isRanked=false;
                 v.setBackgroundResource(R.drawable.button_group_middle_selected_background);
                 unSet(3);
                 linearLayout.removeAllViews();
@@ -200,16 +199,15 @@ public class ProfileActivity extends Activity {
                             submit.setVisibility(View.GONE);
                             //Inserta el ranking del vendedor:
                             float rate = ratingBar.getRating();
-                            DatabaseManager.insertRanking(sellerUsn, actualUser, rate, ProfileActivity.this);
+                            DatabaseManager.insertRanking(sellerUsn, actualUser, rate, receivedOffer.getId(), ProfileActivity.this);
 
                         }
                     });
 
-                    DatabaseManager.getRanking(sellerUsn, actualUser, ProfileActivity.this, new IRankingConsumer() {
+                    DatabaseManager.getRankingById(sellerUsn, actualUser, receivedOffer.getId(), ProfileActivity.this, new IRankingConsumer() {
                         @Override
                         public void consume(Ranking receivedRanking) {
                             ranking = receivedRanking.getValue();
-                            isRanked = true;
                             ratingBar.setRating(ranking);
                             ratingBar.setEnabled(false);
                             submit.setVisibility(View.GONE);
@@ -218,10 +216,6 @@ public class ProfileActivity extends Activity {
 
                 }
             });
-
-
-
-
 
             ConstraintLayout btnReport = inflatedOffer.findViewById(R.id.cl_btn_bid);
             btnReport.setOnClickListener(new View.OnClickListener() {
@@ -294,8 +288,16 @@ public class ProfileActivity extends Activity {
         TextView email = inflatedInfo.findViewById(R.id.tv_emailFill);
         email.setText(actualPerson.getEmail());
 
-        TextView reputation = inflatedInfo.findViewById(R.id.tv_reputationFill);
-        reputation.setText(String.valueOf(actualPerson.getReputation()));
+       final RatingBar reputation = inflatedInfo.findViewById(R.id.ratingBarProfile);
+        reputation.setEnabled(false);
+        DatabaseManager.getUserRanking(actualUser, ProfileActivity.this, new IUserRankingConsumer() {
+            @Override
+            public void consume(float receivedRanking) {
+                float totalRanking = receivedRanking;
+                reputation.setRating(totalRanking);
+
+            }
+        });
 
         TextView nationality = inflatedInfo.findViewById(R.id.tv_nationalityFill);
         nationality.setText(actualPerson.getNationality());
@@ -516,16 +518,6 @@ public class ProfileActivity extends Activity {
         ret.put("maxPrice", String.valueOf(max));
         ret.put("maxUser", user);
         return ret;
-    }
-
-    private void getRanking(Offer receivedOffer){
-        DatabaseManager.getRanking(receivedOffer.getSellerUsername(), actualUser, ProfileActivity.this, new IRankingConsumer() {
-            @Override
-            public void consume(Ranking receivedRanking) {
-                ranking = receivedRanking.getValue();
-                isRanked = true;
-            }
-        });
     }
 
 
