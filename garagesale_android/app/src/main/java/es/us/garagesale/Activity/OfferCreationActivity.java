@@ -218,8 +218,8 @@ public class OfferCreationActivity extends Activity
             }
         });
 
-        Place selectedLocation = workingOffer.getLocation();
-        if(selectedLocation != null) updateLocationView();
+        boolean isLocationSelected = (workingOffer.getCoordinates() != null && workingOffer.getCityName() != null);
+        if(isLocationSelected) updateLocationView();
     }
 
 
@@ -332,16 +332,8 @@ public class OfferCreationActivity extends Activity
     private void handleLocationResult(Intent locationSelectionIntent)
     {
         Place selectedPlace = PlacePicker.getPlace(this, locationSelectionIntent);
-        workingOffer.setLocation(selectedPlace);
-
-        /*
-        View addLocationButton = findViewById(R.id.cl_btn_add_location);
-        photoLocationSegment.removeView(addLocationButton);
-
-        LayoutInflater locationTextInflater = LayoutInflater.from(this);
-        TextView locationTextView = (TextView) locationTextInflater.inflate(R.layout.create_offer_tv_chosen_location, null);
-        photoLocationSegment.addView(locationTextView);
-        */
+        workingOffer.setCoordinates(selectedPlace.getLatLng());
+        workingOffer.setCityName(selectedPlace.getName().toString());
 
         updateLocationView();
     }
@@ -349,8 +341,8 @@ public class OfferCreationActivity extends Activity
 
     private void updateLocationView()
     {
-        CharSequence placeName = workingOffer.getLocation().getName();
-        LatLng coordinates = workingOffer.getLocation().getLatLng();
+        CharSequence placeName = workingOffer.getCityName();
+        LatLng coordinates = workingOffer.getCoordinates();
 
         TextView locationTextView = findViewById(R.id.tv_btn_add_location);
         CharSequence locationText = getString(R.string.offer_location, placeName.toString(), coordinates.toString());

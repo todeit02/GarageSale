@@ -1,6 +1,11 @@
 package es.us.garagesale.DataAccess;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
+import android.util.JsonReader;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,17 +19,33 @@ import es.us.garagesale.Src.Card;
 import es.us.garagesale.Src.CustomRequest;
 import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
+import es.us.garagesale.Src.OfferCondition;
 import es.us.garagesale.Src.Person;
 import es.us.garagesale.Src.Purchase;
 import es.us.garagesale.Src.Ranking;
 
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -37,9 +58,8 @@ public class DatabaseManager
 {
     private static final String successResponse = "1";
     private static final String failResponse = "2";
-Activity aux;
 
-    public static void loadOffers(Activity callingActivity, final IOffersConsumer callback) {
+    public static void loadOffers(final Activity callingActivity, final IOffersConsumer callback) {
         VolleySingleton.
                 getInstance(callingActivity).
                 addToRequestQueue(
@@ -51,7 +71,7 @@ Activity aux;
 
                                     @Override
                                     public void onResponse(JSONObject response) {
-                                        processOffersResponse(response, callback);
+                                        processOffersResponse(response, callingActivity, callback);
                                     }
                                 },
                                 new Response.ErrorListener() {
@@ -194,7 +214,7 @@ Activity aux;
     }
 
 
-    public static void loadOffer(int id, Activity callingActivity, final IOfferConsumer callback) {
+    public static void loadOffer(int id, final Activity callingActivity, final IOfferConsumer callback) {
         VolleySingleton.
                 getInstance(callingActivity).
                 addToRequestQueue(
@@ -206,7 +226,7 @@ Activity aux;
 
                                     @Override
                                     public void onResponse(JSONObject response) {
-                                        processOfferResponse(response, callback);
+                                        processOfferResponse(response, callingActivity, callback);
                                     }
                                 },
                                 new Response.ErrorListener() {
@@ -298,7 +318,7 @@ Activity aux;
                 );
     }
 
-    private static void processOffersResponse(JSONObject response, final IOffersConsumer callback) {
+    private static void processOffersResponse(JSONObject response, Context callContext, final IOffersConsumer callback) {
         try {
             String state = response.getString("estado");
             System.out.println("State: " + state);
@@ -308,8 +328,9 @@ Activity aux;
                     JSONArray offersResponse = response.getJSONArray("offers");
                     System.out.println("Message: " + offersResponse.toString());
 
-                    Gson gson = new Gson();
+                    Gson gson = createOfferDeserializationGson(callContext);
                     Offer[] offers = gson.fromJson(offersResponse.toString(), Offer[].class);
+
                     callback.consume(offers);
                     break;
                 case failResponse:
@@ -322,6 +343,90 @@ Activity aux;
             e.printStackTrace();
         }
     }
+    
+    
+    private static Gson createOfferDeserializationGson(Context callContext)
+    {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        JsonDeserializer<Offer> deserializer = createOfferDeserializer(callContext);
+        gsonBuilder.registerTypeAdapter(Offer.class, deserializer);
+
+        Gson gson = gsonBuilder.create();
+        return gson;
+    }
+
+
+    private static JsonDeserializer<Offer> createOfferDeserializer(final Context callContext)
+    {
+        return new JsonDeserializer<Offer>() {
+            @Override
+            public Offer deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+            {
+                JsonObject jsonObject = json.getAsJsonObject();
+
+                String name = jsonObject.get("name").getAsString();
+                String sellerUsername = jsonObject.get("seller_username").getAsString();
+
+                int conditionNumeric = jsonObject.get("state").getAsInt();
+                OfferCondition condition = OfferCondition.fromNumericValue(conditionNumeric);
+
+                String description = jsonObject.get("description").getAsString();
+                float price = jsonObject.get("price").getAsFloat();
+
+                ArrayList<String> tags = new ArrayList<>();
+                JsonArray tagsJson = jsonObject.getAsJsonArray("tags");
+                if(tagsJson != null)
+                {
+                    for(int i = 0; i < tagsJson.size(); i++)
+                    {
+                        String tagString = tagsJson.get(i).getAsString();
+                        tags.add(tagString);
+                    }
+                }
+
+                String startTime = jsonObject.get("startTime").getAsString();
+                boolean isSold = jsonObject.get("sold").getAsBoolean();
+                int id = jsonObject.get("id").getAsInt();
+                int durationDays = jsonObject.get("activePeriod").getAsInt();
+                ArrayList<Bitmap> photos = new ArrayList<>();
+                LatLng coordinates = deserializeOfferCoordinates(jsonObject);
+                String cityName = getOfferCityFromCoordinates(coordinates, callContext);
+
+                return new Offer(name, sellerUsername, condition, description, price, tags, startTime, isSold, id, durationDays, photos, coordinates, cityName);
+            }
+        };
+    }
+
+
+    private static LatLng deserializeOfferCoordinates(JsonObject jsonObject)
+    {
+        if(jsonObject.get("latitude").isJsonNull() || jsonObject.get("longitude").isJsonNull())
+        {
+            return null;
+        }
+
+        double latitude = jsonObject.get("latitude").getAsDouble();
+        double longitude = jsonObject.get("longitude").getAsDouble();
+
+        return new LatLng(latitude, longitude);
+    }
+
+
+    private static String getOfferCityFromCoordinates(LatLng coordinates, Context callContext)
+    {
+        String cityName = "";
+
+        Geocoder geocoder = new Geocoder(callContext);
+        try
+        {
+            Address nearestAddress = geocoder.getFromLocation(coordinates.latitude, coordinates.longitude, 1).get(0);
+            cityName = nearestAddress.getLocality();
+        }
+        catch (Exception e) {}
+
+        return cityName;
+    }
+
 
     private static void processUsernameOffersResponse(JSONObject response, final IUsernameOffersConsumer callback) {
         try {
@@ -349,7 +454,7 @@ Activity aux;
     }
 
 
-    private static void processOfferResponse(JSONObject response, final IOfferConsumer callback) {
+    private static void processOfferResponse(JSONObject response, Context callContext, final IOfferConsumer callback) {
         try {
             String state = response.getString("estado");
             System.out.println("State: " + state);
@@ -360,7 +465,7 @@ Activity aux;
 
                     System.out.println("Message: " + offerResponse.toString());
 
-                    Gson gson = new Gson();
+                    Gson gson = createOfferDeserializationGson(callContext);
                     Offer offer = gson.fromJson(offerResponse.toString(), Offer.class);
                     callback.consume(offer);
                     break;
@@ -567,15 +672,15 @@ Activity aux;
 
             String latitudeString = "";
             String longitudeString = "";
-            if(creatingOffer.getLocationLatLng() != null)
+            if(creatingOffer.getCoordinates() != null)
             {
-                latitudeString = Double.toString(creatingOffer.getLocationLatLng().latitude);
-                longitudeString = Double.toString(creatingOffer.getLocationLatLng().longitude);
+                latitudeString = Double.toString(creatingOffer.getCoordinates().latitude);
+                longitudeString = Double.toString(creatingOffer.getCoordinates().longitude);
             }
             jsonObject.put("latitude", latitudeString);
             jsonObject.put("longitude", longitudeString);
-
-        } catch (Exception e) {}
+        }
+        catch (Exception e) {}
 
         return jsonObject;
     }

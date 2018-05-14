@@ -391,7 +391,7 @@ public class ProfileActivity extends Activity{
             ImageView delete = inflatedOffer.findViewById(R.id.imgv_btn_delete);
             delete.setImageResource(android.R.color.transparent);
 
-            if(offer.getSold()==1){
+            if(offer.getSold()){
                 btnAccept.setBackgroundResource(R.drawable.border_rounded_background);
                 img.setImageResource(R.mipmap.moneybag);
                 lblAccept.setText("Has vendido este producto");
