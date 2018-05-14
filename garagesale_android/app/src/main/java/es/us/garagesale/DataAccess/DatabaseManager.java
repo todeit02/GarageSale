@@ -385,9 +385,9 @@ public class DatabaseManager
                 }
 
                 String startTime = jsonObject.get("startTime").getAsString();
-                boolean isSold = jsonObject.get("sold").getAsBoolean();
+                int isSold = jsonObject.get("isSold").getAsInt();
                 int id = jsonObject.get("id").getAsInt();
-                int durationDays = jsonObject.get("activePeriod").getAsInt();
+                int durationDays = jsonObject.get("durationDays").getAsInt();
                 ArrayList<Bitmap> photos = new ArrayList<>();
                 LatLng coordinates = deserializeOfferCoordinates(jsonObject);
                 String cityName = getOfferCityFromCoordinates(coordinates, callContext);

@@ -40,7 +40,7 @@ public class Offer
     private float price;
     private ArrayList<String> tags;
     private String startTime;
-    private boolean isSold;
+    private int isSold;
     private int id;
     private int durationDays;
     private ArrayList<Bitmap> photos = new ArrayList<>();
@@ -110,10 +110,10 @@ public class Offer
         this.durationDays = durationDays;
     }
 
-    public boolean getSold() {
+    public int getSold() {
         return isSold;
     }
-    public void setSold(boolean isSold) {
+    public void setSold(int isSold) {
         this.isSold = isSold;
     }
 
@@ -163,7 +163,7 @@ public class Offer
                  float price,
                  ArrayList<String> tags,
                  String startTime,
-                 boolean isSold,
+                 int isSold,
                  int id,
                  int durationDays,
                  ArrayList<Bitmap> photos,
@@ -246,7 +246,7 @@ public class Offer
     public boolean isValid()
     {
         int hours = calculateRemainingTime();
-        if(hours<=0) return false;
+        if(hours<=0 || this.isSold==1) return false;
         return true;
     }
 

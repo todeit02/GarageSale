@@ -137,7 +137,6 @@ public class ProfileActivity extends Activity{
         });
     }
 
-
     public void unSet(int selectedButton){
         switch (selectedButton){
             case 1:
@@ -368,11 +367,22 @@ public class ProfileActivity extends Activity{
 
             TextView originalPrice = inflatedOffer.findViewById(R.id.tv_original_price);
             originalPrice.setId(R.id.tv_original_price + idOffset * (1000 + 1));
-            originalPrice.setText(String.valueOf(offer.getPrice())+getString(R.string.currency));
+            originalPrice.setText("Precio original: "+String.valueOf(offer.getPrice())+getString(R.string.currency));
 
             TextView remainingTime = inflatedOffer.findViewById(R.id.tv_remaining_time);
             remainingTime.setId(R.id.tv_remaining_time + idOffset * (100000 + 1));
             remainingTime.setText("Quedan "+ offer.calculateRemainingTime()+" horas");
+
+            final ConstraintLayout btnAccept = inflatedOffer.findViewById(R.id.cl_btn_bid);
+            btnAccept.setId(R.id.cl_btn_bid + idOffset * (10000000 + 1));
+
+          final TextView lblAccept = inflatedOffer.findViewById(R.id.tv_btn_bid_label);
+           final ImageView img= inflatedOffer.findViewById(R.id.imgv_btn_title_offer);
+
+            btnAccept.setBackgroundResource(R.drawable.border_rounded_background_error);
+            img.setImageResource(R.mipmap.cancel);
+            lblAccept.setText("Esta publicación no tiene ofertas.");
+
 
             DatabaseManager.loadInterested(offer.getId(), this, new IInterestedConsumer() {
                 @Override
@@ -383,34 +393,39 @@ public class ProfileActivity extends Activity{
                     TextView buyerCandidate = inflatedOffer.findViewById(R.id.tv_candidate_buyer);
                     buyerCandidate.setId(R.id.tv_candidate_buyer + idOffset * (1000000 + 1));
 
-                    if (interested.length > 0) {
-                        maxPrice = getMaxPriceAndUser(interested).get("maxPrice");
-                        actualPrice.setText(maxPrice + getString(R.string.currency) + " es la oferta mas alta");
-                        maxUser = getMaxPriceAndUser(interested).get("maxUser");
-                        buyerCandidate.setText(maxUser + " ha hecho la oferta mas alta");
+                    maxPrice = getMaxPriceAndUser(interested).get("maxPrice");
+                    actualPrice.setText(maxPrice + getString(R.string.currency) + " es la oferta mas alta");
+                    maxUser = getMaxPriceAndUser(interested).get("maxUser");
+                    buyerCandidate.setText(maxUser + " ha hecho la oferta mas alta");
 
-                    } else {
-                        actualPrice.setText("Nadie ha ofertado aun");
+                    if (interested.length > 0 && offer.getSold()==0) {
+
+                        lblAccept.setText("Aceptar precio");
+                        btnAccept.setBackgroundResource(R.drawable.border_rounded_background);
+                        img.setImageResource(R.mipmap.success);
+                        btnAccept.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                confirmDialog(offer.getId());
+                            }
+                        });
+
+
                     }
                 }
             });
 
 
-            ConstraintLayout btnAccept = inflatedOffer.findViewById(R.id.cl_btn_bid);
-            btnAccept.setId(R.id.cl_btn_bid + idOffset * (10000000 + 1));
-
-            TextView lblAccept = inflatedOffer.findViewById(R.id.tv_btn_bid_label);
-            ImageView img= inflatedOffer.findViewById(R.id.imgv_btn_title_offer);
             ImageView delete = inflatedOffer.findViewById(R.id.imgv_btn_delete);
             delete.setImageResource(android.R.color.transparent);
 
-            if(offer.getSold()){
+            if(offer.getSold()==1){
                 btnAccept.setBackgroundResource(R.drawable.border_rounded_background);
                 img.setImageResource(R.mipmap.moneybag);
                 lblAccept.setText("Has vendido este producto");
                 remainingTime.setText("Quedan 0 horas");
             }
-            else if(!valid.contains(offer)) {// O SI NADIE HA OFERTADO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            else if(!valid.contains(offer)) {
                 btnAccept.setBackgroundResource(R.drawable.border_rounded_background_error);
                 img.setImageResource(R.mipmap.cancel);
                 lblAccept.setText("Esta oferta no esta más disponible.");
@@ -421,17 +436,6 @@ public class ProfileActivity extends Activity{
                         DatabaseManager.deleteOffer(offer.getId(), ProfileActivity.this);
                         showDeleteMessage();
 
-                    }
-                });
-            }
-            else {
-                lblAccept.setText("Aceptar precio");
-                btnAccept.setBackgroundResource(R.drawable.border_rounded_background);
-                img.setImageResource(R.mipmap.success);
-                btnAccept.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirmDialog(offer.getId());
                     }
                 });
             }
