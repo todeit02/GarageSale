@@ -6,11 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.Rating;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +26,12 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +56,7 @@ import es.us.garagesale.Src.Ranking;
  * Created by mariaventura on 29/4/18.
  */
 
-public class ProfileActivity extends Activity {
+public class ProfileActivity extends Activity{
 
     ImageButton sales, purchases, messages, personalArea;
     TextView primaryTitle;
@@ -59,6 +69,8 @@ public class ProfileActivity extends Activity {
     private LayoutInflater linearLayoutInflater = null;
     private String maxUser;
     private float ranking;
+    GoogleMap googleMap;
+    LatLng myPosition;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +189,7 @@ public class ProfileActivity extends Activity {
             DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
                 @Override
                 public void consume(final Offer receivedOffer) {
+
 
                     TextView title = inflatedOffer.findViewById(R.id.tv_title);
                     title.setId(R.id.tv_title + idOffset * (100 + 1));
