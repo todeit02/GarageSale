@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1.5dp"
-        android:background="@drawable/border_rounded_background"
+        android:background="@drawable/border_rounded_background_title"
         android:columnCount="2"
         android:rowCount="2">
 
@@ -22,13 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="3dp"
-            android:background="@color/white"
+            android:layout_marginLeft="10dp"
+            android:background="@color/myDarkAqua"
+            android:fontFamily="sans-serif-smallcaps"
             android:text="Título de la oferta"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@color/oil"
+            android:textSize="24sp" />
 
         <ImageButton
             android:id="@+id/imgbtnOfferDetailsFavorite"
@@ -37,23 +37,24 @@
             android:layout_margin="3dp"
             android:layout_rowSpan="2"
             android:adjustViewBounds="true"
-            android:background="@drawable/border_rounded_background"
+            android:background="@color/myDarkAqua"
             android:contentDescription="Hacer favorito"
             android:padding="6.5dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/star" />
+            android:src="@mipmap/tag" />
 
         <TextView
             android:id="@+id/tvOfferDetailsOfferUsedState"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp"
-            android:background="@color/white"
+            android:layout_marginLeft="10dp"
+            android:background="@color/myDarkAqua"
+            android:fontFamily="sans-serif-smallcaps"
             android:text="estado"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/oil"
+            android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@+id/tvOfferDetailsOfferTitle"
             tools:layout_editor_absoluteX="26dp" />
 
@@ -67,7 +68,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
-        android:background="@drawable/border_rounded_background"
+        android:background="@drawable/button_group_middle_unselected_background"
         android:orientation="horizontal"
         android:padding="3dp">
 
@@ -153,7 +154,7 @@
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
         android:layout_weight="1"
-        android:background="@drawable/border_rounded_background"
+        android:background="@drawable/button_group_middle_unselected_background"
         android:orientation="horizontal"
         android:padding="3dp">
 
@@ -172,9 +173,11 @@
                 android:id="@+id/tv_offer_details_description"
                 android:layout_width="wrap_content"
                 android:layout_height="104dp"
+                android:fontFamily="sans-serif-smallcaps"
                 android:gravity="left|start"
                 android:text="La descripción de la oferta es abc def ghijk. Abc def ghij klmn opqr. Def ghijkl mno pqrst uvw."
-                android:textColor="@color/black" />
+                android:textColor="@color/monsoon"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -193,9 +196,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1.5dp"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="Ciudad\n(x,yz km)"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/oil" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/cl_btn_show_map"
@@ -211,7 +215,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:scaleType="fitCenter"
-                    android:src="@mipmap/map_marker"
+                    android:src="@mipmap/placeholder"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -221,10 +225,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:fontFamily="sans-serif-smallcaps"
                     android:gravity="center"
                     android:text="mostrar\nen mapa"
                     android:textAlignment="textStart"
-                    android:textColor="@color/black"
+                    android:textColor="@color/oil"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -242,7 +247,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
-        android:background="@drawable/border_rounded_background"
+        android:background="@drawable/button_group_middle_unselected_background"
         android:columnCount="2"
         android:gravity="center"
         android:rowCount="2">
@@ -252,17 +257,22 @@
             <TextView
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="Quedan:"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/oil"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_offer_details_offer_count"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="(x ofertas)"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </TableRow>
 
         <TableRow>
@@ -271,18 +281,20 @@
                 android:id="@+id/tv_offer_details_remaining_time"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="Xd YYh ZZm"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/oil"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_offer_details_current_price"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="xxx €"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/oil"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </TableRow>
@@ -298,7 +310,7 @@
         android:layout_marginRight="3dp"
         android:layout_marginTop="1.5dp"
         android:layout_weight="0"
-        android:background="@drawable/border_rounded_background"
+        android:background="@drawable/border_button_background"
         android:padding="10dp">
 
         <ImageView
@@ -306,7 +318,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/gavel"
+            android:src="@mipmap/auction"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -315,9 +327,10 @@
             android:id="@+id/tv_btn_bid_label"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:fontFamily="sans-serif-smallcaps"
             android:gravity="center"
             android:text="¡Propon un precio!"
-            android:textColor="@color/black"
+            android:textColor="@color/oil"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/imgv_btn_title_offer"

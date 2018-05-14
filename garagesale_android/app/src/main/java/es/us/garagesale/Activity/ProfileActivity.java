@@ -182,7 +182,7 @@ public class ProfileActivity extends Activity{
                 public void consume(final Offer receivedOffer) {
                     TextView showLocation = inflatedOffer.findViewById(R.id.tv_btn_show_map);
                     TextView locationTextView = inflatedOffer.findViewById(R.id.tv_offer_details_location);
-                    if (receivedOffer.getCoordinates()!= null){
+                    if (receivedOffer.getCoordinates().latitude!=0.0&&receivedOffer.getCoordinates().longitude!=0.0){
                         showLocation.setOnClickListener(new View.OnClickListener()
                         {
                             @Override

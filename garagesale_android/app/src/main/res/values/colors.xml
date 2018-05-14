@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#ff4081</color>
     <color name="myAqua">#c3f4e7</color>
+    <color name="myOtherAqua">#a0e9d5</color>
     <color name="myDarkAqua">#70d7bc</color>
     <color name="myLightAqua">#98c3f4e7</color>
     <color name="myLightestAqua">#edfdf9</color>
@@ -29,7 +30,7 @@
     <color name="white">#FFFFFF</color>
 
     <color name="button_background">#ffffff</color>
-    <color name="button_background_group_selected">#70d7bc</color>
+    <color name="button_background_group_selected">#9fdbcb</color>
     <color name="button_background_group_unselected">#A0A0A0</color>
 
     <color name="invalid_input">#FF0000</color>
