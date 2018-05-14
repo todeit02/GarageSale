@@ -10,6 +10,7 @@ import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IInterestedConsumer;
 import es.us.garagesale.DataAccess.IOfferConsumer;
+import es.us.garagesale.DataAccess.IUserRankingConsumer;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
@@ -28,7 +30,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_SP;
 public class OfferDetailActivity extends Activity {
 
     private int selectedOfferId;
-    TextView title, detail, state, remainingTime, currentPrice, currentOffers, createInterested, location, googleMaps;
+    TextView title, detail, state, remainingTime, currentPrice, currentOffers, createInterested, location, googleMaps, seller, reputationText;
     ConstraintLayout showLocation;
     View map;
     LinearLayout locationLayout;
@@ -42,6 +44,8 @@ public class OfferDetailActivity extends Activity {
         setContentView(R.layout.activity_offer_details);
 
         title = findViewById(R.id.tvOfferDetailsOfferTitle);
+        reputationText = findViewById(R.id.tvReputation);
+        seller= findViewById(R.id.tvSeller);
         googleMaps = findViewById(R.id.tv_btn_show_map);
         map = findViewById(R.id.imgv_btn_show_map);
         detail = findViewById(R.id.tv_offer_details_description);
@@ -73,6 +77,18 @@ public class OfferDetailActivity extends Activity {
 
     private void displayOffer(final Offer received){
         title.setText(received.getName());
+        seller.setText("Vendedor: "+received.getSellerUsername());
+        final RatingBar reputation = findViewById(R.id.ratingBarDetail);
+        reputation.setEnabled(false);
+        DatabaseManager.getUserRanking(actualUser, OfferDetailActivity.this, new IUserRankingConsumer() {
+            @Override
+            public void consume(float receivedRanking) {
+                float totalRanking = receivedRanking;
+                reputation.setRating(totalRanking);
+                reputationText.setText("Reputacion: ");
+
+            }
+        });
         detail.setText(received.getDescription()+" \n"+ "Precio original: "+ getString(R.string.currency) +received.getPrice());
         CharSequence condition = OfferTool.getCharSequenceFromCondition(received.getCondition(), this);
         state.setText(condition);
