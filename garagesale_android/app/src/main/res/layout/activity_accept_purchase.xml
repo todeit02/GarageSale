@@ -59,6 +59,7 @@
                         android:id="@+id/tv_confirmation_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0"
                         android:fontFamily="sans-serif-smallcaps"
                         android:padding="10dp"
                         android:text="TextView"
@@ -70,6 +71,7 @@
                         android:id="@+id/tv_general_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="Estas han sido las ofertas que has tenido:"
                         android:textAlignment="center"
@@ -77,7 +79,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="150dp"
                         android:orientation="horizontal">
 
                         <ListView

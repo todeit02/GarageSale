@@ -181,7 +181,7 @@ class OfferCrud
         $price,
         $seller_username,
 		$state,
-		$activePeriod,
+		$durationDays,
 		$latitude,
 		$longitude
     )
@@ -193,7 +193,7 @@ class OfferCrud
             " price," .
             " seller_username," .
             " state," .
-            " activePeriod," .
+            " durationDays," .
             " latitude," .
             " longitude)" .
             " VALUES(?,?,?,?,?,?,?,?)";
@@ -208,7 +208,7 @@ class OfferCrud
                 $price,
                 $seller_username,
 				$state,
-				$activePeriod,
+				$durationDays,
 				$latitude,
 				$longitude
             )

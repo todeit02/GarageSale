@@ -668,7 +668,7 @@ public class DatabaseManager
             String conditionNumberString = Integer.toString(creatingOffer.getCondition().getNumericValue());
             jsonObject.put("state", conditionNumberString);
 
-            jsonObject.put("activePeriod", Integer.toString(creatingOffer.getDurationDays()) );
+            jsonObject.put("durationDays", Integer.toString(creatingOffer.getDurationDays()) );
 
             String latitudeString = "";
             String longitudeString = "";

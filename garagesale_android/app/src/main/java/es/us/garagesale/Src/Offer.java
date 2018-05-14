@@ -47,10 +47,12 @@ public class Offer
     private LatLng coordinates;
     private String cityName;
 
+
     static
     {
         initializeDurationMap();
     }
+
 
     public static Map<Duration, Integer> getDurationsDays() {
         return durationsDays;

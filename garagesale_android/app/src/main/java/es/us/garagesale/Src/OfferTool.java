@@ -12,9 +12,9 @@ public class OfferTool
 {
     public static Offer.Duration getDurationFromCharSequence(CharSequence productDurationText, Context appContext)
     {
-        if(productDurationText.equals( appContext.getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.SHORT)) )) return Offer.Duration.SHORT;
-        if(productDurationText.equals( appContext.getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.MEDIUM)) )) return Offer.Duration.MEDIUM;
-        if(productDurationText.equals( appContext.getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.LONG)) )) return Offer.Duration.LONG;
+        if(productDurationText.equals( appContext.getString(R.string.offer_duration, 3) )) return Offer.Duration.SHORT;
+        if(productDurationText.equals( appContext.getString(R.string.offer_duration, 7) )) return Offer.Duration.MEDIUM;
+        if(productDurationText.equals( appContext.getString(R.string.offer_duration, 14) )) return Offer.Duration.LONG;
         return Offer.Duration.INVALID;
     }
 

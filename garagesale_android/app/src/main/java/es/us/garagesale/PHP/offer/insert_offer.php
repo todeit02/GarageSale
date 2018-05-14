@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $body['price'],
         $body['seller_username'],
         $body['state'],
-        $body['activePeriod'],
+        $body['durationDays'],
         $body['latitude'],
         $body['longitude']);
 		
