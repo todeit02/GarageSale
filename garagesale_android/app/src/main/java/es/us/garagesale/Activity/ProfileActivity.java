@@ -6,15 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
-import android.media.Rating;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,11 +42,15 @@ import es.us.garagesale.Src.Person;
 import es.us.garagesale.Src.Purchase;
 import es.us.garagesale.Src.Ranking;
 
+import static android.util.TypedValue.COMPLEX_UNIT_SP;
+
 /**
  * Created by mariaventura on 29/4/18.
  */
 
 public class ProfileActivity extends Activity{
+
+    private static final int PLACE_PICKER_INTENT_REQUEST_CODE=2;
 
     ImageButton sales, purchases, messages, personalArea;
     TextView primaryTitle;
@@ -69,13 +63,10 @@ public class ProfileActivity extends Activity{
     private LayoutInflater linearLayoutInflater = null;
     private String maxUser;
     private float ranking;
-    GoogleMap googleMap;
-    LatLng myPosition;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_area);
-
 
         linearLayout = (LinearLayout)findViewById(R.id.ll_content_scroll_customizable);
         linearLayoutInflater = LayoutInflater.from(this);
@@ -146,6 +137,7 @@ public class ProfileActivity extends Activity{
         });
     }
 
+
     public void unSet(int selectedButton){
         switch (selectedButton){
             case 1:
@@ -189,7 +181,28 @@ public class ProfileActivity extends Activity{
             DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
                 @Override
                 public void consume(final Offer receivedOffer) {
+                    TextView showLocation = inflatedOffer.findViewById(R.id.tv_btn_show_map);
+                    TextView locationTextView = inflatedOffer.findViewById(R.id.tv_offer_details_location);
+                    if (receivedOffer.getCoordinates()!= null){
+                        showLocation.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                openGoogleMaps(receivedOffer);
+                            }
+                        });
 
+                        CharSequence placeName = receivedOffer.getCityName();
+                        LatLng coordinates = receivedOffer.getCoordinates();
+                        CharSequence locationText = getString(R.string.offer_location, placeName.toString(), coordinates.toString());
+                        locationTextView.setText(locationText);
+                        locationTextView.setTextSize(COMPLEX_UNIT_SP, 12);
+                    }else{
+                        locationTextView.setVisibility(View.GONE);
+                        ConstraintLayout cl= inflatedOffer.findViewById(R.id.cl_btn_show_map);
+                        cl.setVisibility(View.GONE);
+                    }
 
                     TextView title = inflatedOffer.findViewById(R.id.tv_title);
                     title.setId(R.id.tv_title + idOffset * (100 + 1));
@@ -532,6 +545,21 @@ public class ProfileActivity extends Activity{
         ret.put("maxUser", user);
         return ret;
     }
+
+private void openGoogleMaps(Offer receivedOffer){
+    LatLng coordinates = receivedOffer.getCoordinates();
+    double lat = coordinates.latitude;
+    double lng = coordinates.longitude;
+    String label = "Ven a buscar tu producto!";
+    String uriBegin = "geo:" + lat + "," + lng;
+    String query = lat + "," + lng + "(" + label + ")";
+    String encodedQuery = Uri.encode(query);
+    String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+    Uri uri = Uri.parse(uriString);
+    Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+    startActivity(mapIntent);
+}
+
 
 
 }
