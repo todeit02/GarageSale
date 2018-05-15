@@ -133,6 +133,12 @@ public class ProfileActivity extends Activity{
                 v.setBackgroundResource(R.drawable.button_group_right_selected_background);
                 unSet(4);
                 linearLayout.removeAllViews();
+                DatabaseManager.loadUsernamePurchases(actualUser, new ProfileActivity(), new IUsernamePurchasesConsumer() {
+                    @Override
+                    public void consume(Purchase[] purchases) {
+                        displayUserMessages(purchases);
+                    }
+                });
             }
         });
     }
@@ -287,6 +293,12 @@ public class ProfileActivity extends Activity{
             idOffset++;
 
         }
+    }
+
+    private void displayUserMessages(Purchase[] purchases){
+        primaryTitle.setText("Mis mensajes:");
+        primaryTitle.setPaintFlags(primaryTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        idOffset = 1;
     }
 
     public void displayPersonalInfo(Person actualPerson){
