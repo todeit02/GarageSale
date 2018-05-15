@@ -122,30 +122,29 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:orientation="horizontal">
+            android:layout_weight="0" >
 
             <RadioButton
                 android:id="@+id/radioButtonCard"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-smallcaps"
-                android:text="Tarjeta de credito/debito"
-                android:textColor="@color/aluminum" />
+                android:text="Tarjeta de debido/credito"
+                android:textColor="@color/monsoon" />
 
             <RadioButton
                 android:id="@+id/radioButtonCash"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="Efectivo"
-                android:textColor="@color/aluminum" />
-        </LinearLayout>
+                android:textColor="@color/monsoon" />
+        </TableRow>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl_btn_bid"
@@ -199,7 +198,7 @@
             android:textSize="18sp" />
 
         <Switch
-            android:id="@+id/switch2"
+            android:id="@+id/switchErase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"

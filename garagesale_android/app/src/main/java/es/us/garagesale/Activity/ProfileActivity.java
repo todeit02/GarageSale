@@ -14,11 +14,14 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -310,119 +313,72 @@ public class ProfileActivity extends Activity{
             TextView generalTitle = inflatedOffer.findViewById(R.id.tv_message_title);
             generalTitle.setText("Compra nro. " + purchase.getOffer_id());
 
+            final TextView title = inflatedOffer.findViewById(R.id.tv_title);
+            title.setId(R.id.tv_title + idOffset * (100 + 1));
+
+            final TextView seller = inflatedOffer.findViewById(R.id.tv_seller);
+            seller.setId(R.id.tv_seller + idOffset * (100 + 1));
+
+            final TextView phone = inflatedOffer.findViewById(R.id.tv_phone);
+            phone.setId(R.id.tv_phone + idOffset * (100 + 1));
 
             DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
                 @Override
                 public void consume(final Offer receivedOffer) {
-                  /*  TextView showLocation = inflatedOffer.findViewById(R.id.tv_btn_show_map);
-                    TextView locationTextView = inflatedOffer.findViewById(R.id.tv_offer_details_location);
-                    if (receivedOffer.getCoordinates().latitude!=0.0&&receivedOffer.getCoordinates().longitude!=0.0){
-                        showLocation.setOnClickListener(new View.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(View v)
-                            {
-                                openGoogleMaps(receivedOffer);
-                            }
-                        });
-
-                        CharSequence placeName = receivedOffer.getCityName();
-                        LatLng coordinates = receivedOffer.getCoordinates();
-                        CharSequence locationText = getString(R.string.offer_location, placeName.toString(), coordinates.toString());
-                        locationTextView.setText(locationText);
-                        locationTextView.setTextSize(COMPLEX_UNIT_SP, 12);
-                    }else{
-                        locationTextView.setVisibility(View.GONE);
-                        ConstraintLayout cl= inflatedOffer.findViewById(R.id.cl_btn_show_map);
-                        cl.setVisibility(View.GONE);
-                    }*/
-
-                    TextView title = inflatedOffer.findViewById(R.id.tv_title);
-                    title.setId(R.id.tv_title + idOffset * (100 + 1));
                     title.setText(receivedOffer.getName());
-
-                    TextView seller = inflatedOffer.findViewById(R.id.tv_seller);
-                    seller.setId(R.id.tv_seller + idOffset * (100 + 1));
                     seller.setText("Vendedor: " +receivedOffer.getSellerUsername());
+                   // phone.setText("Contacto: " +receivedOffer.getSellerUsername());
+                    phone.setText("+645668934");
 
-                    TextView phone = inflatedOffer.findViewById(R.id.tv_phone);
-                    seller.setId(R.id.tv_phone + idOffset * (100 + 1));
-                   // seller.setText("Contacto: " +receivedOffer.getSellerUsername());
-
-                    final Button submit = inflatedOffer.findViewById(R.id.btnSubmit);
-                    final RatingBar ratingBar = inflatedOffer.findViewById(R.id.ratingBar);
-
-                    final String sellerUsn = receivedOffer.getSellerUsername();
-
-
-                    submit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ratingBar.setEnabled(false);
-                            submit.setVisibility(View.GONE);
-                            //Inserta el ranking del vendedor:
-                            float rate = ratingBar.getRating();
-                            DatabaseManager.insertRanking(sellerUsn, actualUser, rate, receivedOffer.getId(), ProfileActivity.this);
-
-                        }
-                    });
-
-                    DatabaseManager.getRankingById(sellerUsn, actualUser, receivedOffer.getId(), ProfileActivity.this, new IRankingConsumer() {
-                        @Override
-                        public void consume(Ranking receivedRanking) {
-                            ranking = receivedRanking.getValue();
-                            ratingBar.setRating(ranking);
-                            ratingBar.setEnabled(false);
-                            submit.setVisibility(View.GONE);
-                        }
-                    });
 
                 }
             });
 
-            ConstraintLayout btnReport = inflatedOffer.findViewById(R.id.cl_btn_bid);
-            btnReport.setOnClickListener(new View.OnClickListener() {
+
+            final RadioButton card = inflatedOffer.findViewById(R.id.radioButtonCard);
+            card.setChecked(true);
+
+            final RadioButton cash = inflatedOffer.findViewById(R.id.radioButtonCash);
+            cash.setChecked(false);
+
+            card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //generar reporte
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
-                    builder.setTitle("Escribe tu reporte de defectos. Nos pondremos en contacto.");
+                    card.setChecked(true);
+                    cash.setChecked(false);
 
-                    // Set up the input
-                    final EditText input = new EditText(ProfileActivity.this);
-                    // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                    input.setInputType(InputType.TYPE_CLASS_TEXT);
-                    builder.setView(input);
-
-                    // Set up the buttons
-                    builder.setPositiveButton("Enviar reporte", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String m_Text = input.getText().toString();
-                            //se simula que le llega a alguien el reporte y hacen algo al respecto.
-                        }
-                    });
-                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-
-                    builder.show();
                 }
             });
 
-            TextView purchaseTime = inflatedOffer.findViewById(R.id.tv_time);
-            purchaseTime.setText("Fecha: " +purchase.getBuy_time());
+            cash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cash.setChecked(true);
+                    card.setChecked(false);
 
-            TextView actualPrice = inflatedOffer.findViewById(R.id.tv_actual_price);
-            actualPrice.setId(R.id.tv_original_price + idOffset * (1000 + 1));
-            actualPrice.setText(String.valueOf(purchase.getPrice()) + getString(R.string.currency));
+                }
+            });
 
+            ConstraintLayout call = inflatedOffer.findViewById(R.id.cl_btn_bid);
+            call.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone.getText().toString(), null));
+                    startActivity(intent);
 
-            linearLayout.addView(inflatedOffer);
-            idOffset++;
+                }
+            });
+
+            Switch erase = inflatedOffer.findViewById(R.id.switchErase);
+            erase.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        linearLayout.removeView(inflatedOffer);
+                    }
+                }
+            });
+                linearLayout.addView(inflatedOffer);
+                idOffset++;
 
         }
     }
