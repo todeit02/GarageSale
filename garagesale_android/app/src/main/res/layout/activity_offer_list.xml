@@ -67,6 +67,17 @@
             android:searchHintIcon="@null"
             android:searchIcon="@null" />
 
+        <TextView
+            android:id="@+id/tv_no_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="No hay resultados para su búsqueda"
+            android:textColor="@color/aluminum"
+            android:textSize="24sp" />
+
         <ScrollView
             android:id="@+id/scrv_offer_list_container"
             android:layout_width="match_parent"

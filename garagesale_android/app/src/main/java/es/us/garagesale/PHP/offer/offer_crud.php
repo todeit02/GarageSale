@@ -69,20 +69,25 @@ class OfferCrud
                 return false;
             }
     }
-      public static function getFilteredOffers($tag)
+      public static function getFilteredOffers($tag, $name)
         {
                 // Consulta de la meta
 
                 $consulta = "SELECT DISTINCT offers.*" .
                            " FROM offers" .
-                            " INNER JOIN tags ON offers.id = tags.offer_id".
-                            " WHERE tags.tag = " . $tag;
+                            " LEFT JOIN tags ON offers.id = tags.offer_id".
+                            " WHERE tags.tag = " . $tag . " OR offers.name LIKE " . $name .
+                            " UNION" .
+                             " SELECT DISTINCT offers.*" .
+                                                       " FROM offers" .
+                                                        " RIGHT JOIN tags ON offers.id = tags.offer_id".
+                                                        " WHERE tags.tag = " . $tag . " OR offers.name LIKE " . $name;
 
                 try {
                     // Preparar sentencia
                     $comando = Database::getInstance()->getDb()->prepare($consulta);
                     // Ejecutar sentencia preparada
-                    $comando->execute(array($tag));
+                    $comando->execute(array($tag, $name));
 
                 return $comando->fetchAll(PDO::FETCH_ASSOC);
 

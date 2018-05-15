@@ -10,10 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['tag'])) {
 
             // Obtener parámetro id
-            $parametro = $_GET['tag'];
+            $tag = $_GET['tag'];
+            $name = $_GET['name'];
 
         // Manejar petición GET
-        $offers = OfferCrud::getFilteredOffers($parametro);
+        $offers = OfferCrud::getFilteredOffers($tag, $name);
 
         if ($offers) {
 

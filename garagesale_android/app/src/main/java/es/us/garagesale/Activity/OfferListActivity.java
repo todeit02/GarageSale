@@ -28,6 +28,7 @@ public class OfferListActivity extends Activity
     private LayoutInflater linearLayoutInflater = null;
     private FloatingActionButton buttonAddOffer = null;
     private ImageButton btnPersonalArea, btnSearchTag;
+    private TextView noResults = null;
     private SearchView search = null;
     private Offer[] allOffers;
 
@@ -41,6 +42,7 @@ public class OfferListActivity extends Activity
         linearLayoutInflater = LayoutInflater.from(this);
         buttonAddOffer = findViewById(R.id.fab_add_offer);
         btnPersonalArea = findViewById(R.id.imgbtn_personal_area);
+        noResults = findViewById(R.id.tv_no_results);
         search = findViewById(R.id.search_view);
         search.setQueryHint("Qué estás buscando?");
         btnSearchTag = findViewById(R.id.imgbtn_filter);
@@ -86,7 +88,7 @@ public class OfferListActivity extends Activity
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                DatabaseManager.loadFilteredOffers(query, OfferListActivity.this, new IOffersConsumer() {
+                DatabaseManager.loadFilteredOffers(query, query, OfferListActivity.this, new IOffersConsumer() {
                     @Override
                     public void consume(Offer[] offers) {
                         createOfferViews(offers);
@@ -119,6 +121,11 @@ public class OfferListActivity extends Activity
 
     private void createOfferViews(Offer[] creatingOffers)
     {
+        if(creatingOffers.length>0){
+            noResults.setVisibility(View.GONE);
+        }else{
+            noResults.setVisibility(View.VISIBLE);
+        }
         linearLayout.removeAllViews();
         int idOffset = 1;
         int length = 0;

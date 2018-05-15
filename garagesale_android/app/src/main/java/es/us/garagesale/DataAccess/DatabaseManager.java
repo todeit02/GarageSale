@@ -85,13 +85,13 @@ public class DatabaseManager
                 );
     }
 
-    public static void loadFilteredOffers(String query, Activity callingActivity, final IOffersConsumer callback){
+    public static void loadFilteredOffers(String query, String name, Activity callingActivity, final IOffersConsumer callback){
         VolleySingleton.
                 getInstance(callingActivity).
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                Constantes.GET_FILTERED_OFFERS+"?tag='"+query+"'",
+                                Constantes.GET_FILTERED_OFFERS+"?tag='"+query+"'"+"&"+"name='%"+name+"%'",
                                 (String)null,
                                 new Response.Listener<JSONObject>() {
 
@@ -128,6 +128,10 @@ public class DatabaseManager
                 case failResponse:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
+
+                    //Para mostrar mensaje de error en la UI
+                    Offer[] offers2 = new Offer[0];
+                    callback.consume(offers2);
                     break;
             }
 
