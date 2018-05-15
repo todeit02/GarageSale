@@ -69,6 +69,28 @@ class OfferCrud
                 return false;
             }
     }
+      public static function getFilteredOffers($tag)
+        {
+                // Consulta de la meta
+
+                $consulta = "SELECT DISTINCT offers.*" .
+                           " FROM offers" .
+                            " INNER JOIN tags ON offers.id = tags.offer_id".
+                            " WHERE tags.tag = " . $tag;
+
+                try {
+                    // Preparar sentencia
+                    $comando = Database::getInstance()->getDb()->prepare($consulta);
+                    // Ejecutar sentencia preparada
+                    $comando->execute(array($tag));
+
+                return $comando->fetchAll(PDO::FETCH_ASSOC);
+
+                } catch (PDOException $e) {
+                    return false;
+                }
+        }
+
 
     public static function getUsernamePurchases($buyer_username){
 

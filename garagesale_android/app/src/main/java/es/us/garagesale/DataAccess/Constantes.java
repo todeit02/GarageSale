@@ -33,6 +33,7 @@ public class Constantes {
      */
     public static final String GET_OFFER_INTERESTED = PROTOCOL + IP + "/offer/get_offer_interested.php";
     public static final String GET_ALL_OFFERS = PROTOCOL + IP + "/offer/get_offer.php";
+    public static final String GET_FILTERED_OFFERS = PROTOCOL + IP + "/offer/get_filter_offers.php";
     public static final String GET_OFFER_BY_ID = PROTOCOL + IP + "/offer/get_offer_detail.php";
     public static final String GET_RANKING_BY_ID = PROTOCOL + IP + "/person/get_ranking_by_id.php";
     public static final String GET_USER_RANKING = PROTOCOL + IP + "/person/get_user_ranking.php";

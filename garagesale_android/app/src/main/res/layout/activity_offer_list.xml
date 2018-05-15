@@ -55,14 +55,17 @@
                 android:padding="6.5dp"
                 android:scaleType="fitXY"
                 android:src="@mipmap/user_profile" />
+
         </LinearLayout>
 
-        <SearchView
+        <android.widget.SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search friend" />
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:iconifiedByDefault="false"
+            android:searchHintIcon="@null"
+            android:searchIcon="@null" />
 
         <ScrollView
             android:id="@+id/scrv_offer_list_container"

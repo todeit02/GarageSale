@@ -13,6 +13,7 @@ import es.us.garagesale.DataAccess.IOffersConsumer;
 import es.us.garagesale.Src.Offer;
 
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class OfferListActivity extends Activity
     private FloatingActionButton buttonAddOffer = null;
     private ImageButton btnPersonalArea, btnSearchTag;
     private SearchView search = null;
+    private Offer[] allOffers;
 
 
     @Override
@@ -40,14 +42,20 @@ public class OfferListActivity extends Activity
         buttonAddOffer = findViewById(R.id.fab_add_offer);
         btnPersonalArea = findViewById(R.id.imgbtn_personal_area);
         search = findViewById(R.id.search_view);
-        search.setQueryHint("Filtra los productos...");
+        search.setQueryHint("Qué estás buscando?");
         btnSearchTag = findViewById(R.id.imgbtn_filter);
+        //Crea evento al clickear la cruz del searchview
+        int searchCloseButtonId = search.getContext().getResources()
+                .getIdentifier("android:id/search_close_btn", null, null);
+        ImageView closeButton = (ImageView) this.search.findViewById(searchCloseButtonId);
 
+        search.setVisibility(View.GONE);
 
         DatabaseManager.loadOffers(this, new IOffersConsumer() {
             @Override
             public void consume(Offer[] offers) {
                 createOfferViews(offers);
+                allOffers = offers;
             }
         });
 
@@ -70,7 +78,7 @@ public class OfferListActivity extends Activity
         btnSearchTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                search.setVisibility(View.VISIBLE);
             }
         });
 
@@ -78,14 +86,30 @@ public class OfferListActivity extends Activity
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
+                DatabaseManager.loadFilteredOffers(query, OfferListActivity.this, new IOffersConsumer() {
+                    @Override
+                    public void consume(Offer[] offers) {
+                        createOfferViews(offers);
+                    }
+                });
                 return false;
             }
 
+            //BORRAR
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
+
                 return false;
+            }
+        });
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search.setQuery("", false);
+                search.clearFocus();
+                search.setVisibility(View.GONE);
+                createOfferViews(allOffers);
             }
         });
 
@@ -95,6 +119,7 @@ public class OfferListActivity extends Activity
 
     private void createOfferViews(Offer[] creatingOffers)
     {
+        linearLayout.removeAllViews();
         int idOffset = 1;
         int length = 0;
 
