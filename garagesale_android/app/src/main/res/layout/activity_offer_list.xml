@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,12 +23,13 @@
                 android:id="@+id/imgbtn_filter"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
+                android:layout_margin="3dp"
                 android:layout_weight="0"
                 android:adjustViewBounds="true"
-                android:background="@drawable/border_rounded_background"
+                android:background="@drawable/border_button_background"
                 android:padding="6.5dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/search" />
+                android:src="@mipmap/search_loop" />
 
             <TextView
                 android:id="@+id/tv_activity_name"
@@ -46,13 +48,21 @@
                 android:id="@+id/imgbtn_personal_area"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
+                android:layout_margin="3dp"
                 android:layout_weight="0"
                 android:adjustViewBounds="true"
-                android:background="@drawable/border_rounded_background"
+                android:background="@drawable/border_button_background"
                 android:padding="6.5dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/mail_user" />
+                android:src="@mipmap/user_profile" />
         </LinearLayout>
+
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Search friend" />
 
         <ScrollView
             android:id="@+id/scrv_offer_list_container"
@@ -85,7 +95,8 @@
         android:layout_alignParentEnd="false"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
-        android:src="@mipmap/circle_plus" />
+        android:src="@mipmap/add_btn"
+        app:backgroundTint="@color/myDarkAqua" />
 
 
 </RelativeLayout>

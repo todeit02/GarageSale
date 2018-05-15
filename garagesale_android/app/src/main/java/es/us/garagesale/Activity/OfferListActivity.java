@@ -14,7 +14,9 @@ import es.us.garagesale.Src.Offer;
 
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import es.us.garagesale.R;
 
@@ -24,7 +26,8 @@ public class OfferListActivity extends Activity
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;
     private FloatingActionButton buttonAddOffer = null;
-    private ImageButton btnPersonalArea;
+    private ImageButton btnPersonalArea, btnSearchTag;
+    private SearchView search = null;
 
 
     @Override
@@ -36,6 +39,10 @@ public class OfferListActivity extends Activity
         linearLayoutInflater = LayoutInflater.from(this);
         buttonAddOffer = findViewById(R.id.fab_add_offer);
         btnPersonalArea = findViewById(R.id.imgbtn_personal_area);
+        search = findViewById(R.id.search_view);
+        search.setQueryHint("Filtra los productos...");
+        btnSearchTag = findViewById(R.id.imgbtn_filter);
+
 
         DatabaseManager.loadOffers(this, new IOffersConsumer() {
             @Override
@@ -57,6 +64,28 @@ public class OfferListActivity extends Activity
             public void onClick(View v) {
                 Intent viewProfileActivity = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(viewProfileActivity);
+            }
+        });
+
+        btnSearchTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
+                return false;
             }
         });
 

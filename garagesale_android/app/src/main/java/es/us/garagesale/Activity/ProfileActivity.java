@@ -313,7 +313,7 @@ public class ProfileActivity extends Activity{
         TextView email = inflatedInfo.findViewById(R.id.tv_emailFill);
         email.setText(actualPerson.getEmail());
 
-        final RatingBar reputation = inflatedInfo.findViewById(R.id.ratingBarDetail);
+        final RatingBar reputation = inflatedInfo.findViewById(R.id.ratingBarProfile);
         reputation.setEnabled(false);
         DatabaseManager.getUserRanking(actualUser, ProfileActivity.this, new IUserRankingConsumer() {
             @Override
