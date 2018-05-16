@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $body['realName'],
         $body['email'],
         $body['birthDate'],
+        $body['phone'],
         $body['nationality'],
         $card_id,
         $body['reputation']

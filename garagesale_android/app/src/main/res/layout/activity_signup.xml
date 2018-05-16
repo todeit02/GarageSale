@@ -14,11 +14,12 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/logo"
+        <ImageView
             android:layout_width="130dp"
             android:layout_height="130dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
-            android:layout_gravity="center_horizontal" />
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="match_parent"
@@ -30,12 +31,11 @@
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />
 
-        <!-- Name Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
             <EditText
                 android:id="@+id/input_username"
@@ -47,12 +47,11 @@
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Password Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
             <EditText
                 android:id="@+id/input_password"
@@ -64,13 +63,11 @@
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
-
-        <!-- eMail Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
             <EditText
                 android:id="@+id/input_email"
@@ -82,13 +79,11 @@
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
-
-        <!-- Real Name Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
             <EditText
                 android:id="@+id/input_real_name"
@@ -100,14 +95,11 @@
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
 
-
-
-        <!--  Birth Date Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
             <EditText
                 android:id="@+id/input_birth_date"
@@ -118,6 +110,34 @@
                 android:maxLength="10"
                 android:textColor="@color/monsoon" />
         </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/input_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/signup_phone_hint"
+                android:inputType="textPersonName"
+                android:textColor="@color/monsoon" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Name Label -->
+
+        <!-- Password Label -->
+
+
+        <!-- eMail Label -->
+
+
+        <!-- Real Name Label -->
+
+
+        <!--  Birth Date Label -->
 
 
         <!-- Nationality -->

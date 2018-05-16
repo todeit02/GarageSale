@@ -23,6 +23,7 @@ public class SignupValidator
     private EditText emailText = null;
     private EditText realNameText = null;
     private EditText birthDateText = null;
+    private EditText phoneText = null;
     private Spinner nationalitySelector = null;
     private EditText creditCardNumberText = null;
     private EditText ccValidationCodeText = null;
@@ -37,6 +38,7 @@ public class SignupValidator
         valid &= validateEmail();
         valid &= validateRealName();
         valid &= validateBirthDate();
+        valid &= validatePhone();
         valid &= validateNationality();
         valid &= validateCreditCard();
         valid &= validateReEnterPassword();
@@ -86,6 +88,11 @@ public class SignupValidator
 
         boolean isValid = validateDate(birthDateText, birthDatePattern);
         return isValid;
+    }
+
+    private boolean validatePhone()
+    {
+        return phoneText.getText().toString().trim().length()>0;
     }
 
 
@@ -202,6 +209,7 @@ public class SignupValidator
             EditText emailText,
             EditText realNameText,
             EditText birthDateText,
+            EditText phoneText,
             Spinner nationalitySelector,
             EditText creditCardNumberText,
             EditText ccValidationCodeText,
@@ -217,6 +225,7 @@ public class SignupValidator
         this.emailText = emailText;
         this.realNameText = realNameText;
         this.birthDateText = birthDateText;
+        this.phoneText = phoneText;
         this.nationalitySelector = nationalitySelector;
         this.creditCardNumberText = creditCardNumberText;
         this.ccValidationCodeText = ccValidationCodeText;

@@ -329,13 +329,14 @@ public class ProfileActivity extends Activity{
                     public void consume(final Offer receivedOffer) {
                         title.setText(receivedOffer.getName());
                         seller.setText("Vendedor: " +receivedOffer.getSellerUsername());
-                        // phone.setText("Contacto: " +receivedOffer.getSellerUsername());
-                        phone.setText("+645668934");
-
-
+                        DatabaseManager.loadPersonInfo(receivedOffer.getSellerUsername(), ProfileActivity.this, new IPersonConsumer() {
+                            @Override
+                            public void consume(Person seller) {
+                               phone.setText(seller.getPhone());
+                            }
+                        });
                     }
                 });
-
 
                 final RadioButton card = inflatedOffer.findViewById(R.id.radioButtonCard);
                 card.setChecked(true);

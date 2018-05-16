@@ -112,6 +112,7 @@ class PersonCrud
         $name,
         $email,
         $birthDate,
+        $phone,
         $nationality,
         $card_id,
 		$reputation
@@ -124,10 +125,11 @@ class PersonCrud
             "name, " .
             "email, " .
             "birthDate, " .
+            "phone, " .
             "nationality, " .
             "card_id, " .
             "reputation )" .
-            " VALUES( ?,?,?,?,?,?,?,? )";
+            " VALUES( ?,?,?,?,?,?,?,?,? )";
 
         // Preparar la sentencia
         $request = Database::getInstance()->getDb()->prepare($command);
@@ -139,6 +141,7 @@ class PersonCrud
 				$name,
 				$email,
 				$birthDate,
+			    $phone,
 				$nationality,
 				$card_id,
 				$reputation

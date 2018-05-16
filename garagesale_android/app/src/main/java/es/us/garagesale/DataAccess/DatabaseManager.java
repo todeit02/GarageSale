@@ -1161,6 +1161,7 @@ public class DatabaseManager
         map.put("realName", creatingPerson.getRealName());
         map.put("email", creatingPerson.getEmail());
         map.put("birthDate", creatingPerson.getBirthDate("yyyy-MM-dd"));
+        map.put("phone", creatingPerson.getPhone());
         map.put("nationality", creatingPerson.getNationality());
         map.put( "reputation", String.valueOf(creatingPerson.getReputation()) );
 

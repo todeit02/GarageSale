@@ -24,9 +24,17 @@ public class Person extends SugarRecord<Person> {
     private Date birthDate;
     private String nationality;
     private Card card;
+    private String phone;
     private int reputation;
     private ArrayList<Purchase> purchases;
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getCardId() {
         return card_id;
@@ -117,18 +125,19 @@ public class Person extends SugarRecord<Person> {
         this.purchases  = null;
     }
 
-    public Person(String user, String password, String realName, String email, Date birthDate, String nationality, Card personalCard)
+    public Person(String user, String password, String realName, String email, Date birthDate, String phone, String nationality, Card personalCard)
     {
-        this(user, password, realName, email, birthDate, nationality, personalCard, new ArrayList<Purchase>(), 0);
+        this(user, password, realName, email, birthDate, phone, nationality, personalCard, new ArrayList<Purchase>(), 0);
     }
 
-    public Person(String user, String password, String realName, String email, Date birthDate, String nationality, Card personalCard, ArrayList<Purchase> purchases, int reputation)
+    public Person(String user, String password, String realName, String email, Date birthDate, String phone, String nationality, Card personalCard, ArrayList<Purchase> purchases, int reputation)
     {
         this.username = user;
         this.password = password;
         this.name = realName;
         this.email = email;
         this.birthDate = birthDate;
+        this.phone = phone;
         this.nationality = nationality;
         this.card = personalCard;
         this.purchases = purchases;
@@ -147,6 +156,7 @@ public class Person extends SugarRecord<Person> {
                 ", nationality='" + nationality + '\'' +
                 ", card=" + card +
                 ", reputation=" + reputation +
+                ", phone=" + phone +
                 ", purchases=" + purchases +
                 '}';
     }

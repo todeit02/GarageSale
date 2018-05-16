@@ -21,6 +21,7 @@
     <string name="signup_username_hint">Usuario</string>
     <string name="signup_password_hint">Contraseña</string>
     <string name="signup_email_hint">Correo electrónico</string>
+    <string name="signup_phone_hint">Telefono</string>
     <string name="signup_real_name_hint">Nombre y apellidos</string>
     <string name="signup_birth_date_hint">Fecha de nacimiento</string>
     <string name="signup_birth_date_format">dd.MM.yyyy</string>
@@ -30,7 +31,7 @@
     <string name="signup_cc_month_format">MM</string>
     <string name="signup_cc_year_format">yy</string>
     <string name="signup_password_reenter_hint">Reintroducir contraseña</string>
-    <string name="signup_create_account">Abrir Cuenta</string>
+    <string name="signup_create_account">Crear Cuenta</string>
     <string name="signup_creating_account_progress_message">Creando cuenta ...</string>
     <string name="signup_error">Alta ha fallado!</string>
     <string name="signup_short_username_error">3 caracteres como mínimo, letras, números y espacios</string>

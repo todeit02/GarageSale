@@ -35,6 +35,7 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.input_email) EditText _emailText;
     @BindView(R.id.input_real_name) EditText _realNameText;
+    @BindView(R.id.input_phone) EditText _phoneText;
     @BindView(R.id.input_birth_date) EditText _birthDateText;
     @BindView(R.id.spn_nationality) Spinner _nationalitySelector;
     @BindView(R.id.input_credit_card) EditText _creditCardNumberText;
@@ -85,6 +86,7 @@ public class SignupActivity extends AppCompatActivity {
                 _emailText,
                 _realNameText,
                 _birthDateText,
+                _phoneText,
                 _nationalitySelector,
                 _creditCardNumberText,
                 _ccValidationCodeText,
@@ -151,6 +153,7 @@ public class SignupActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String realName = _realNameText.getText().toString();
         String birthDateString = _birthDateText.getText().toString();
+        String phone = _phoneText.getText().toString();
         Date birthDate = new Date();
         try
         {
@@ -170,7 +173,7 @@ public class SignupActivity extends AppCompatActivity {
         Date ccEndDate = ccEndDateCalendar.getTime();
 
         Card enteredCard = new Card(creditCardNumber, ccEndDate, ccValidationCode, "");
-        Person enteredPerson = new Person(username, password, realName, email, birthDate, nationality, enteredCard);
+        Person enteredPerson = new Person(username, password, realName, email, birthDate, phone, nationality, enteredCard);
         return enteredPerson;
     }
 
@@ -199,6 +202,6 @@ public class SignupActivity extends AppCompatActivity {
         Date ccEndDate = ccEndDateCalendar.getTime();
 
         Card registeringCard = new Card("1234123412341234", ccEndDate, "456", "");
-        return new Person("Peter", "abc123", "Peter Paúl Peterson", "peter@planet.pl", birthDate, "Polish", registeringCard);
+        return new Person("Peter", "abc123", "Peter Paúl Peterson", "peter@planet.pl", birthDate, "2313", "Polish", registeringCard);
     }
 }
