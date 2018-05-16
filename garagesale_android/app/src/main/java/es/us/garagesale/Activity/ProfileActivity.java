@@ -93,6 +93,8 @@ public class ProfileActivity extends Activity{
         sales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                primaryTitle.setText("Mis ventas:");
+                primaryTitle.setPaintFlags(primaryTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 v.setBackgroundResource(R.drawable.button_group_left_selected_background);
                 unSet(1);
                 linearLayout.removeAllViews();
@@ -108,6 +110,8 @@ public class ProfileActivity extends Activity{
         purchases.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                primaryTitle.setText("Mis compras:");
+                primaryTitle.setPaintFlags(primaryTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 v.setBackgroundResource(R.drawable.button_group_middle_selected_background);
                 unSet(2);
                 linearLayout.removeAllViews();
@@ -123,6 +127,8 @@ public class ProfileActivity extends Activity{
         personalArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                primaryTitle.setText("Información personal:");
+                primaryTitle.setPaintFlags(primaryTitle.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
                 v.setBackgroundResource(R.drawable.button_group_middle_selected_background);
                 unSet(3);
                 linearLayout.removeAllViews();
@@ -133,6 +139,9 @@ public class ProfileActivity extends Activity{
         messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                primaryTitle.setText("Mis mensajes");
+                primaryTitle.setPaintFlags(primaryTitle.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+
                 v.setBackgroundResource(R.drawable.button_group_right_selected_background);
                 unSet(4);
                 linearLayout.removeAllViews();
@@ -498,6 +507,9 @@ public class ProfileActivity extends Activity{
             title.setId(R.id.tv_title + idOffset * (100 + 1));
             title.setText(offer.getName());
 
+            LinearLayout report= inflatedOffer.findViewById(R.id.ll_report);
+            title.setId(R.id.ll_report + idOffset * (100 + 1));
+            report.setVisibility(View.GONE);
 
             TextView originalPrice = inflatedOffer.findViewById(R.id.tv_original_price);
             originalPrice.setId(R.id.tv_original_price + idOffset * (1000 + 1));
@@ -558,6 +570,35 @@ public class ProfileActivity extends Activity{
                 img.setImageResource(R.mipmap.moneybag);
                 lblAccept.setText("Has vendido este producto");
                 remainingTime.setText("Quedan 0 horas");
+                report.setVisibility(View.VISIBLE);
+                report.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //generar reporte
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                        builder.setTitle("Escribe tu reporte de defectos. Nos pondremos en contacto.");
+
+                        final EditText input = new EditText(ProfileActivity.this);
+                        input.setInputType(InputType.TYPE_CLASS_TEXT);
+                        builder.setView(input);
+
+                        builder.setPositiveButton("Enviar reporte", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String m_Text = input.getText().toString();
+                                //se simula que le llega a alguien el reporte y hacen algo al respecto.
+                            }
+                        });
+                        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        builder.show();
+                    }
+                });
             }
             else if(!valid.contains(offer)) {
                 btnAccept.setBackgroundResource(R.drawable.border_rounded_background_error);

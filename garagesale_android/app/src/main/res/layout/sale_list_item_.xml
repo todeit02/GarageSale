@@ -164,5 +164,35 @@
             app:layout_constraintTop_toTopOf="@+id/imgv_btn_title_offer" />
     </android.support.constraint.ConstraintLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_report"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_reclaim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Ha ocurrido algo mal?"
+            android:textColor="@color/base"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tv_reclaim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Reportalo."
+            android:textColor="@color/jumbo"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+
 
 </LinearLayout>
