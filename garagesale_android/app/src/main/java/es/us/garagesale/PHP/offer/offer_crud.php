@@ -179,20 +179,20 @@ class OfferCrud
      */
 
    public static function update(
-          $sold,
+          $isSold,
           $id
      )
      {
          // Creando consulta UPDATE
          $consulta = "UPDATE offers" .
-             " SET sold=? " .
+             " SET isSold=? " .
              "WHERE id=?";
 
          // Preparar la sentencia
          $cmd = Database::getInstance()->getDb()->prepare($consulta);
 
          // Relacionar y ejecutar la sentencia
-         $cmd->execute(array($sold, $id));
+         $cmd->execute(array($isSold, $id));
 
          return $cmd;
      }
@@ -299,15 +299,19 @@ class OfferCrud
         public static function insertOfferPurchase(
             $offer_id,
             $price,
-            $buyer_username
+            $buyer_username,
+            $paymentMethod,
+            $hasContactedSeller
         )
        {
        // Sentencia INSERT
                    $comando = "INSERT INTO purchases ( " .
                        "offer_id," .
                        " price," .
-                       " buyer_username)" .
-                       " VALUES( ?,?,?)";
+                       " buyer_username," .
+                       " paymentMethod," .
+                       " hasContactedSeller)" .
+                       " VALUES( ?,?,?,?,?)";
 
                    // Preparar la sentencia
                    $sentencia = Database::getInstance()->getDb()->prepare($comando);
@@ -316,7 +320,9 @@ class OfferCrud
                        array(
                            $offer_id,
                            $price,
-                           $buyer_username
+                           $buyer_username,
+                           $paymentMethod,
+                           $hasContactedSeller
                        )
                    );
 

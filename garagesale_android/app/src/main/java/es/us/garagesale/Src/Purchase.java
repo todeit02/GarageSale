@@ -13,6 +13,24 @@ public class Purchase extends SugarRecord<Purchase>{
     private int offer_id;
     private String buyer_username;
     private int price;
+    private String paymentMethod;
+    private boolean hasContactedSeller;
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public boolean isHasContactedSeller() {
+        return hasContactedSeller;
+    }
+
+    public void setHasContactedSeller(boolean hasContactedSeller) {
+        this.hasContactedSeller = hasContactedSeller;
+    }
 
     public int getOffer_id() {
         return offer_id;
@@ -64,6 +82,8 @@ public class Purchase extends SugarRecord<Purchase>{
                 ", offer_id=" + offer_id +
                 ", buyer_username='" + buyer_username + '\'' +
                 ", price=" + price +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", hasContactedSeller=" + hasContactedSeller +
                 '}';
     }
 }

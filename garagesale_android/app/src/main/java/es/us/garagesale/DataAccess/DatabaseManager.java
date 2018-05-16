@@ -775,7 +775,7 @@ public class DatabaseManager
     public static void editOffer(int id, final Activity callingActivity){
         String url = Constantes.UPDATE_OFFER;
         Map<String, String> params = new HashMap<String, String>();
-        params.put("sold", String.valueOf(1));
+        params.put("isSold", String.valueOf(1));
         params.put("id", String.valueOf(id));
 
         CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -955,6 +955,8 @@ public class DatabaseManager
         map.put("offer_id", String.valueOf(offerId));
         map.put("price", String.valueOf(price));
         map.put("buyer_username", buyer);
+        map.put("paymentMethod" , "card");
+        map.put("hasContactedSeller", String.valueOf(0));
 
         // Crear nuevo objeto Json basado en el mapa
         JSONObject jobject = new JSONObject(map);

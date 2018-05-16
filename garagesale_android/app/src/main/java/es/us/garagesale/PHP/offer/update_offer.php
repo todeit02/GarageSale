@@ -9,7 +9,7 @@ require 'offer_crud.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
-    $sold = $_POST["sold"];
+    $sold = $_POST["isSold"];
     $id = $_POST["id"];
 
    // $j = array('name' =>$name);

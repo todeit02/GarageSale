@@ -305,80 +305,88 @@ public class ProfileActivity extends Activity{
 
 
         for (final Purchase purchase : purchases) {
-            length++;
 
-            final View inflatedOffer = linearLayoutInflater.inflate(R.layout.message_item_list, null);
-            inflatedOffer.setId(R.layout.message_item_list + idOffset);
+            if(!purchase.isHasContactedSeller()){
+                length++;
 
-            TextView generalTitle = inflatedOffer.findViewById(R.id.tv_message_title);
-            generalTitle.setText("Compra nro. " + purchase.getOffer_id());
+                final View inflatedOffer = linearLayoutInflater.inflate(R.layout.message_item_list, null);
+                inflatedOffer.setId(R.layout.message_item_list + idOffset);
 
-            final TextView title = inflatedOffer.findViewById(R.id.tv_title);
-            title.setId(R.id.tv_title + idOffset * (100 + 1));
+                TextView generalTitle = inflatedOffer.findViewById(R.id.tv_message_title);
+                generalTitle.setText("Compra nro. " + purchase.getOffer_id());
 
-            final TextView seller = inflatedOffer.findViewById(R.id.tv_seller);
-            seller.setId(R.id.tv_seller + idOffset * (100 + 1));
+                final TextView title = inflatedOffer.findViewById(R.id.tv_title);
+                title.setId(R.id.tv_title + idOffset * (100 + 1));
 
-            final TextView phone = inflatedOffer.findViewById(R.id.tv_phone);
-            phone.setId(R.id.tv_phone + idOffset * (100 + 1));
+                final TextView seller = inflatedOffer.findViewById(R.id.tv_seller);
+                seller.setId(R.id.tv_seller + idOffset * (100 + 1));
 
-            DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
-                @Override
-                public void consume(final Offer receivedOffer) {
-                    title.setText(receivedOffer.getName());
-                    seller.setText("Vendedor: " +receivedOffer.getSellerUsername());
-                   // phone.setText("Contacto: " +receivedOffer.getSellerUsername());
-                    phone.setText("+645668934");
+                final TextView phone = inflatedOffer.findViewById(R.id.tv_phone);
+                phone.setId(R.id.tv_phone + idOffset * (100 + 1));
 
-
-                }
-            });
+                DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
+                    @Override
+                    public void consume(final Offer receivedOffer) {
+                        title.setText(receivedOffer.getName());
+                        seller.setText("Vendedor: " +receivedOffer.getSellerUsername());
+                        // phone.setText("Contacto: " +receivedOffer.getSellerUsername());
+                        phone.setText("+645668934");
 
 
-            final RadioButton card = inflatedOffer.findViewById(R.id.radioButtonCard);
-            card.setChecked(true);
-
-            final RadioButton cash = inflatedOffer.findViewById(R.id.radioButtonCash);
-            cash.setChecked(false);
-
-            card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    card.setChecked(true);
-                    cash.setChecked(false);
-
-                }
-            });
-
-            cash.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cash.setChecked(true);
-                    card.setChecked(false);
-
-                }
-            });
-
-            ConstraintLayout call = inflatedOffer.findViewById(R.id.cl_btn_bid);
-            call.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone.getText().toString(), null));
-                    startActivity(intent);
-
-                }
-            });
-
-            Switch erase = inflatedOffer.findViewById(R.id.switchErase);
-            erase.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked){
-                        linearLayout.removeView(inflatedOffer);
                     }
-                }
-            });
+                });
+
+
+                final RadioButton card = inflatedOffer.findViewById(R.id.radioButtonCard);
+                card.setChecked(true);
+
+                final RadioButton cash = inflatedOffer.findViewById(R.id.radioButtonCash);
+                cash.setChecked(false);
+
+                card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        card.setChecked(true);
+                        cash.setChecked(false);
+
+                    }
+                });
+
+                cash.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cash.setChecked(true);
+                        card.setChecked(false);
+
+                    }
+                });
+
+                ConstraintLayout call = inflatedOffer.findViewById(R.id.cl_btn_bid);
+                call.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone.getText().toString(), null));
+                        startActivity(intent);
+
+                        //UPDATE PURCHASE METHOD
+
+                    }
+                });
+
+                Switch erase = inflatedOffer.findViewById(R.id.switchErase);
+                erase.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked){
+                            linearLayout.removeView(inflatedOffer);
+
+                            //HACER UN UPDATE HAS CONTACTED
+                        }
+                    }
+                });
                 linearLayout.addView(inflatedOffer);
                 idOffset++;
+
+            }
 
         }
     }

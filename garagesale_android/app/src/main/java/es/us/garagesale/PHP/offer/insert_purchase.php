@@ -14,7 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $retorno = OfferCrud::insertOfferPurchase(
         $body['offer_id'],
         $body['price'],
-        $body['buyer_username']);
+        $body['buyer_username'],
+        $body['paymentMethod'],
+        $body['hasContactedSeller']);
 
     if ($retorno) {
         // Código de éxito
