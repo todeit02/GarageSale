@@ -12,11 +12,12 @@
         android:id="@+id/tv_activity_name"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="@drawable/border_rounded_background"
+        android:background="@drawable/border_button_background"
+        android:fontFamily="sans-serif-smallcaps"
         android:gravity="center"
         android:text="Elaborar oferta"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/base"
         android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -77,6 +78,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_group_left_selected_background"
                         android:text="@string/offer_condition_new"
+                        android:textColor="@color/monsoon"
                         android:textSize="18sp" />
 
                     <Button
@@ -86,6 +88,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_group_middle_unselected_background"
                         android:text="@string/offer_condition_nearly_new"
+                        android:textColor="@color/monsoon"
                         android:textSize="18sp" />
 
                     <Button
@@ -95,6 +98,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_group_middle_unselected_background"
                         android:text="@string/offer_condition_used"
+                        android:textColor="@color/monsoon"
                         android:textSize="18sp" />
 
                     <Button
@@ -104,6 +108,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_group_right_unselected_background"
                         android:text="@string/offer_condition_defective"
+                        android:textColor="@color/monsoon"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -128,6 +133,7 @@
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:fontFamily="sans-serif-smallcaps"
                     android:gravity="top|left|start"
                     android:hint="@string/offer_creation_description_hint"
                     android:inputType="textMultiLine"
@@ -168,7 +174,7 @@
                         android:layout_width="50dp"
                         android:layout_height="0dp"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/camera"
+                        android:src="@mipmap/photo_camera"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -178,10 +184,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:gravity="start"
                         android:text="añade\nuna foto"
                         android:textAlignment="textStart"
-                        android:textColor="@color/black"
+                        android:textColor="@color/oil"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/imgv_btn_add_photo"
@@ -208,7 +215,7 @@
                         android:layout_width="50dp"
                         android:layout_height="0dp"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/map_marker"
+                        android:src="@mipmap/placeholder"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -218,10 +225,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:gravity="start"
                         android:text="añade\nla ubicación"
                         android:textAlignment="textStart"
-                        android:textColor="@color/black"
+                        android:textColor="@color/oil"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/imgv_btn_add_location"
@@ -275,7 +283,7 @@
                         android:gravity="start|center_vertical"
                         android:text="@string/currency"
                         android:textAlignment="gravity"
-                        android:textColor="@color/black"
+                        android:textColor="@color/oil"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintLeft_toRightOf="@+id/et_price" />
@@ -299,8 +307,10 @@
                         android:layout_height="50dp"
                         android:layout_weight="0.5"
                         android:background="@drawable/button_group_left_selected_background"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:padding="3dp"
                         android:text="@string/offer_duration"
+                        android:textColor="@color/oil"
                         android:textSize="18sp" />
 
                     <Button
@@ -309,8 +319,10 @@
                         android:layout_height="50dp"
                         android:layout_weight="0.5"
                         android:background="@drawable/button_group_middle_unselected_background"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:padding="3dp"
                         android:text="@string/offer_duration"
+                        android:textColor="@color/oil"
                         android:textSize="18sp" />
 
                     <Button
@@ -319,8 +331,10 @@
                         android:layout_height="50dp"
                         android:layout_weight="0.5"
                         android:background="@drawable/button_group_right_unselected_background"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:padding="3dp"
                         android:text="@string/offer_duration"
+                        android:textColor="@color/oil"
                         android:textSize="18sp" />
 
                     <Space
@@ -348,7 +362,7 @@
                     android:layout_width="50dp"
                     android:layout_height="0dp"
                     android:scaleType="fitCenter"
-                    android:src="@mipmap/upload"
+                    android:src="@mipmap/outbox"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -357,9 +371,10 @@
                     android:id="@+id/tv_btn_publish_label"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:fontFamily="sans-serif-smallcaps"
                     android:gravity="center"
                     android:text="¡Publícalo!"
-                    android:textColor="@color/black"
+                    android:textColor="@color/oil"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"

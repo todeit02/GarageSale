@@ -53,8 +53,8 @@
 
     <!-- Creación de la oferta -->
     <string name="offer_creation_title_hint">¿Qué quieres vender? &#8230;</string>
-    <string name="offer_creation_tags_hint">#unTag #otroTag &#8230; (separa por espacios)</string>
-    <string name="offer_creation_description_hint">Cuéntanos un poco sobre el artículo. Menciona lo más importante primero! &#8230;</string>
+    <string name="offer_creation_tags_hint">#unTag #otroTag &#8230;</string>
+    <string name="offer_creation_description_hint">Cuéntanos un poco sobre el artículo &#8230;</string>
     <string name="offer_condition_new">nuevo</string>
     <string name="offer_condition_nearly_new">casi nuevo</string>
     <string name="offer_condition_used">usado</string>

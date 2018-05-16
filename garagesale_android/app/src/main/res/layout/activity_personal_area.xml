@@ -24,7 +24,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:autoSizeTextType="uniform"
-                android:background="@drawable/border_activity_name"
+                android:background="@drawable/border_button_background"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="Area personal"
                 android:textAlignment="center"

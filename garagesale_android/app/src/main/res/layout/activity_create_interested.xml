@@ -20,7 +20,7 @@
             android:layout_height="65dp"
             android:layout_gravity="center"
             android:autoSizeTextType="uniform"
-            android:background="@drawable/border_rounded_background"
+            android:background="@drawable/border_button_background"
             android:fontFamily="sans-serif-smallcaps"
             android:text="Proponer precio"
             android:textAlignment="center"

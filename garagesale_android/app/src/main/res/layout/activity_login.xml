@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/myAqua">
+    android:background="@color/myDarkAqua">
 
     <LinearLayout
         android:orientation="vertical"
@@ -78,7 +78,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="sans-serif-smallcaps"
             android:gravity="center"
             android:text="No tienes una cuenta aún? Pulsa aquí."
             android:textSize="16dip" />

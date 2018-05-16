@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/myAqua">
+    android:background="@color/myDarkAqua">
 
     <LinearLayout
         android:orientation="vertical"
@@ -253,13 +253,15 @@
             android:text="@string/signup_create_account"
             android:textColor="@android:color/background_light" />
 
-        <TextView android:id="@+id/link_login"
+        <TextView
+            android:id="@+id/link_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Ya tienes cuenta? Entra"
+            android:fontFamily="sans-serif-smallcaps"
             android:gravity="center"
-            android:textSize="16dip"/>
+            android:text="Ya tienes cuenta? Entra"
+            android:textSize="16dip" />
 
     </LinearLayout>
 </ScrollView>

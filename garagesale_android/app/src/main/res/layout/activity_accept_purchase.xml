@@ -30,7 +30,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:autoSizeTextType="uniform"
-                    android:background="@color/myLightAqua"
+                    android:background="@drawable/border_button_background"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="Aceptar venta"
                     android:textAlignment="center"

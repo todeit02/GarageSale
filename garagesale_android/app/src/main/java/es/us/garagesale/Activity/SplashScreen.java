@@ -25,8 +25,8 @@ public class SplashScreen extends Activity {
             setContentView(es.us.garagesale.R.layout.activity_splash_screen);
 
             ImageView demoImage = (ImageView)findViewById(es.us.garagesale.R.id.logo);
-            demoImage.getLayoutParams().height = 500;
-            demoImage.getLayoutParams().width = 500;
+           // demoImage.getLayoutParams().height = 500;
+           // demoImage.getLayoutParams().width = 500;
 
 
 //SPLASH
