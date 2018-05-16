@@ -197,6 +197,26 @@ class OfferCrud
          return $cmd;
      }
 
+        public static function updatePurchase(
+                $paymentMethod,
+                $hasContactedSeller,
+                $offer_id
+          )
+          {
+              // Creando consulta UPDATE
+              $consulta = "UPDATE purchases" .
+                  " SET paymentMethod=? , hasContactedSeller=?" .
+                  "WHERE offer_id=?";
+
+              // Preparar la sentencia
+              $cmd = Database::getInstance()->getDb()->prepare($consulta);
+
+              // Relacionar y ejecutar la sentencia
+              $cmd->execute(array($paymentMethod, $hasContactedSeller, $offer_id));
+
+              return $cmd;
+          }
+
 	/**
 	* insert new offer
 	*

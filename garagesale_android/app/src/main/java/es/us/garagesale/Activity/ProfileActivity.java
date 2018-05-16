@@ -343,23 +343,40 @@ public class ProfileActivity extends Activity{
                 final RadioButton cash = inflatedOffer.findViewById(R.id.radioButtonCash);
                 cash.setChecked(false);
 
-                card.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        card.setChecked(true);
-                        cash.setChecked(false);
+                if(purchase.getPaymentMethod().equals("")){
 
+                    card.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            card.setChecked(true);
+                            cash.setChecked(false);
+
+                        }
+                    });
+
+                    cash.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            cash.setChecked(true);
+                            card.setChecked(false);
+
+                        }
+                    });
+                }else{
+                    if(purchase.getPaymentMethod().equals("card")){
+                        cash.setVisibility(View.GONE);
+                        card.setSelected(true);
+                        card.setEnabled(false);
+                        card.setText("Se ha cobrado el total en tu tarjeta");
+                    }else{
+                        card.setVisibility(View.GONE);
+                        cash.setSelected(true);
+                        cash.setEnabled(false);
+                        cash.setText("Se te cobrara el importe en el momento");
                     }
-                });
+                }
 
-                cash.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        cash.setChecked(true);
-                        card.setChecked(false);
 
-                    }
-                });
 
                 ConstraintLayout call = inflatedOffer.findViewById(R.id.cl_btn_bid);
                 call.setOnClickListener(new View.OnClickListener() {
@@ -367,8 +384,22 @@ public class ProfileActivity extends Activity{
                     public void onClick(View v) {
                         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone.getText().toString(), null));
                         startActivity(intent);
-
+                        String paymentMethod;
+                        if(card.isChecked()){
+                            paymentMethod = "card";
+                            cash.setVisibility(View.GONE);
+                            card.setSelected(true);
+                            card.setEnabled(false);
+                            card.setText("Se ha cobrado el total en tu tarjeta");
+                        }else{
+                            paymentMethod = "cash";
+                            card.setVisibility(View.GONE);
+                            cash.setEnabled(false);
+                            cash.setSelected(true);
+                            cash.setText("Se te cobrara el importe en el momento");
+                        }
                         //UPDATE PURCHASE METHOD
+                        DatabaseManager.editPurchase(purchase.getOffer_id(), paymentMethod, 0, ProfileActivity.this);
 
                     }
                 });

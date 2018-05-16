@@ -797,6 +797,32 @@ public class DatabaseManager
         VolleySingleton.getInstance(callingActivity).addToRequestQueue(jsObjRequest);
     }
 
+    public static void editPurchase(int id, String paymentMethod, int hasContactedSeller, final Activity callingActivity){
+        String url = Constantes.UPDATE_PURCHASE;
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("paymentMethod", paymentMethod);
+        params.put("hasContactedSeller", String.valueOf(hasContactedSeller));
+        params.put("offer_id", String.valueOf(id));
+
+        CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Log.d("Response: ", response.toString());
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        VolleySingleton.getInstance(callingActivity).addToRequestQueue(jsObjRequest);
+    }
+
     public static void editOfferViejo(int id, final Activity callingActivity){
 
         HashMap<String, String> map = new HashMap<>();
@@ -955,7 +981,7 @@ public class DatabaseManager
         map.put("offer_id", String.valueOf(offerId));
         map.put("price", String.valueOf(price));
         map.put("buyer_username", buyer);
-        map.put("paymentMethod" , "card");
+        map.put("paymentMethod" , "");
         map.put("hasContactedSeller", String.valueOf(0));
 
         // Crear nuevo objeto Json basado en el mapa

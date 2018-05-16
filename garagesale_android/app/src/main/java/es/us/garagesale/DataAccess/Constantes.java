@@ -40,6 +40,7 @@ public class Constantes {
     public static final String GET_ALL_USERNAME_OFFERS = PROTOCOL + IP + "/offer/get_username_offers.php";
     public static final String GET_PERSON_BY_USERNAME = PROTOCOL + IP + "/person/get_person_info.php";
     public static final String UPDATE_OFFER = PROTOCOL + IP + "/offer/update_offer.php";
+    public static final String UPDATE_PURCHASE = PROTOCOL + IP + "/offer/update_purchase.php";
     public static final String DELETE_OFFER = PROTOCOL + IP + "/offer/delete_offer.php";
     public static final String INSERT_OFFER = PROTOCOL + IP + "/offer/insert_offer.php";
     public static final String GET_LOGIN_VALID = PROTOCOL + IP + "/person/get_login_valid.php";
