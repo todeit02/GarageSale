@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
-import android.util.JsonReader;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,7 +13,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import es.us.garagesale.R;
 import es.us.garagesale.Src.Card;
 import es.us.garagesale.Src.CustomRequest;
 import es.us.garagesale.Src.Interested;
@@ -24,10 +22,6 @@ import es.us.garagesale.Src.Person;
 import es.us.garagesale.Src.Purchase;
 import es.us.garagesale.Src.Ranking;
 
-import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,12 +36,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -56,9 +47,6 @@ import java.util.Map;
 
 public class DatabaseManager
 {
-    private static final String successResponse = "1";
-    private static final String failResponse = "2";
-
     public static void loadOffers(final Activity callingActivity, final IOffersConsumer callback) {
         VolleySingleton.
                 getInstance(callingActivity).
@@ -117,7 +105,7 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONArray purchasesResponse = response.getJSONArray("offers");
                     System.out.println("Message: " + purchasesResponse.toString());
 
@@ -125,7 +113,7 @@ public class DatabaseManager
                     Offer[] offers = gson.fromJson(purchasesResponse.toString(), Offer[].class);
                     callback.consume(offers);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
 
@@ -198,7 +186,7 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONArray purchasesResponse = response.getJSONArray("purchases");
                     System.out.println("Message: " + purchasesResponse.toString());
 
@@ -206,7 +194,7 @@ public class DatabaseManager
                     Purchase[] purchases = gson.fromJson(purchasesResponse.toString(), Purchase[].class);
                     callback.consume(purchases);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -249,7 +237,7 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONArray offersResponse = response.getJSONArray("interested");
                     System.out.println("Message: " + offersResponse.toString());
 
@@ -257,7 +245,7 @@ public class DatabaseManager
                     Interested[] interested = gson.fromJson(offersResponse.toString(), Interested[].class);
                     callback.consume(interested);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -378,7 +366,7 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONArray offersResponse = response.getJSONArray("offers");
                     System.out.println("Message: " + offersResponse.toString());
 
@@ -387,7 +375,7 @@ public class DatabaseManager
 
                     callback.consume(offers);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -488,7 +476,7 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONArray offersResponse = response.getJSONArray("offers");
                     System.out.println("Message: " + offersResponse.toString());
 
@@ -496,7 +484,7 @@ public class DatabaseManager
                     Offer[] offers = gson.fromJson(offersResponse.toString(), Offer[].class);
                     callback.consume(offers);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -514,7 +502,7 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONObject offerResponse = response.getJSONObject("offer");
 
                     System.out.println("Message: " + offerResponse.toString());
@@ -523,7 +511,7 @@ public class DatabaseManager
                     Offer offer = gson.fromJson(offerResponse.toString(), Offer.class);
                     callback.consume(offer);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -540,7 +528,7 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONObject rankingResponse = response.getJSONObject("ranking");
 
                     System.out.println("Message: " + rankingResponse.toString());
@@ -549,7 +537,7 @@ public class DatabaseManager
                     Ranking ranking = gson.fromJson(rankingResponse.toString(), Ranking.class);
                     callback.consume(ranking);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -566,11 +554,11 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     int ranking= response.getInt("ranking");
                     callback.consume(ranking);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -587,7 +575,7 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONObject personResponse = response.getJSONObject("person");
 
                     System.out.println("Message: " + personResponse.toString());
@@ -596,7 +584,7 @@ public class DatabaseManager
                     Person person = gson.fromJson(personResponse.toString(), Person.class);
                     callback.consume(person);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -640,12 +628,12 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     boolean isLoginValid = response.getBoolean("isLoginValid");
                     System.out.println("Message: " + isLoginValid);
                     callback.consume(isLoginValid, username, password);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     callback.consume(false, username, password);
@@ -758,11 +746,11 @@ public class DatabaseManager
 
             switch (state)
             {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     int offerId = response.getInt("offerId");
                     callback.consume(true, offerId);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     callback.consume(false, errorId);
@@ -955,7 +943,7 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONObject interestedResponse = response.getJSONObject("interested");
 
                     System.out.println("Message: " + interestedResponse.toString());
@@ -963,7 +951,7 @@ public class DatabaseManager
                     Gson gson = new Gson();
                     Interested interested = gson.fromJson(interestedResponse.toString(), Interested.class);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -1018,13 +1006,13 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONObject interestedResponse = response.getJSONObject("purchase");
 
                     System.out.println("Message: " + interestedResponse.toString());
 
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -1077,13 +1065,13 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONObject interestedResponse = response.getJSONObject("ranking");
 
                     System.out.println("Message: " + interestedResponse.toString());
 
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -1135,13 +1123,13 @@ public class DatabaseManager
             System.out.println("State: " + state);
 
             switch (state) {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     JSONObject interestedResponse = response.getJSONObject("offer");
 
                     System.out.println("Message: " + interestedResponse.toString());
 
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     break;
@@ -1230,11 +1218,11 @@ public class DatabaseManager
 
             switch (state)
             {
-                case successResponse:
+                case Constantes.SUCCESS_RESPONSE:
                     isUsernameAlreadyTaken = response.getBoolean("isUsernameAlreadyTaken");
                     callback.consume(true, isUsernameAlreadyTaken);
                     break;
-                case failResponse:
+                case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
                     isUsernameAlreadyTaken = response.getBoolean("isUsernameAlreadyTaken");

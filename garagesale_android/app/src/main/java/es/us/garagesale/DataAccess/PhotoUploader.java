@@ -2,6 +2,7 @@ package es.us.garagesale.DataAccess;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.util.Base64;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -18,15 +19,12 @@ import java.util.HashMap;
  * Created by Tobias on 11/05/2018.
  */
 
-public class PhotoUploader
+public class PhotoUploader extends PhotoExchanger
 {
     private final static int JPEG_QUALITY = 95;
 
-    private Activity uploadingActivity = null;
     private int uploadingIndex = 0;
     private ArrayList<Bitmap> photos = null;
-    private int offerId = 0;
-    private ISuccessConsumer afterUploadResponseConsumer = null;
 
     private boolean wasUploadSuccessful = false;
 
@@ -35,10 +33,10 @@ public class PhotoUploader
     {
         wasUploadSuccessful = true;
 
-        this.uploadingActivity = callingActivity;
+        this.callingActivity = callingActivity;
         this.photos = photos;
         this.offerId = offerId;
-        this.afterUploadResponseConsumer = onUploadFinishedConsumer;
+        this.onFinishConsumer = onUploadFinishedConsumer;
 
         uploadLoop();
     }
@@ -46,18 +44,18 @@ public class PhotoUploader
 
     private void uploadLoop()
     {
-        uploadPhoto(uploadingActivity, offerId, new ISuccessConsumer()
+        uploadPhoto(new ISuccessConsumer()
         {
             @Override
             public void consume(boolean wasSuccessful)
             {
-                uploadPhoto(uploadingActivity, offerId, new ISuccessConsumer() {
+                uploadPhoto(new ISuccessConsumer() {
                     @Override
                     public void consume(boolean wasSuccessful) {
                         if(!wasSuccessful)
                         {
                             wasUploadSuccessful = false;
-                            afterUploadResponseConsumer.consume(wasUploadSuccessful);
+                            onFinishConsumer.consume(wasUploadSuccessful);
                             return;
                         }
                         uploadLoop();
@@ -68,11 +66,11 @@ public class PhotoUploader
     }
 
 
-    private void uploadPhoto(Activity callingActivity, int offerId, final ISuccessConsumer onPhotoUploadConsumer)
+    private void uploadPhoto(final ISuccessConsumer onPhotoUploadConsumer)
     {
         if(uploadingIndex >= photos.size())
         {
-            afterUploadResponseConsumer.consume(wasUploadSuccessful);
+            onFinishConsumer.consume(wasUploadSuccessful);
             return;
         }
 
@@ -84,12 +82,10 @@ public class PhotoUploader
         HashMap<String, String> map = new HashMap<>();
 
         map.put("offerId", Integer.toString(offerId));
-        String imageData = "";
-        try{
-            imageData = photoDataStream.toString("US-ASCII");
-        }
-        catch (Exception e){}
-        map.put("image", imageData);
+
+        byte[] imageData = photoDataStream.toByteArray();
+        String encodedImage = Base64.encodeToString(imageData, Base64.DEFAULT);
+        map.put("image", encodedImage);
 
         JSONObject json = new JSONObject(map);
 

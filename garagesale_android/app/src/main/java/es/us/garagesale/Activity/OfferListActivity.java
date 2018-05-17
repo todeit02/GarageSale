@@ -3,6 +3,7 @@ package es.us.garagesale.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.view.*;
 
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IOffersConsumer;
+import es.us.garagesale.DataAccess.ISuccessConsumer;
+import es.us.garagesale.DataAccess.PhotoDownloader;
 import es.us.garagesale.Src.Offer;
 
 import android.widget.ImageButton;
@@ -17,7 +20,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import es.us.garagesale.R;
 
@@ -30,7 +35,7 @@ public class OfferListActivity extends Activity
     private ImageButton btnPersonalArea, btnSearchTag;
     private TextView noResults = null;
     private SearchView search = null;
-    private Offer[] allOffers;
+    private ArrayList<Offer> allOffers;
 
 
     @Override
@@ -56,8 +61,9 @@ public class OfferListActivity extends Activity
         DatabaseManager.loadOffers(this, new IOffersConsumer() {
             @Override
             public void consume(Offer[] offers) {
-                createOfferViews(offers);
-                allOffers = offers;
+                ArrayList<Offer> activeOffers = Offer.removeInactiveOffers(offers);
+                displayOffers(activeOffers);
+                allOffers = activeOffers;
             }
         });
 
@@ -91,7 +97,7 @@ public class OfferListActivity extends Activity
                 DatabaseManager.loadFilteredOffers(query, query, OfferListActivity.this, new IOffersConsumer() {
                     @Override
                     public void consume(Offer[] offers) {
-                        createOfferViews(offers);
+                        displayOffers(new ArrayList<>(Arrays.asList(offers)));
                     }
                 });
                 return false;
@@ -111,70 +117,86 @@ public class OfferListActivity extends Activity
                 search.setQuery("", false);
                 search.clearFocus();
                 search.setVisibility(View.GONE);
-                createOfferViews(allOffers);
+                displayOffers(allOffers);
+            }
+        });
+    }
+
+
+    private void inflateOffer(final Offer inflatingOffer)
+    {
+        View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
+
+        TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
+        inflatedOfferItemTitle.setText(inflatingOffer.getName());
+
+        TextView inflatedOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
+        inflatedOfferItemPrice.setText("Precio original: " + inflatingOffer.getPrice() + getString(R.string.currency));
+
+        if(inflatingOffer.hasPhotos())
+        {
+            ImageView inflatedOfferPhotoView = inflatedOffer.findViewById(R.id.imgv_offer_item_photo);
+            inflatedOfferPhotoView.setImageBitmap(inflatingOffer.getPhotos().get(0));
+        }
+
+        inflatedOffer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent createOfferDetailActivityIntent = new Intent(getApplicationContext(), OfferDetailActivity.class);
+                Bundle extras = new Bundle();
+                extras.putInt("id",inflatingOffer.getId());
+                extras.putString("username",inflatingOffer.getSellerUsername());
+                createOfferDetailActivityIntent.putExtras(extras);
+                startActivity(createOfferDetailActivityIntent);
             }
         });
 
-        SharedPreferences sharedPreferences = this.getSharedPreferences("login", MODE_PRIVATE);
-        Log.d(this.getClass().getSimpleName(), sharedPreferences.getString("username", null));
+        linearLayout.addView(inflatedOffer);
     }
 
-    private void createOfferViews(Offer[] creatingOffers)
+
+    private void displayOffers(ArrayList<Offer> photolessOffers)
     {
-        if(creatingOffers.length>0){
-            noResults.setVisibility(View.GONE);
-        }else{
-            noResults.setVisibility(View.VISIBLE);
-        }
         linearLayout.removeAllViews();
-        int idOffset = 1;
-        int length = 0;
 
-        for(final Offer creatingOffer : creatingOffers)
+        if(photolessOffers.size() == 0)
         {
+            showNoOffersMessage();
+            return;
+        }
 
-            if(creatingOffer.isValid()) {
+        noResults.setVisibility(View.GONE);
 
-                length++;
+        for(final Offer photoAddingOffer : photolessOffers)
+        {
+            if(photoAddingOffer.hasPhotos()) continue;
 
-                View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_item, null);
-                inflatedOffer.setId(R.layout.offer_list_item + idOffset);
-
-                TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
-                inflatedOfferItemTitle.setId(R.id.tv_offer_item_title + idOffset * (100 + 1));
-
-                TextView inflatedOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
-                inflatedOfferItemPrice.setId(R.id.tv_offer_item_price + idOffset * (10000 + 1));
-
-                inflatedOfferItemTitle.setText(creatingOffer.getName());
-                inflatedOfferItemPrice.setText("Precio original: " + creatingOffer.getPrice() + getString(R.string.currency));
-
-                inflatedOffer.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent createOfferDetailActivityIntent = new Intent(getApplicationContext(), OfferDetailActivity.class);
-                        Bundle extras = new Bundle();
-                        extras.putInt("id",creatingOffer.getId());
-                        extras.putString("username",creatingOffer.getSellerUsername());
-                        createOfferDetailActivityIntent.putExtras(extras);
-                        startActivity(createOfferDetailActivityIntent);
+            final ArrayList<Bitmap> photosBuffer = new ArrayList<>();
+            PhotoDownloader photoDownloader = new PhotoDownloader();
+            photoDownloader.download(this, photoAddingOffer.getId(), photosBuffer, new ISuccessConsumer() {
+                @Override
+                public void consume(boolean wasSuccessful)
+                {
+                    if(wasSuccessful)
+                    {
+                        photoAddingOffer.setPhotos(photosBuffer);
                     }
-                });
-
-                linearLayout.addView(inflatedOffer);
-                idOffset++;
-            }
+                    inflateOffer(photoAddingOffer);
+                }
+            });
         }
+    }
 
-        if(length==0 || creatingOffers.length==0){
-            //Mostrar mensaje :"No hay ofertas disponibles"
 
-            View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_empty, null);
+    private void showNoOffersMessage()
+    {
+        noResults.setVisibility(View.VISIBLE);
 
-            TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
-            inflatedOfferItemTitle.setText("No hay ofertas disponibles");
+        View inflatedOffer = linearLayoutInflater.inflate(R.layout.offer_list_empty, null);
 
-            linearLayout.addView(inflatedOffer);
-        }
+        TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
+        inflatedOfferItemTitle.setText("No hay ofertas disponibles");
+
+        linearLayout.addView(inflatedOffer);
     }
 }
