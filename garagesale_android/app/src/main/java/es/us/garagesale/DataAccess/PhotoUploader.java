@@ -2,6 +2,7 @@ package es.us.garagesale.DataAccess;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.util.Base64;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -81,12 +82,10 @@ public class PhotoUploader extends PhotoExchanger
         HashMap<String, String> map = new HashMap<>();
 
         map.put("offerId", Integer.toString(offerId));
-        String imageData = "";
-        try{
-            imageData = photoDataStream.toString("UTF-8");
-        }
-        catch (Exception e){}
-        map.put("image", imageData);
+
+        byte[] imageData = photoDataStream.toByteArray();
+        String encodedImage = Base64.encodeToString(imageData, Base64.DEFAULT);
+        map.put("image", encodedImage);
 
         JSONObject json = new JSONObject(map);
 

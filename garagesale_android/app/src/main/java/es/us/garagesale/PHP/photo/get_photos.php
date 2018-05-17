@@ -12,14 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 		$offerId = $_GET["offerId"];
 		$offerPhotosPath = "../photo_storage/" . $offerId . '/';	
 		
-		$photoDirectory = opendir($offerPhotosPath);
+		$succeeded = file_exists($offerPhotosPath);
+		
+		$photoDirectory = false;
+		if($succeeded) $photoDirectory = opendir($offerPhotosPath);
 		$succeeded = ($photoDirectory !== false);
 	
 		$photosContent = array();
 		
-		foreach(readdir($photoDirectory) as $fileName)
+		while($succeeded && ($fileName = readdir($photoDirectory)) !== false)
 		{
-			if($fileName == '.' || $fileName == ".." || !$succeeded || $fileName === false) continue;
+			if($fileName == '.' || $fileName == "..") continue;
 			
 			$filePath = $offerPhotosPath . $fileName;
 			$photoFile = fopen($filePath, "r");
@@ -35,12 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 	}	
 	
 	if ($succeeded)
-	{
+	{		
         $response["estado"] = 1;
         $response["photos"] = $photosContent;
 		
 		print json_encode($response);
-        );
     }
 	else {
 		$mensaje = isset($offerId) ? ("No photos available for offerId " . $offerId . '.') : "No offerId has been passed.";

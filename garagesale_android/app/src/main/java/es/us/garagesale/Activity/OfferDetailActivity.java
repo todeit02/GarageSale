@@ -75,7 +75,8 @@ public class OfferDetailActivity extends Activity {
     }
 
 
-    private void displayOffer(final Offer received){
+    private void displayOffer(final Offer received)
+    {
         title.setText(received.getName());
         seller.setText("Vendedor: "+received.getSellerUsername());
         final RatingBar reputation = findViewById(R.id.ratingBarDetail);

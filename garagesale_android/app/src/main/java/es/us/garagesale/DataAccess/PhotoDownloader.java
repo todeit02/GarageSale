@@ -3,6 +3,7 @@ package es.us.garagesale.DataAccess;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -14,18 +15,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class PhotoDownloader extends PhotoExchanger
 {
     private ArrayList<Bitmap> photosBuffer = null;
-    private boolean wasUploadSuccessful = false;
+
 
     public void download(final Activity callingActivity, int offerId, ArrayList<Bitmap> photosBuffer, final ISuccessConsumer onDownloadFinishedConsumer)
     {
-        wasUploadSuccessful = true;
-
         this.callingActivity = callingActivity;
         this.photosBuffer = photosBuffer;
         this.offerId = offerId;
@@ -42,7 +42,7 @@ public class PhotoDownloader extends PhotoExchanger
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                Constantes.UPLOAD_PHOTO + "?offerId=" + offerId,
+                                Constantes.GET_ALL_PHOTOS + "?offerId=" + offerId,
                                 (String)null,
                                 new Response.Listener<JSONObject>() {
 
@@ -92,11 +92,12 @@ public class PhotoDownloader extends PhotoExchanger
         if(!wasDownloadSuccessful || photoContents == null || photoContents.length == 0)
         {
             onFinishConsumer.consume(false);
+            return;
         }
 
         for(String deserializingPhotoContent : photoContents)
         {
-            byte[] photoBytes = deserializingPhotoContent.getBytes(Charset.forName("UTF-8"));
+            byte[] photoBytes = Base64.decode(deserializingPhotoContent, Base64.DEFAULT);
             Bitmap deserializedPhoto = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
 
             if(deserializedPhoto == null)
