@@ -389,12 +389,12 @@ public class OfferCreationActivity extends Activity
             @Override
             public void run() {
                 setViewToFirstTakenImage();
-                lockPhotoScrollSize();
+                freezePhotoScrollSize();
             }
         });
     }
 
-    private void lockPhotoScrollSize()
+    private void freezePhotoScrollSize()
     {
         HorizontalScrollView photoScroll = findViewById(R.id.hsv_photos_scroll);
         int currentWidth = photoScroll.getWidth();

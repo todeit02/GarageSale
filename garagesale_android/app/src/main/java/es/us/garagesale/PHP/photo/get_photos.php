@@ -5,11 +5,12 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
-	$succeeded = isset($_GET["offerId"]);
+	$succeeded = isset($_GET["offerId"]) && isset($_GET["singlePhoto"]);
 	
 	if($succeeded)
 	{	
 		$offerId = $_GET["offerId"];
+		$getSinglePhoto = ($_GET["singlePhoto"] == "true");
 		$offerPhotosPath = "../photo_storage/" . $offerId . '/';	
 		
 		$succeeded = file_exists($offerPhotosPath);
@@ -33,8 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 				$photoContent = fread($photoFile, filesize($filePath));
 				fclose($photoFile);
 				array_push($photosContent, $photoContent);
+				
+				if($getSinglePhoto) 
+				{
+					error_log($getSinglePhoto);
+					break;
+				}
 			}		
 		}
+		if($photoDirectory) closedir($photoDirectory);
 	}	
 	
 	if ($succeeded)

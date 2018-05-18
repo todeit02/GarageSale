@@ -173,7 +173,7 @@ public class OfferListActivity extends Activity
 
             final ArrayList<Bitmap> photosBuffer = new ArrayList<>();
             PhotoDownloader photoDownloader = new PhotoDownloader();
-            photoDownloader.download(this, photoAddingOffer.getId(), photosBuffer, new ISuccessConsumer() {
+            photoDownloader.download(this, photoAddingOffer.getId(), true, photosBuffer, new ISuccessConsumer() {
                 @Override
                 public void consume(boolean wasSuccessful)
                 {

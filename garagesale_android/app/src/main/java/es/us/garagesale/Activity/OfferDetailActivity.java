@@ -4,21 +4,29 @@ import android.app.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+
 import es.us.garagesale.DataAccess.DatabaseManager;
 import es.us.garagesale.DataAccess.IInterestedConsumer;
 import es.us.garagesale.DataAccess.IOfferConsumer;
+import es.us.garagesale.DataAccess.ISuccessConsumer;
 import es.us.garagesale.DataAccess.IUserRankingConsumer;
+import es.us.garagesale.DataAccess.PhotoDownloader;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Interested;
 import es.us.garagesale.Src.Offer;
@@ -30,13 +38,18 @@ import static android.util.TypedValue.COMPLEX_UNIT_SP;
 public class OfferDetailActivity extends Activity {
 
     private int selectedOfferId;
-    TextView title, detail, state, remainingTime, currentPrice, currentOffers, createInterested, location, googleMaps, seller, reputationText;
-    ConstraintLayout showLocation;
-    View map;
-    LinearLayout locationLayout;
+    private TextView title, detail, state, remainingTime, currentPrice, currentOffers, createInterested, location, googleMaps, seller, reputationText;
+    private ConstraintLayout showLocation;
+    private View map;
+    private LinearLayout locationLayout;
     private Offer offer;
-    String actualUser;
-    String offerUser;
+    private String actualUser;
+    private String offerUser;
+    private LinearLayout photoSection;
+    private ImageView photoView;
+    private Button previousPhotoButton, nextPhotoButton;
+
+    private Bitmap showingPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +58,11 @@ public class OfferDetailActivity extends Activity {
 
         title = findViewById(R.id.tvOfferDetailsOfferTitle);
         reputationText = findViewById(R.id.tvReputation);
-        seller= findViewById(R.id.tvSeller);
+        photoSection = findViewById(R.id.ll_offer_details_photos);
+        photoView = findViewById(R.id.imgv_offer_photo);
+        previousPhotoButton = findViewById(R.id.btn_offer_details_photos_prev);
+        nextPhotoButton = findViewById(R.id.btn_offer_details_photos_next);
+        seller = findViewById(R.id.tvSeller);
         googleMaps = findViewById(R.id.tv_btn_show_map);
         map = findViewById(R.id.imgv_btn_show_map);
         detail = findViewById(R.id.tv_offer_details_description);
@@ -59,6 +76,8 @@ public class OfferDetailActivity extends Activity {
         createInterested = findViewById(R.id.tv_btn_bid_label);
         createInterested.setText("Propón un precio!");
 
+        preparePreviousPhotoButton();
+        prepareNextPhotoButton();
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("login", MODE_PRIVATE);
         actualUser = sharedPreferences.getString("username", null);
@@ -69,16 +88,35 @@ public class OfferDetailActivity extends Activity {
         DatabaseManager.loadOffer(selectedOfferId, this, new IOfferConsumer() {
             @Override
             public void consume(Offer receivedOffer) {
-                displayOffer(receivedOffer);
+                offer = receivedOffer;
+                displayOffer();
             }
         });
     }
 
 
-    private void displayOffer(final Offer received)
+    private void displayOffer()
     {
-        title.setText(received.getName());
-        seller.setText("Vendedor: "+received.getSellerUsername());
+        final ArrayList<Bitmap> photosBuffer = new ArrayList<>();
+        PhotoDownloader photoDownloader = new PhotoDownloader();
+        photoDownloader.download(this, offer.getId(), false, photosBuffer, new ISuccessConsumer() {
+            @Override
+            public void consume(boolean wasSuccessful) {
+                if(wasSuccessful)
+                {
+                    freezePhotoViewSize();
+                    offer.setPhotos(photosBuffer);
+                    showPhoto(offer.getPhotos().get(0));
+                }
+                else
+                {
+                    ((ViewGroup)photoSection.getParent()).removeView(photoSection);
+                }
+            }
+        });
+
+        title.setText(offer.getName());
+        seller.setText("Vendedor: "+offer.getSellerUsername());
         final RatingBar reputation = findViewById(R.id.ratingBarDetail);
         reputation.setEnabled(false);
         DatabaseManager.getUserRanking(actualUser, OfferDetailActivity.this, new IUserRankingConsumer() {
@@ -90,25 +128,25 @@ public class OfferDetailActivity extends Activity {
 
             }
         });
-        detail.setText(received.getDescription()+" \n"+ "Precio original: "+ getString(R.string.currency) +received.getPrice());
-        CharSequence condition = OfferTool.getCharSequenceFromCondition(received.getCondition(), this);
+        detail.setText(offer.getDescription()+" \n"+ "Precio original: "+ getString(R.string.currency) +offer.getPrice());
+        CharSequence condition = OfferTool.getCharSequenceFromCondition(offer.getCondition(), this);
         state.setText(condition);
-        remainingTime.setText(received.calculateRemainingTime()+" horas");
+        remainingTime.setText(offer.calculateRemainingTime()+" horas");
         currentOffers.setText("Nadie ha ofertado aun");
         currentPrice.setText("0"+getString(R.string.currency)+" es la oferta mas alta");
-        getMaxOffer(received);
-        if (received.getCoordinates().latitude!=0.0&&received.getCoordinates().longitude!=0.0){
+        getMaxOffer(offer);
+        if (offer.getCoordinates().latitude!=0.0&&offer.getCoordinates().longitude!=0.0){
             showLocation.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
-                    openGoogleMaps(received);
+                    openGoogleMaps(offer);
                 }
             });
 
-            CharSequence placeName = received.getCityName();
-            LatLng coordinates = received.getCoordinates();
+            CharSequence placeName = offer.getCityName();
+            LatLng coordinates = offer.getCoordinates();
             CharSequence locationText = getString(R.string.offer_location, placeName.toString(), coordinates.toString());
             location.setText(locationText);
             location.setTextSize(COMPLEX_UNIT_SP, 12);
@@ -125,7 +163,7 @@ public class OfferDetailActivity extends Activity {
                     Intent createInterestedActivityIntent = new Intent(getApplicationContext(), InterestedCreationActivity.class);
                     Bundle extras = new Bundle();
                     extras.putInt("id", selectedOfferId);
-                    extras.putString("name",received.getName());
+                    extras.putString("name",offer.getName());
                     createInterestedActivityIntent.putExtras(extras);
                     startActivity(createInterestedActivityIntent);
                 }
@@ -147,8 +185,8 @@ public class OfferDetailActivity extends Activity {
         return areEqual;
     }
 
-    private void getMaxOffer(Offer received){
-        DatabaseManager.loadInterested(received.getId(),this, new IInterestedConsumer() {
+    private void getMaxOffer(Offer offer){
+        DatabaseManager.loadInterested(offer.getId(),this, new IInterestedConsumer() {
             @Override
             public void consume(Interested[] interested) {
                 currentOffers.setText("Hay " + interested.length + " ofertas");
@@ -187,7 +225,56 @@ public class OfferDetailActivity extends Activity {
         startActivity(mapIntent);
     }
 
+    
+    private void preparePreviousPhotoButton()
+    {
+        previousPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if(!offer.hasPhotos()) return;
 
+                Bitmap settingPhoto = offer.getNeighbourPhoto(showingPhoto, -1);
+                if(settingPhoto != null)
+                {
+                    showPhoto(settingPhoto);
+                }
+            }
+        });
+    }
+    
+    
+    private void prepareNextPhotoButton()
+    {
+        nextPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if(!offer.hasPhotos()) return;
+
+                Bitmap settingPhoto = offer.getNeighbourPhoto(showingPhoto, 1);
+                if(settingPhoto != null)
+                {
+                    showPhoto(settingPhoto);
+                }
+            }
+        });
+    }
+
+
+    private void freezePhotoViewSize()
+    {
+        int currentWidth = photoView.getWidth();
+        int currentHeight = photoView.getHeight();
+        LinearLayout.LayoutParams fixParams = new LinearLayout.LayoutParams(currentWidth, currentHeight);
+
+        photoView.setLayoutParams(fixParams);
+    }
+
+
+    private void showPhoto(Bitmap photo)
+    {
+        showingPhoto = photo;
+        photoView.setImageBitmap(photo);
+    }
 }
-
-

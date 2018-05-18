@@ -119,6 +119,18 @@ public class Offer
 
 
     public ArrayList<Bitmap> getPhotos() { return photos; }
+    public Bitmap getNeighbourPhoto(Bitmap photo, int offset)
+    {
+        if(!this.hasPhotos()) return null;
+
+        int currentPhotoIndex = this.getPhotos().indexOf(photo);
+        int neighbourPhotoIndex = (currentPhotoIndex + offset);
+        if((neighbourPhotoIndex >= 0) && (neighbourPhotoIndex < photos.size()))
+        {
+            return photos.get(neighbourPhotoIndex);
+        }
+        return null;
+    }
     public void setPhotos(ArrayList<Bitmap> photos) {
         this.photos = photos;
     }

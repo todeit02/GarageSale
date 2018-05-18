@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/svOfferDetails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
     android:id="@+id/ll_offer_details_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -149,19 +154,13 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <ImageSwitcher
-            android:id="@+id/imgsw_offer_details_photos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+        <ImageView
+                android:id="@+id/imgv_offer_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@mipmap/foto_example_4_3" />
-        </ImageSwitcher>
+                android:layout_weight="0"
+                android:src="@mipmap/foto_example_4_3" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -387,3 +386,4 @@
             app:layout_constraintTop_toTopOf="@+id/imgv_btn_title_offer" />
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>
+</ScrollView>

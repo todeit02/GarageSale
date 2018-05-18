@@ -15,20 +15,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class PhotoDownloader extends PhotoExchanger
 {
     private ArrayList<Bitmap> photosBuffer = null;
+    private boolean loadSinglePhoto = false;
 
 
-    public void download(final Activity callingActivity, int offerId, ArrayList<Bitmap> photosBuffer, final ISuccessConsumer onDownloadFinishedConsumer)
+    public void download(final Activity callingActivity, int offerId, boolean onlySinglePhoto, ArrayList<Bitmap> photosBuffer, final ISuccessConsumer onDownloadFinishedConsumer)
     {
         this.callingActivity = callingActivity;
         this.photosBuffer = photosBuffer;
         this.offerId = offerId;
+        this.loadSinglePhoto = onlySinglePhoto;
         this.onFinishConsumer = onDownloadFinishedConsumer;
 
         requestPhotos();
@@ -42,7 +42,7 @@ public class PhotoDownloader extends PhotoExchanger
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                Constantes.GET_ALL_PHOTOS + "?offerId=" + offerId,
+                                Constantes.GET_ALL_PHOTOS + "?offerId=" + offerId + "&singlePhoto=" + loadSinglePhoto,
                                 (String)null,
                                 new Response.Listener<JSONObject>() {
 
