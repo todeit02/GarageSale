@@ -41,6 +41,8 @@ import es.us.garagesale.DataAccess.ISuccessConsumer;
 import es.us.garagesale.DataAccess.PhotoUploader;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.ButtonGroupAppearanceManager;
+import es.us.garagesale.Src.ConditionButtonGroup;
+import es.us.garagesale.Src.DurationButtonGroup;
 import es.us.garagesale.Src.Offer;
 import es.us.garagesale.Src.OfferCondition;
 import es.us.garagesale.Src.OfferTool;
@@ -69,17 +71,14 @@ public class OfferCreationActivity extends Activity
 
     private LinearLayout segmentsContainer = null;
     private EditText titleEdit = null;
-    private ArrayList<Button> conditionButtons = new ArrayList<>();
+    private ConditionButtonGroup conditionButtonGroup = null;
     private EditText tagsEdit = null;
     private EditText descriptionEdit = null;
     private LinearLayout photoLocationSegment = null;
     private View addFirstPhotoButton = null;
     private View addLocationButton = null;
     private EditText priceEdit = null;
-    private Button shortDurationButton = null;
-    private Button mediumDurationButton = null;
-    private Button longDurationButton = null;
-    private ArrayList<Button> durationButtons = new ArrayList<>();
+    private DurationButtonGroup durationButtonGroup = null;
     private ConstraintLayout publishButton = null;
 
     private Offer workingOffer = new Offer();
@@ -99,11 +98,11 @@ public class OfferCreationActivity extends Activity
         findViewReferences();
 
         //prepareEditTextLimits();
-        prepareConditionButtons();
+        conditionButtonGroup = new ConditionButtonGroup(this);
+        durationButtonGroup = new DurationButtonGroup(this);
         //fillFilterTags(offerTags);
         prepareAddPhotoButton(addFirstPhotoButton);
         prepareAddLocationButton(addLocationButton);
-        prepareDurationButtons();
         preparePublishButton();
 
         SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
@@ -113,7 +112,8 @@ public class OfferCreationActivity extends Activity
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         if (requestCode == RequestCode.PHOTO_INTENT && resultCode == RESULT_OK)
         {
             handlePhotoResult(data);
@@ -138,13 +138,6 @@ public class OfferCreationActivity extends Activity
     private void findViewReferences()
     {
         titleEdit = findViewById(R.id.et_title);
-
-        ViewGroup conditionSelectors = findViewById(R.id.ll_condition_selection);
-        for(int i = 0; i < conditionSelectors.getChildCount(); i++)
-        {
-            conditionButtons.add( (Button)conditionSelectors.getChildAt(i) );
-        }
-
         segmentsContainer = findViewById(R.id.ll_segments_container);
         tagsEdit = findViewById(R.id.et_tags);
         descriptionEdit = findViewById(R.id.et_description);
@@ -152,13 +145,6 @@ public class OfferCreationActivity extends Activity
         addFirstPhotoButton = findViewById(R.id.cl_btn_add_photo);
         addLocationButton = findViewById(R.id.cl_btn_add_location);
         priceEdit = findViewById(R.id.et_price);
-
-        shortDurationButton = findViewById(R.id.btn_3_days);
-        mediumDurationButton = findViewById(R.id.btn_7_days);
-        longDurationButton = findViewById(R.id.btn_14_days);
-        durationButtons.add(shortDurationButton);
-        durationButtons.add(mediumDurationButton);
-        durationButtons.add(longDurationButton);
 
         publishButton = findViewById(R.id.cl_btn_publish);
     }
@@ -173,32 +159,6 @@ public class OfferCreationActivity extends Activity
         titleEdit.addTextChangedListener(new TextLengthLimiter(titleEdit, maxTitleCharacters, this));
         tagsEdit.addTextChangedListener(new TextLengthLimiter(tagsEdit, maxTagsCharacters, this));
         descriptionEdit.addTextChangedListener(new TextLengthLimiter(descriptionEdit, maxDescriptionCharacters, this));
-    }
-
-
-    private void prepareConditionButtons()
-    {
-        final ButtonGroupAppearanceManager conditionButtonsAppearanceManager = new ButtonGroupAppearanceManager(conditionButtons, this);
-        View.OnClickListener conditionClickListener = new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                conditionButtonsAppearanceManager.onClick(v);
-
-                CharSequence selectedConditionText = ((Button) v).getText();
-                OfferCondition selectedCondition = OfferTool.getConditionFromCharSequence(selectedConditionText, OfferCreationActivity.this);
-
-                workingOffer.setCondition(selectedCondition);
-            }
-        };
-
-        for(Button listenerSettingButton : conditionButtons)
-        {
-            listenerSettingButton.setOnClickListener(conditionClickListener);
-        }
-        // need to preselect value
-        conditionClickListener.onClick(conditionButtons.get(0));
     }
 
 
@@ -242,37 +202,6 @@ public class OfferCreationActivity extends Activity
 
         boolean isLocationSelected = (workingOffer.getCoordinates() != null && workingOffer.getCityName() != null);
         if(isLocationSelected) updateLocationView();
-    }
-
-
-    private void prepareDurationButtons()
-    {
-        shortDurationButton.setText(getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.SHORT)));
-        mediumDurationButton.setText(getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.MEDIUM)));
-        longDurationButton.setText(getString(R.string.offer_duration, Offer.durationsDays.get(Offer.Duration.LONG)));
-
-        final ButtonGroupAppearanceManager durationButtonsAppearanceManager = new ButtonGroupAppearanceManager(durationButtons, this);
-        View.OnClickListener durationClickListener = new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                durationButtonsAppearanceManager.onClick(v);
-
-                CharSequence selectedDurationText = ((Button) v).getText();
-                Offer.Duration selectedDuration = OfferTool.getDurationFromCharSequence(selectedDurationText, OfferCreationActivity.this);
-                int durationDays = Offer.durationsDays.get(selectedDuration);
-
-                workingOffer.setDurationDays(durationDays);
-            }
-        };
-
-        for(Button listenerSettingButton : durationButtons)
-        {
-            listenerSettingButton.setOnClickListener(durationClickListener);
-        }
-        // need to preselect value
-        durationClickListener.onClick(shortDurationButton);
     }
 
 
@@ -325,14 +254,8 @@ public class OfferCreationActivity extends Activity
     {
         addPhotoToGallery();
 
-        if(workingOffer.hasPhotos())
-        {
-            appendPhotoToScrollingContainer();
-        }
-        else
-        {
-            exchangeSegmentToTakenPhotoNoLocation();
-        }
+        if(workingOffer.hasPhotos()) appendPhotoToScrollingContainer();
+        else exchangeSegmentToTakenPhotoNoLocation();
 
         Bitmap fullsizePhoto = getCurrentPhoto();
         workingOffer.addPhoto(fullsizePhoto);
@@ -512,9 +435,18 @@ public class OfferCreationActivity extends Activity
         if(invalidUserInputViews.size() == 0)
         {
             workingOffer.setName(titleEdit.getText().toString());
+
+            OfferCondition condition = conditionButtonGroup.getSelectedCondition();
+            workingOffer.setCondition(condition);
+
             ArrayList<String> tags = getTagsFromUI();
             workingOffer.setTags(tags);
+
             workingOffer.setDescription(descriptionEdit.getText().toString());
+
+            int durationDays = durationButtonGroup.getSelectedDurationDays();
+            workingOffer.setDurationDays(durationDays);
+
             workingOffer.setPrice( Float.parseFloat(priceEdit.getText().toString()) );
 
             DatabaseManager.createOffer(this, workingOffer, new IIdConsumer() {
@@ -551,6 +483,17 @@ public class OfferCreationActivity extends Activity
     }
 
 
+    private void onPhotosUploadResponse(boolean wasSuccessful)
+    {
+        if(wasSuccessful)
+        {
+            uploadIsFinished = true;
+            finish();
+        }
+        else Toast.makeText(getBaseContext(), getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
+    }
+
+
     private ArrayList<String> getTagsFromUI()
     {
         ArrayList<String> tags = new ArrayList<>();
@@ -565,17 +508,6 @@ public class OfferCreationActivity extends Activity
         }
 
         return tags;
-    }
-
-
-    private void onPhotosUploadResponse(boolean wasSuccessful)
-    {
-        if(wasSuccessful)
-        {
-            uploadIsFinished = true;
-            finish();
-        }
-        else Toast.makeText(getBaseContext(), getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
     }
 
 

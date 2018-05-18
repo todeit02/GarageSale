@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -101,8 +102,10 @@ public class OfferListActivity extends Activity
             public boolean onQueryTextSubmit(String query) {
                 DatabaseManager.loadFilteredOffers(query, query, OfferListActivity.this, new IOffersConsumer() {
                     @Override
-                    public void consume(Offer[] offers) {
-                        displayOffers(new ArrayList<>(Arrays.asList(offers)));
+                    public void consume(Offer[] offers)
+                    {
+                        ArrayList<Offer> activeFilteredOffers = Offer.removeInactiveOffers(offers);
+                        displayOffers(activeFilteredOffers);
                     }
                 });
                 return false;
