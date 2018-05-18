@@ -54,8 +54,18 @@ import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 public class OfferCreationActivity extends Activity
 {
-    private static final int PHOTO_INTENT_REQUEST_CODE = 1;
-    private static final int PLACE_PICKER_INTENT_REQUEST_CODE = 2;
+
+    class RequestCode
+    {
+        private static final int PHOTO_INTENT = 1;
+        private static final int PLACE_PICKER_INTENT = 2;
+    }
+
+    class ResultCode
+    {
+        public static final int CREATION_COMPLETED = 1;
+        public static final int CREATION_ABORTED = 2;
+    }
 
     private LinearLayout segmentsContainer = null;
     private EditText titleEdit = null;
@@ -74,6 +84,7 @@ public class OfferCreationActivity extends Activity
 
     private Offer workingOffer = new Offer();
     private String currentPhotoPath = null;
+    private boolean uploadIsFinished = false;
 
 
     @Override
@@ -100,16 +111,27 @@ public class OfferCreationActivity extends Activity
         workingOffer.setSellerUsername(loginUsername);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PHOTO_INTENT_REQUEST_CODE && resultCode == RESULT_OK)
+        if (requestCode == RequestCode.PHOTO_INTENT && resultCode == RESULT_OK)
         {
             handlePhotoResult(data);
         }
-        else if (requestCode == PLACE_PICKER_INTENT_REQUEST_CODE && resultCode == RESULT_OK)
+        else if (requestCode == RequestCode.PLACE_PICKER_INTENT && resultCode == RESULT_OK)
         {
             handleLocationResult(data);
         }
+    }
+
+
+    @Override
+    public void finish()
+    {
+        int resultCode = uploadIsFinished ? ResultCode.CREATION_COMPLETED : ResultCode.CREATION_ABORTED;
+        setResult(resultCode);
+
+        super.finish();
     }
 
 
@@ -295,7 +317,7 @@ public class OfferCreationActivity extends Activity
 
         Uri photoUri = FileProvider.getUriForFile(this, "es.us.garagesale.fileprovider", photoFile);
         takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-        startActivityForResult(takePhotoIntent, PHOTO_INTENT_REQUEST_CODE);
+        startActivityForResult(takePhotoIntent, RequestCode.PHOTO_INTENT);
     }
 
 
@@ -323,7 +345,7 @@ public class OfferCreationActivity extends Activity
         try
         {
             Intent pickerIntent = pickerIntentBuilder.build(this);
-            startActivityForResult(pickerIntent, PLACE_PICKER_INTENT_REQUEST_CODE);
+            startActivityForResult(pickerIntent, RequestCode.PLACE_PICKER_INTENT);
         }
         catch (Exception e) {}
     }
@@ -548,7 +570,11 @@ public class OfferCreationActivity extends Activity
 
     private void onPhotosUploadResponse(boolean wasSuccessful)
     {
-        if(wasSuccessful) finish();
+        if(wasSuccessful)
+        {
+            uploadIsFinished = true;
+            finish();
+        }
         else Toast.makeText(getBaseContext(), getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
     }
 

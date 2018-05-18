@@ -29,6 +29,11 @@ import es.us.garagesale.R;
 
 public class OfferListActivity extends Activity
 {
+    class RequestCode
+    {
+        public static final int CREATE_OFFER = 1;
+    }
+
     private LinearLayout linearLayout = null;
     private LayoutInflater linearLayoutInflater = null;
     private FloatingActionButton buttonAddOffer = null;
@@ -71,7 +76,7 @@ public class OfferListActivity extends Activity
             @Override
             public void onClick(View v) {
                 Intent createOfferActivityIntent = new Intent(getApplicationContext(), OfferCreationActivity.class);
-                startActivity(createOfferActivityIntent);
+                startActivityForResult(createOfferActivityIntent, RequestCode.CREATE_OFFER);
             }
         });
 
@@ -120,6 +125,16 @@ public class OfferListActivity extends Activity
                 displayOffers(allOffers);
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == RequestCode.CREATE_OFFER)
+        {
+            if(resultCode == OfferCreationActivity.ResultCode.CREATION_COMPLETED) restartActivity();
+        }
     }
 
 
@@ -198,5 +213,12 @@ public class OfferListActivity extends Activity
         inflatedOfferItemTitle.setText("No hay ofertas disponibles");
 
         linearLayout.addView(inflatedOffer);
+    }
+
+
+    private void restartActivity()
+    {
+        finish();
+        startActivity(getIntent());
     }
 }
