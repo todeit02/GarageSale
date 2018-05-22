@@ -26,7 +26,13 @@ public class Constantes {
      * Dirección IP de genymotion o AVD
      */
     private static final String PROTOCOL = "http://";
-    private static final String IP = "192.168.1.153"; // Windows: 10.0.2.2, iOS: 192.168.1.4
+    private static final String IP = "10.0.2.2"; // Windows: 10.0.2.2, iOS: 192.168.1.4
+
+    /**
+     * Códigos de respuesta
+     */
+    public static final String SUCCESS_RESPONSE = "1";
+    public static final String FAIL_RESPONSE = "2";
 
     /**
      * URLs del Web Service
@@ -50,6 +56,7 @@ public class Constantes {
     public static final String INSERT_RANKING = PROTOCOL + IP + "/person/insert_ranking.php";
     public static final String GET_ALL_USERNAME_PURCHASES =  PROTOCOL + IP + "/offer/get_username_purchases.php";
     public static final String UPLOAD_PHOTO = PROTOCOL + IP + "/photo/upload_photo.php";
+    public static final String GET_ALL_PHOTOS = PROTOCOL + IP + "/photo/get_photos.php";
 
     /**
      * Clave para el valor extra que representa al identificador de una oferta

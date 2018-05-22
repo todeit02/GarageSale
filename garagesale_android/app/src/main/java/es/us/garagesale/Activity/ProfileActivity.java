@@ -702,7 +702,7 @@ public class ProfileActivity extends Activity{
         ArrayList<Offer> valid = new ArrayList();
         for(final Offer offer : offersToFilter)
         {
-            if(offer.isValid()){
+            if(offer.isActive()){
                 valid.add(offer);
             }
         }

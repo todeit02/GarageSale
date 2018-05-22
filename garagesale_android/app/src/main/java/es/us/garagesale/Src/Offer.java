@@ -3,10 +3,8 @@ package es.us.garagesale.Src;
 
 import android.graphics.Bitmap;
 
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -121,6 +119,18 @@ public class Offer
 
 
     public ArrayList<Bitmap> getPhotos() { return photos; }
+    public Bitmap getNeighbourPhoto(Bitmap photo, int offset)
+    {
+        if(!this.hasPhotos()) return null;
+
+        int currentPhotoIndex = this.getPhotos().indexOf(photo);
+        int neighbourPhotoIndex = (currentPhotoIndex + offset);
+        if((neighbourPhotoIndex >= 0) && (neighbourPhotoIndex < photos.size()))
+        {
+            return photos.get(neighbourPhotoIndex);
+        }
+        return null;
+    }
     public void setPhotos(ArrayList<Bitmap> photos) {
         this.photos = photos;
     }
@@ -220,9 +230,6 @@ public class Offer
     }
 
 
-    //hacer funcion para filtrar las ofertas validas.
-
-
     public int calculateRemainingTime()
     {
         Offer received = this;
@@ -245,12 +252,27 @@ public class Offer
         return hours < 0 ? 0 : hours;
     }
 
-    public boolean isValid()
+    public boolean isActive()
     {
         int hours = calculateRemainingTime();
         if(hours<=0 || this.isSold==1) return false;
         return true;
     }
+
+
+    public static ArrayList<Offer> removeInactiveOffers(Offer[] allOffers)
+    {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+
+        for(Offer possiblyActiveOffer : allOffers)
+        {
+            if(!possiblyActiveOffer.isActive()) continue;
+            activeOffers.add(possiblyActiveOffer);
+        }
+
+        return activeOffers;
+    }
+
 
     private static void initializeDurationMap()
     {

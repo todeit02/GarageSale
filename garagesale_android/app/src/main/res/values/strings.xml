@@ -41,9 +41,9 @@
     <string name="signup_invalid_entry">inválido</string>
 
     <string name="signup_username_validation_regex">[A-Za-z0-9 ]{3,}</string>
-    <string name="signup_password_validation_regex">[0-9A-Za-z\u0080-\uffff]{4,10}</string>
+    <string name="signup_password_validation_regex">[0-9A-Za-z\\u0080-\\uffff]{4,10}</string>
     <string name="signup_mail_validation_regex">[a-zA-Z0-9._-]+@[a-zA-Z0-9_-]+\.[a-zA-Z]{2,4}</string>
-    <string name="signup_real_name_validation_regex">([A-Za-z\u0080-\uffff]+)( [A-Za-z\u0080-\uffff]+)+</string>
+    <string name="signup_real_name_validation_regex">([A-Za-z\\u0080-\\uffff]+)( [A-Za-z\\u0080-\\uffff]+)+</string>
     <string name="signup_credit_card_number_validation_regex">[0-9]{13,19}</string>
     <string name="signup_credit_card_cvc_regex">[0-9]{3,4}</string>
 
@@ -61,7 +61,7 @@
     <string name="offer_condition_defective">defecto</string>
     <string name="offer_location">%1$s, %2$s</string>
     <string name="offer_duration">%1$d días</string>
-    <string name="hashtag_regex">#([\u0021-\u0022\u0024-\u007e\u00a1-\u02af]+)</string>
+    <string name="hashtag_regex">#([\\u0021-\\u0022\\u0024-\\u007e\\u00a1-\\u02af]+)</string>
 
     <!-- Nombre de la actividad -->
     <string name="title_activity_login">Sign in</string>
