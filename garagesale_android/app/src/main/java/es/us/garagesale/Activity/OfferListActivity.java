@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import es.us.garagesale.R;
+import es.us.garagesale.Src.OfferTool;
 
 
 public class OfferListActivity extends Activity
@@ -147,6 +148,11 @@ public class OfferListActivity extends Activity
 
         TextView inflatedOfferItemTitle = inflatedOffer.findViewById(R.id.tv_offer_item_title);
         inflatedOfferItemTitle.setText(inflatingOffer.getName());
+
+        TextView inflatedOfferItemCondition = inflatedOffer.findViewById(R.id.tv_product_condition);
+        CharSequence conditionText = OfferTool.getCharSequenceFromCondition(inflatingOffer.getCondition(), this);
+        CharSequence conditionTextWithTitle = getString(R.string.offer_list_condition, conditionText);
+        inflatedOfferItemCondition.setText(conditionTextWithTitle);
 
         TextView inflatedOfferItemPrice = inflatedOffer.findViewById(R.id.tv_offer_item_price);
         inflatedOfferItemPrice.setText("Precio original: " + inflatingOffer.getPrice() + getString(R.string.currency));

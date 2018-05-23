@@ -63,6 +63,9 @@
     <string name="offer_duration">%1$d días</string>
     <string name="hashtag_regex">#([\\u0021-\\u0022\\u0024-\\u007e\\u00a1-\\u02af]+)</string>
 
+    <!-- Lista de ofertas -->
+    <string name="offer_list_condition">Estado: %1$s</string>
+
     <!-- Nombre de la actividad -->
     <string name="title_activity_login">Sign in</string>
 
@@ -76,15 +79,6 @@
     <string name="action_discard">Descartar</string>
     <string name="action_edit">Editar</string>
     <string name="action_done">Guardar</string>
-
-    <!-- Categorías -->
-    <string-array name="entradas_categoria">
-        <item>Salud</item>
-        <item>Finanzas</item>
-        <item>Espiritual</item>
-        <item>Profesional</item>
-        <item>Material</item>
-    </string-array>
 
     <!-- Diálogos -->
     <string name="dialog_ok">OK</string>
