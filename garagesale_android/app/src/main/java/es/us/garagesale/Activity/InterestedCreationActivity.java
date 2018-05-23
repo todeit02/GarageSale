@@ -9,8 +9,11 @@ import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import es.us.garagesale.DataAccess.DatabaseManager;
+import es.us.garagesale.DataAccess.ISuccessConsumer;
 import es.us.garagesale.R;
 import es.us.garagesale.Src.Interested;
 
@@ -19,13 +22,20 @@ import es.us.garagesale.Src.Interested;
  * Created by mariaventura on 28/4/18.
  */
 
-public class InterestedCreationActivity extends Activity {
+public class InterestedCreationActivity extends Activity
+{
+    public class ResultCode
+    {
+        public static final int BID_COMPLETED = 1;
+        public static final int BID_ABORTED = 2;
+    }
 
     TextView title;
     EditText offeredPrice;
     ConstraintLayout cancelBtn, submitBtn, priceLayout;
     int selectedOfferId;
     String actualUser, offerName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +49,7 @@ public class InterestedCreationActivity extends Activity {
         priceLayout = findViewById(R.id.cl_offeredPrice);
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("login", MODE_PRIVATE);
-        actualUser=   sharedPreferences.getString("username", null);
+        actualUser = sharedPreferences.getString("username", null);
 
         selectedOfferId = getIntent().getIntExtra("id", 0);
         offerName = getIntent().getStringExtra("name");
@@ -48,9 +58,8 @@ public class InterestedCreationActivity extends Activity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backToOfferDetailActivity = new Intent(getApplicationContext(), OfferDetailActivity.class);
-                backToOfferDetailActivity.putExtra("id", selectedOfferId);
-                startActivity(backToOfferDetailActivity);
+                setResult(ResultCode.BID_ABORTED);
+                finish();
             }
         });
 
@@ -63,10 +72,15 @@ public class InterestedCreationActivity extends Activity {
 
                 if (invalidUserInputViews.size() == 0) {
                     Interested newInterested =  new Interested();
-                    newInterested.setPrice(Integer.parseInt(offeredPrice.getText().toString()));
+                    newInterested.setPrice(Float.parseFloat(offeredPrice.getText().toString()));
                     newInterested.setUsername(actualUser);
                     newInterested.setOfferId(selectedOfferId);
-                    DatabaseManager.saveInterested(newInterested, InterestedCreationActivity.this);
+                    DatabaseManager.saveInterested(newInterested, InterestedCreationActivity.this, new ISuccessConsumer() {
+                        @Override
+                        public void consume(boolean wasSuccessful) {
+                            onInterestedSaveResponse(wasSuccessful);
+                        }
+                    });
                 } else {
                     highlightInvalidInputViews(invalidUserInputViews);
                 }
@@ -84,7 +98,8 @@ public class InterestedCreationActivity extends Activity {
         }
     }
 
-    private ArrayList<View> validateFreeUserInputs(){
+    private ArrayList<View> validateFreeUserInputs()
+    {
         ArrayList<View> invalidValueContainers = new ArrayList<>();
 
         if((offeredPrice.getText().toString().trim().length()==0))
@@ -94,5 +109,16 @@ public class InterestedCreationActivity extends Activity {
         return invalidValueContainers;
     }
 
-
+    private void onInterestedSaveResponse(boolean wasSuccessful)
+    {
+        if(wasSuccessful)
+        {
+            setResult(ResultCode.BID_COMPLETED);
+            finish();
+        }
+        else
+        {
+            Toast.makeText(getBaseContext(), getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
+        }
+    }
 }

@@ -1,7 +1,5 @@
 package es.us.garagesale.Src;
 
-import com.orm.SugarRecord;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

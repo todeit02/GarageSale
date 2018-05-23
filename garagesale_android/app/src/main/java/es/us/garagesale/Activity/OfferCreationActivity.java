@@ -56,14 +56,13 @@ import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 public class OfferCreationActivity extends Activity
 {
-
-    class RequestCode
+    public class RequestCode
     {
         private static final int PHOTO_INTENT = 1;
         private static final int PLACE_PICKER_INTENT = 2;
     }
 
-    class ResultCode
+    public class ResultCode
     {
         public static final int CREATION_COMPLETED = 1;
         public static final int CREATION_ABORTED = 2;
@@ -84,6 +83,16 @@ public class OfferCreationActivity extends Activity
     private Offer workingOffer = new Offer();
     private String currentPhotoPath = null;
     private boolean uploadIsFinished = false;
+
+
+    @Override
+    public void finish()
+    {
+        int resultCode = uploadIsFinished ? ResultCode.CREATION_COMPLETED : ResultCode.CREATION_ABORTED;
+        setResult(resultCode);
+
+        super.finish();
+    }
 
 
     @Override
@@ -122,16 +131,6 @@ public class OfferCreationActivity extends Activity
         {
             handleLocationResult(data);
         }
-    }
-
-
-    @Override
-    public void finish()
-    {
-        int resultCode = uploadIsFinished ? ResultCode.CREATION_COMPLETED : ResultCode.CREATION_ABORTED;
-        setResult(resultCode);
-
-        super.finish();
     }
 
 

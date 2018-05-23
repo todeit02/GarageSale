@@ -20,9 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
         <meta-data
-            android:name="DATABASE"
-            android:value="sugar_example.db" />
-        <meta-data
             android:name="VERSION"
             android:value="2" />
         <meta-data

@@ -34,7 +34,7 @@ public class AcceptPurchaseActivity extends Activity {
     private int selectedOfferId;
     private Offer toPurchase;
     private String maxUsername;
-    private int maxPrice;
+    private float maxPrice;
 
 
     @Override
@@ -53,7 +53,7 @@ public class AcceptPurchaseActivity extends Activity {
 
                 TextView confirmationMssg = findViewById(R.id.tv_confirmation_message);
                 TextView actualPrice = findViewById(R.id.tv_price);
-                maxPrice = Integer.valueOf(getMaxPriceAndUser(interested).get("maxPrice"));
+                maxPrice = Float.valueOf(getMaxPriceAndUser(interested).get("maxPrice"));
                 actualPrice.setText(maxPrice + getString(R.string.currency));
                 maxUsername = getMaxPriceAndUser(interested).get("maxUser");
                 confirmationMssg.setText("La oferta mas alta ha sido la de "+ maxUsername);
@@ -150,12 +150,12 @@ public class AcceptPurchaseActivity extends Activity {
 
     private Map<String, String> getMaxPriceAndUser(Interested[] interested){
         Map<String, String> ret = new HashMap<String, String>();
-        int max=0;
-        String user="";
+        float max = 0;
+        String user = "";
         for(Interested i : interested)
         {
-            if(i.getPrice()>max){
-                max= i.getPrice();
+            if(i.getPrice() > max){
+                max = i.getPrice();
                 user = i.getUsername();
             }
         }

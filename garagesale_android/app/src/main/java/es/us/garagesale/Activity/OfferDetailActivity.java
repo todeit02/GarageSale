@@ -2,6 +2,7 @@ package es.us.garagesale.Activity;
 
 import android.app.Activity;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -35,7 +36,12 @@ import es.us.garagesale.Src.OfferTool;
 import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 
-public class OfferDetailActivity extends Activity {
+public class OfferDetailActivity extends Activity
+{
+    public class RequestCode
+    {
+        private static final int INTERESTED_CREATION_INTENT = 1;
+    }
 
     private int selectedOfferId;
     private TextView title, detail, state, remainingTime, currentPrice, currentOffers, createInterested, location, googleMaps, seller, reputationText;
@@ -92,6 +98,17 @@ public class OfferDetailActivity extends Activity {
                 displayOffer();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == RequestCode.INTERESTED_CREATION_INTENT && resultCode == InterestedCreationActivity.ResultCode.BID_COMPLETED)
+        {
+            restartActivity();
+        }
     }
 
 
@@ -159,13 +176,14 @@ public class OfferDetailActivity extends Activity {
         createInterested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isTheUsersOffer()){
+                if(!isTheUsersOffer())
+                {
                     Intent createInterestedActivityIntent = new Intent(getApplicationContext(), InterestedCreationActivity.class);
                     Bundle extras = new Bundle();
                     extras.putInt("id", selectedOfferId);
                     extras.putString("name",offer.getName());
                     createInterestedActivityIntent.putExtras(extras);
-                    startActivity(createInterestedActivityIntent);
+                    startActivityForResult(createInterestedActivityIntent, RequestCode.INTERESTED_CREATION_INTENT);
                 }
                 else{
                     createInterested.setText("No es posible autotarifar");
@@ -200,13 +218,11 @@ public class OfferDetailActivity extends Activity {
         });
     }
 
-    private int getMaxInterested(Interested[] interested){
-        int max=0;
+    private float getMaxInterested(Interested[] interested){
+        float max = 0;
         for(Interested i : interested)
         {
-            if(i.getPrice()>max){
-                max= i.getPrice();
-            }
+            if(i.getPrice() > max) max = i.getPrice();
         }
         return max;
     }
@@ -276,5 +292,12 @@ public class OfferDetailActivity extends Activity {
     {
         showingPhoto = photo;
         photoView.setImageBitmap(photo);
+    }
+
+
+    private void restartActivity()
+    {
+        finish();
+        startActivity(getIntent());
     }
 }

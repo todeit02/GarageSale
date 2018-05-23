@@ -73,7 +73,7 @@ public class DatabaseManager
                 );
     }
 
-    public static void loadFilteredOffers(String query, String name, Activity callingActivity, final IOffersConsumer callback){
+    public static void loadFilteredOffers(String query, String name, final Activity callingActivity, final IOffersConsumer callback){
         VolleySingleton.
                 getInstance(callingActivity).
                 addToRequestQueue(
@@ -85,7 +85,7 @@ public class DatabaseManager
 
                                     @Override
                                     public void onResponse(JSONObject response) {
-                                        processFilteredOffersResponse(response, callback);
+                                        processFilteredOffersResponse(response, callingActivity, callback);
                                     }
                                 },
                                 new Response.ErrorListener() {
@@ -99,7 +99,7 @@ public class DatabaseManager
                 );
     }
 
-    private static void processFilteredOffersResponse(JSONObject response, final IOffersConsumer callback) {
+    private static void processFilteredOffersResponse(JSONObject response, Context callContext, final IOffersConsumer callback) {
         try {
             String state = response.getString("estado");
             System.out.println("State: " + state);
@@ -109,7 +109,7 @@ public class DatabaseManager
                     JSONArray purchasesResponse = response.getJSONArray("offers");
                     System.out.println("Message: " + purchasesResponse.toString());
 
-                    Gson gson = new Gson();
+                    Gson gson = createOfferDeserializationGson(callContext);
                     Offer[] offers = gson.fromJson(purchasesResponse.toString(), Offer[].class);
                     callback.consume(offers);
                     break;
@@ -760,6 +760,8 @@ public class DatabaseManager
         }
         catch (JSONException e) { e.printStackTrace(); }
     }
+
+
     public static void editOffer(int id, final Activity callingActivity){
         String url = Constantes.UPDATE_OFFER;
         Map<String, String> params = new HashMap<String, String>();
@@ -784,6 +786,7 @@ public class DatabaseManager
         });
         VolleySingleton.getInstance(callingActivity).addToRequestQueue(jsObjRequest);
     }
+
 
     public static void editPurchase(int id, String paymentMethod, int hasContactedSeller, final Activity callingActivity){
         String url = Constantes.UPDATE_PURCHASE;
@@ -810,6 +813,7 @@ public class DatabaseManager
         });
         VolleySingleton.getInstance(callingActivity).addToRequestQueue(jsObjRequest);
     }
+
 
     public static void editOfferViejo(int id, final Activity callingActivity){
 
@@ -845,8 +849,8 @@ public class DatabaseManager
 
                 )
         );
-
     }
+
 
     private static void processEditOffer(JSONObject response, Activity callingActivity){
         try {
@@ -886,7 +890,8 @@ public class DatabaseManager
 
     }
 
-    public static void saveInterested(Interested newInterested, Activity callingActivity){
+
+    public static void saveInterested(Interested newInterested, Activity callingActivity, final ISuccessConsumer callback){
 
 
             HashMap<String, String> map = new HashMap<>();// Mapeo previo
@@ -909,7 +914,7 @@ public class DatabaseManager
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             // Procesar la respuesta del servidor
-                                            processInsertInterested(response);
+                                            processInsertInterested(response, callback);
                                         }
                                     },
                                     new Response.ErrorListener() {
@@ -917,6 +922,7 @@ public class DatabaseManager
                                         public void onErrorResponse(VolleyError error) {
                                             String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
                                             Log.d(methodName, "Error Volley: " + error.getMessage());
+                                            callback.consume(false);
                                         }
                                     }
 
@@ -937,32 +943,36 @@ public class DatabaseManager
             );
     }
 
-    public static void processInsertInterested(JSONObject response){
-        try {
+
+    public static void processInsertInterested(JSONObject response, final ISuccessConsumer callback)
+    {
+        boolean callbackSuccessResponse = false;
+        try
+        {
             String state = response.getString("estado");
             System.out.println("State: " + state);
 
-            switch (state) {
+            switch (state)
+            {
                 case Constantes.SUCCESS_RESPONSE:
-                    JSONObject interestedResponse = response.getJSONObject("interested");
-
-                    System.out.println("Message: " + interestedResponse.toString());
-
-                    Gson gson = new Gson();
-                    Interested interested = gson.fromJson(interestedResponse.toString(), Interested.class);
+                    callbackSuccessResponse = true;
                     break;
                 case Constantes.FAIL_RESPONSE:
                     String failMessage = response.getString("mensaje");
                     System.out.println(failMessage);
+                    callbackSuccessResponse = false;
                     break;
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        callback.consume(callbackSuccessResponse);
     }
 
-    public static void insertPurchase(int offerId, int price, String buyer, Activity callingActivity){
+
+    public static void insertPurchase(int offerId, float price, String buyer, Activity callingActivity){
 
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
@@ -1000,6 +1010,7 @@ public class DatabaseManager
                 );
     }
 
+
     public static void processInsertPurchase(JSONObject response){
         try {
             String state = response.getString("estado");
@@ -1022,6 +1033,7 @@ public class DatabaseManager
             e.printStackTrace();
         }
     }
+
 
     public static void insertRanking(String sellerUsername, String buyerUsername,  float rate, int idOffer, Activity callingActivity){
         HashMap<String, String> map = new HashMap<>();// Mapeo previo
@@ -1059,6 +1071,7 @@ public class DatabaseManager
                 );
     }
 
+
     public static void processInsertRanking(JSONObject response){
         try {
             String state = response.getString("estado");
@@ -1081,6 +1094,7 @@ public class DatabaseManager
             e.printStackTrace();
         }
     }
+
 
     public static void deleteOffer(int offerId, final Activity callingActivity){
 
@@ -1117,6 +1131,7 @@ public class DatabaseManager
                 );
     }
 
+
     public static void processDeleteOffer(JSONObject response) {
         try {
             String state = response.getString("estado");
@@ -1139,6 +1154,7 @@ public class DatabaseManager
             e.printStackTrace();
         }
     }
+
 
     public static void createPerson(Person creatingPerson, Activity callingActivity, final ISignupResponseConsumer callback)
     {
@@ -1202,6 +1218,7 @@ public class DatabaseManager
                 );
     }
 
+
     private static void processSignupResponse(JSONObject response, final ISignupResponseConsumer callback)
     {
         if(response == null)
@@ -1233,6 +1250,7 @@ public class DatabaseManager
         }
         catch (JSONException e) { e.printStackTrace(); }
     }
+
 
     private DatabaseManager(){}
 }

@@ -35,11 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 				fclose($photoFile);
 				array_push($photosContent, $photoContent);
 				
-				if($getSinglePhoto) 
-				{
-					error_log($getSinglePhoto);
-					break;
-				}
+				if($getSinglePhoto) break;
 			}		
 		}
 		if($photoDirectory) closedir($photoDirectory);

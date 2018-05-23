@@ -3,7 +3,7 @@
  * Insertar una nueva meta en la base de datos
  */
 
-require 'offer_crud.php';
+require_once 'offer_crud.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 

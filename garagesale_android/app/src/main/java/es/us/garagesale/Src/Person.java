@@ -1,7 +1,5 @@
 package es.us.garagesale.Src;
 
-import com.orm.SugarRecord;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,10 +10,8 @@ import java.util.Locale;
  */
 
 
-/*cambiar String a date*/
-
-public class Person extends SugarRecord<Person> {
-
+public class Person
+{
     private String username;
     private String card_id;
     private String password;
@@ -160,8 +156,6 @@ public class Person extends SugarRecord<Person> {
                 ", purchases=" + purchases +
                 '}';
     }
-
-    //Redefinir el equals
 
     @Override
     public boolean equals(Object o) {

@@ -97,16 +97,16 @@ class OfferCrud
         }
 
 
-    public static function getUsernamePurchases($buyer_username){
+    public static function getUsernamePurchases($buyerUsername){
 
             // Consulta de la meta
-            $consulta = "SELECT * FROM purchases WHERE buyer_username = ?";
+            $consulta = "SELECT * FROM purchases WHERE buyerUsername = ?";
 
             try {
                 // Preparar sentencia
                 $comando = Database::getInstance()->getDb()->prepare($consulta);
                 // Ejecutar sentencia preparada
-                $comando->execute(array($buyer_username));
+                $comando->execute(array($buyerUsername));
 
             return $comando->fetchAll(PDO::FETCH_ASSOC);
 
@@ -200,19 +200,19 @@ class OfferCrud
         public static function updatePurchase(
                 $paymentMethod,
                 $hasContactedSeller,
-                $offer_id
+                $offerId
           )
           {
               // Creando consulta UPDATE
               $consulta = "UPDATE purchases" .
                   " SET paymentMethod=? , hasContactedSeller=?" .
-                  "WHERE offer_id=?";
+                  "WHERE offerId=?";
 
               // Preparar la sentencia
               $cmd = Database::getInstance()->getDb()->prepare($consulta);
 
               // Relacionar y ejecutar la sentencia
-              $cmd->execute(array($paymentMethod, $hasContactedSeller, $offer_id));
+              $cmd->execute(array($paymentMethod, $hasContactedSeller, $offerId));
 
               return $cmd;
           }
@@ -317,18 +317,18 @@ class OfferCrud
         }
 
         public static function insertOfferPurchase(
-            $offer_id,
+            $offerId,
             $price,
-            $buyer_username,
+            $buyerUsername,
             $paymentMethod,
             $hasContactedSeller
         )
        {
        // Sentencia INSERT
                    $comando = "INSERT INTO purchases ( " .
-                       "offer_id," .
+                       "offerId," .
                        " price," .
-                       " buyer_username," .
+                       " buyerUsername," .
                        " paymentMethod," .
                        " hasContactedSeller)" .
                        " VALUES( ?,?,?,?,?)";
@@ -338,9 +338,9 @@ class OfferCrud
 
                    return $sentencia->execute(
                        array(
-                           $offer_id,
+                           $offerId,
                            $price,
-                           $buyer_username,
+                           $buyerUsername,
                            $paymentMethod,
                            $hasContactedSeller
                        )

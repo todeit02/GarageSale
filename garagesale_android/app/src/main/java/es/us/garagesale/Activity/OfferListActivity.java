@@ -31,7 +31,7 @@ import es.us.garagesale.Src.OfferTool;
 
 public class OfferListActivity extends Activity
 {
-    class RequestCode
+    public class RequestCode
     {
         public static final int CREATE_OFFER = 1;
     }
@@ -109,10 +109,9 @@ public class OfferListActivity extends Activity
                         displayOffers(activeFilteredOffers);
                     }
                 });
-                return false;
+                return true;
             }
 
-            //BORRAR
             @Override
             public boolean onQueryTextChange(String newText) {
 
@@ -193,7 +192,11 @@ public class OfferListActivity extends Activity
 
         for(final Offer photoAddingOffer : photolessOffers)
         {
-            if(photoAddingOffer.hasPhotos()) continue;
+            if(photoAddingOffer.hasPhotos())
+            {
+                inflateOffer(photoAddingOffer);
+                continue;
+            }
 
             final ArrayList<Bitmap> photosBuffer = new ArrayList<>();
             PhotoDownloader photoDownloader = new PhotoDownloader();

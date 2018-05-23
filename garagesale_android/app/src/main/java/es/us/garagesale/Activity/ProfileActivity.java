@@ -192,10 +192,10 @@ public class ProfileActivity extends Activity{
             inflatedOffer.setId(R.layout.purchase_item_list + idOffset);
 
             TextView generalTitle = inflatedOffer.findViewById(R.id.tv_purchase_title);
-            generalTitle.setText("Compra nro. " + purchase.getOffer_id());
+            generalTitle.setText("Compra nro. " + purchase.getOfferId());
 
 
-            DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
+            DatabaseManager.loadOffer(purchase.getOfferId(), this, new IOfferConsumer() {
                 @Override
                 public void consume(final Offer receivedOffer) {
                     TextView showLocation = inflatedOffer.findViewById(R.id.tv_btn_show_map);
@@ -294,7 +294,7 @@ public class ProfileActivity extends Activity{
             });
 
             TextView purchaseTime = inflatedOffer.findViewById(R.id.tv_time);
-            purchaseTime.setText("Fecha: " +purchase.getBuy_time());
+            purchaseTime.setText("Fecha: " +purchase.getBuyTime());
 
             TextView actualPrice = inflatedOffer.findViewById(R.id.tv_actual_price);
             actualPrice.setId(R.id.tv_original_price + idOffset * (1000 + 1));
@@ -315,14 +315,15 @@ public class ProfileActivity extends Activity{
 
         for (final Purchase purchase : purchases) {
 
-            if(!purchase.isHasContactedSeller()){
+            if(!purchase.isHasContactedSeller())
+            {
                 length++;
 
                 final View inflatedOffer = linearLayoutInflater.inflate(R.layout.message_item_list, null);
                 inflatedOffer.setId(R.layout.message_item_list + idOffset);
 
                 TextView generalTitle = inflatedOffer.findViewById(R.id.tv_message_title);
-                generalTitle.setText("Compra nro. " + purchase.getOffer_id());
+                generalTitle.setText("Compra nro. " + purchase.getOfferId());
 
                 final TextView title = inflatedOffer.findViewById(R.id.tv_title);
                 title.setId(R.id.tv_title + idOffset * (100 + 1));
@@ -333,7 +334,7 @@ public class ProfileActivity extends Activity{
                 final TextView phone = inflatedOffer.findViewById(R.id.tv_phone);
                 phone.setId(R.id.tv_phone + idOffset * (100 + 1));
 
-                DatabaseManager.loadOffer(purchase.getOffer_id(), this, new IOfferConsumer() {
+                DatabaseManager.loadOffer(purchase.getOfferId(), this, new IOfferConsumer() {
                     @Override
                     public void consume(final Offer receivedOffer) {
                         title.setText(receivedOffer.getName());
@@ -409,7 +410,7 @@ public class ProfileActivity extends Activity{
                             cash.setText("Se te cobrara el importe en el momento");
                         }
                         //UPDATE PURCHASE METHOD
-                        DatabaseManager.editPurchase(purchase.getOffer_id(), paymentMethod, 0, ProfileActivity.this);
+                        DatabaseManager.editPurchase(purchase.getOfferId(), paymentMethod, 0, ProfileActivity.this);
 
                     }
                 });
@@ -709,14 +710,17 @@ public class ProfileActivity extends Activity{
         return valid;
     }
 
-    private Map<String, String> getMaxPriceAndUser(Interested[] interested){
+    private Map<String, String> getMaxPriceAndUser(Interested[] interested)
+    {
         Map<String, String> ret = new HashMap<String, String>();
-        int max=0;
-        String user="";
+        float max = 0f;
+        String user = "";
+
         for(Interested i : interested)
         {
-            if(i.getPrice()>max){
-                max= i.getPrice();
+            if(i.getPrice() > max)
+            {
+                max = i.getPrice();
                 user = i.getUsername();
             }
         }

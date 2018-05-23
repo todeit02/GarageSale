@@ -7,7 +7,7 @@ package es.us.garagesale.Src;
 public class Interested {
    String username;
    int offer_id;
-   int price;
+   float price;
 
     public String getUsername() {
         return username;
@@ -25,19 +25,20 @@ public class Interested {
         this.offer_id = offerId;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public Interested(String username, int offerId, int price) {
+    public Interested(String username, int offerId, float price) {
         this.username = username;
         this.offer_id = offerId;
         this.price = price;
     }
+
     public Interested(){
 
     }
